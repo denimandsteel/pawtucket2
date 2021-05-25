@@ -464,4 +464,8 @@
  			return join(" / ", $va_buf);
   		}
  		# -------------------------------------------------------
+
+  	function index() {
+  		$this->render("Browse/browse_index_html.php");
+  	}
 	}
