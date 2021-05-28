@@ -466,6 +466,9 @@
  		# -------------------------------------------------------
 
   	function index() {
+			// $t_instance = Datamodel::getInstance('ca_objects', true);
+ 		// 	$this->view->setVar('primaryKey', $t_instance->primaryKey());
+
   		$this->render("Browse/browse_index_html.php");
   	}
 	}
