@@ -25,6 +25,7 @@
  *
  * ----------------------------------------------------------------------
  */
+	require_once(__CA_LIB_DIR__."/Search/ObjectSearch.php");
  
 	$t_object = 			$this->getVar("item");
 	$va_comments = 			$this->getVar("comments");
@@ -55,9 +56,20 @@
 		
 		<h1>{{{^ca_objects.preferred_labels.name}}}</h1>
 		
-		<h3>Artist</h3>
+		<?php
+			$o_search = new ObjectSearch();
+			$results = $o_search->search("*", ['id' => $vn_id]);
+
+			$artist = $t_object->get("ca_entity_labels.displayname");
+
+			if (!empty($artist)) {
+				print "<h3>Artist</h3>";
+				print "<p>" . $artist . "</p>";
+			}
+		?>
 		
 		<h3>Date</h3>
+		<p>{{{^ca_objects.pub_date}}}</p>
 		
 		<h3>Catalog Number</h3>
 		{{{<ifdef code="ca_objects.idno"><p>^ca_objects.idno</p></ifdef>}}}
