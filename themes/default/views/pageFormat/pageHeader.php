@@ -83,10 +83,10 @@
 <?php
 	if ($vb_has_user_links) {
 ?>
-				<!-- <button type="button" class="navbar-toggle navbar-toggle-user" data-toggle="collapse" data-target="#user-navbar-toggle">
+				<button type="button" class="navbar-toggle navbar-toggle-user" data-toggle="collapse" data-target="#user-navbar-toggle">
 					<span class="sr-only">User Options</span>
 					<span class="glyphicon glyphicon-user"></span>
-				</button> -->
+				</button>
 <?php
 	}
 ?>
@@ -97,7 +97,7 @@
 					<span class="icon-bar"></span>
 				</button>
 <?php
-			//	print caNavLink($this->request, caGetThemeGraphic($this->request, 'ca_nav_logo300.png'), "navbar-brand", "", "","");
+				print caNavLink($this->request, caGetThemeGraphic($this->request, 'ca_nav_logo300.png'), "navbar-brand", "", "","");
 ?>
 			</div>
 
@@ -106,11 +106,11 @@
 <?php
 	if ($vb_has_user_links) {
 ?>
-			<!-- <div class="collapse navbar-collapse" id="user-navbar-toggle">
+			<div class="collapse navbar-collapse" id="user-navbar-toggle">
 				<ul class="nav navbar-nav">
-					<?php //print join("\n", $va_user_links); ?>
+					<?php print join("\n", $va_user_links); ?>
 				</ul>
-			</div> -->
+			</div>
 <?php
 	}
 ?>
@@ -118,16 +118,16 @@
 <?php
 	if ($vb_has_user_links) {
 ?>
-				<!-- <ul class="nav navbar-nav navbar-right" id="user-navbar">
+				<ul class="nav navbar-nav navbar-right" id="user-navbar">
 					<li class="dropdown" style="position:relative;">
 						<a href="#" class="dropdown-toggle icon" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span></a>
-						<ul class="dropdown-menu"><?php //print join("\n", $va_user_links); ?></ul>
+						<ul class="dropdown-menu"><?php print join("\n", $va_user_links); ?></ul>
 					</li>
-				</ul> -->
+				</ul>
 <?php
 	}
 ?>
-				<!--<form class="navbar-form navbar-right" role="search" action="<?php //print caNavUrl($this->request, '', 'MultiSearch', 'Index'); ?>">
+				<form class="navbar-form navbar-right" role="search" action="<?php print caNavUrl($this->request, '', 'MultiSearch', 'Index'); ?>">
 					<div class="formOutline">
 						<div class="form-group">
 							<input type="text" class="form-control" id="headerSearchInput" placeholder="Search" name="search" autocomplete="off" />
@@ -142,23 +142,17 @@
 							$('#headerSearchButton').prop('disabled', this.value == "" ? true : false);     
 						})
 					});
-				</script>-->
+				</script>
 				<ul class="nav navbar-nav navbar-right menuItems">
-					<!--<li <?php //print ($this->request->getController() == "About") ? 'class="active"' : ''; ?>><?php //print caNavLink($this->request, _t("About"), "", "", "About", "Index"); ?></li>
-					<?php //print $this->render("pageFormat/browseMenu.php"); ?>	
-					<li <?php //print (($this->request->getController() == "Search") && ($this->request->getAction() == "advanced")) ? 'class="active"' : ''; ?>><?php //print caNavLink($this->request, _t("Advanced Search"), "", "", "Search", "advanced/objects"); ?></li>
-					<li <?php //print ($this->request->getController() == "Gallery") ? 'class="active"' : ''; ?>><?php //print caNavLink($this->request, _t("Gallery"), "", "", "Gallery", "Index"); ?></li>
-					<li <?php //print ($this->request->getController() == "Collections") ? 'class="active"' : ''; ?>><?php //print caNavLink($this->request, _t("Collections"), "", "", "Collections", "index"); ?></li>					
-					<li <?php //print ($this->request->getController() == "Contact") ? 'class="active"' : ''; ?>><?php //print caNavLink($this->request, _t("Contact"), "", "", "Contact", "Form"); ?></li>-->
-					<li><a href="">Back to Gallery</a></li>
-					<li><a href="">Collections Home</a></li>
-					<li><a href="">About the Collections</a></li>
-					<li><a href="">Contact Us</a></li>
+					<li <?php print ($this->request->getController() == "About") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("About"), "", "", "About", "Index"); ?></li>
+					<?php print $this->render("pageFormat/browseMenu.php"); ?>	
+					<li <?php print (($this->request->getController() == "Search") && ($this->request->getAction() == "advanced")) ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Advanced Search"), "", "", "Search", "advanced/objects"); ?></li>
+					<li <?php print ($this->request->getController() == "Gallery") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Gallery"), "", "", "Gallery", "Index"); ?></li>
+					<li <?php print ($this->request->getController() == "Collections") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Collections"), "", "", "Collections", "index"); ?></li>					
+					<li <?php print ($this->request->getController() == "Contact") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Contact"), "", "", "Contact", "Form"); ?></li>
 				</ul>
-				<p>Morris and Helen Belkin Art Gallery</p>
 			</div><!-- /.navbar-collapse -->
 		</div><!-- end container -->
 	</nav>
-	<div class="row">
-		<div class="col-xs-12">
-			<main <?php print caGetPageCSSClasses(); ?>>
+	<div class="container"><div class="row"><div class="col-xs-12">
+		<div id="pageArea" <?php print caGetPageCSSClasses(); ?>>

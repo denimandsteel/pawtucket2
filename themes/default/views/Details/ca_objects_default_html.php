@@ -25,7 +25,6 @@
  *
  * ----------------------------------------------------------------------
  */
-	require_once(__CA_LIB_DIR__."/Search/ObjectSearch.php");
  
 	$t_object = 			$this->getVar("item");
 	$va_comments = 			$this->getVar("comments");
@@ -35,117 +34,65 @@
 	$vn_pdf_enabled = 		$this->getVar("pdfEnabled");
 	$vn_id =				$t_object->get('ca_objects.object_id');
 ?>
-
 <div class="row">
-	<div class="container">
-		<p>{{{resultsLink}}}</p>
-		{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}
-	</div>
-</div>
-<div class="row">
-	<div class="container">
-		{{{representationViewer}}}
-		<div id="detailAnnotations"></div>
-		
-		<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>
-	</div>
-</div>
-<div class="row">
-	<div class="container">
-		<h3><!-- {{{<unit>^ca_objects.type_id</unit>}}} --> Object</h3>
-		
-		<h1>{{{^ca_objects.preferred_labels.name}}}</h1>
-		
-		<?php
-			$o_search = new ObjectSearch();
-			$results = $o_search->search("*", ['id' => $vn_id]);
-
-			$artist = $t_object->get("ca_entity_labels.displayname");
-
-			if (!empty($artist)) {
-				print "<h3>Artist</h3>";
-				print "<p>" . $artist . "</p>";
-			}
-		?>
-		
-		<h3>Date</h3>
-		<p>{{{^ca_objects.pub_date}}}</p>
-		
-		<h3>Catalog Number</h3>
-		{{{<ifdef code="ca_objects.idno"><p>^ca_objects.idno</p></ifdef>}}}
-	</div>
-</div>
-<div class="row">
-	<div class="container">
-		<h2>Physical Description</h2>
-
-		<h3>Physical Extent</h3>
-
-		<h3>Object Type</h3>
-
-		{{{<ifdef code="ca_objects.description">
-			<h3>Description</h3>
-				<p>^ca_objects.description</p>
-			</div>
-		</ifdef>}}}
-
-		<h3>Dimensions</h3>
-	</div>
-</div>
-<div class="row">
-	<div class="container">
-		<h2>Collection History</h2>
-
-		<h3>Collection</h3>
-		<p></p>
-
-		<h3>Credit Line</h3>
-
-		<h3>Dimensions</h3>
-	</div>
-</div>
-
-	
-		
-			
+	<div class='col-xs-12 navTop'><!--- only shown at small screen size -->
+		{{{previousLink}}}{{{resultsLink}}}{{{nextLink}}}
+	</div><!-- end detailTop -->
+	<div class='navLeftRight col-xs-1 col-sm-1 col-md-1 col-lg-1'>
+		<div class="detailNavBgLeft">
+			{{{previousLink}}}{{{resultsLink}}}
+		</div><!-- end detailNavBgLeft -->
+	</div><!-- end col -->
+	<div class='col-xs-12 col-sm-10 col-md-10 col-lg-10'>
+		<div class="container"><div class="row">
+			<div class='col-sm-6 col-md-6 col-lg-5 col-lg-offset-1'>
+				{{{representationViewer}}}
 				
 				
+				<div id="detailAnnotations"></div>
 				
+				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>
 				
 <?php
 				# Comment and Share Tools
 				if ($vn_comments_enabled | $vn_share_enabled | $vn_pdf_enabled) {
 						
-					//print '<div id="detailTools">';
+					print '<div id="detailTools">';
 					if ($vn_comments_enabled) {
 ?>				
-						<!-- <div class="detailTool"><a href='#' onclick='jQuery("#detailComments").slideToggle(); return false;'><span class="glyphicon glyphicon-comment"></span>Comments and Tags (<?php //print sizeof($va_comments) + sizeof($va_tags); ?>)</a></div> --><!-- end detailTool -->
-						<!-- <div id='detailComments'><?php //print $this->getVar("itemComments");?></div> --><!-- end itemComments -->
+						<div class="detailTool"><a href='#' onclick='jQuery("#detailComments").slideToggle(); return false;'><span class="glyphicon glyphicon-comment"></span>Comments and Tags (<?php print sizeof($va_comments) + sizeof($va_tags); ?>)</a></div><!-- end detailTool -->
+						<div id='detailComments'><?php print $this->getVar("itemComments");?></div><!-- end itemComments -->
 <?php				
 					}
 					if ($vn_share_enabled) {
-						// print '<div class="detailTool"><span class="glyphicon glyphicon-share-alt"></span>'.$this->getVar("shareLink").'</div><!-- end detailTool -->';
+						print '<div class="detailTool"><span class="glyphicon glyphicon-share-alt"></span>'.$this->getVar("shareLink").'</div><!-- end detailTool -->';
 					}
 					if ($vn_pdf_enabled) {
-						// print "<div class='detailTool'><span class='glyphicon glyphicon-file'></span>".caDetailLink($this->request, "Download as PDF", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary'))."</div>";
+						print "<div class='detailTool'><span class='glyphicon glyphicon-file'></span>".caDetailLink($this->request, "Download as PDF", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary'))."</div>";
 					}
-					// print '</div><!-- end detailTools -->';
+					print '</div><!-- end detailTools -->';
 				}				
 
 ?>
 
-
+			</div><!-- end col -->
 			
 			<div class='col-sm-6 col-md-6 col-lg-5'>
-				
+				<H4>{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> ➔ </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</H4>
+				<H6>{{{<unit>^ca_objects.type_id</unit>}}}</H6>
+				<HR>
 				
 				{{{<ifdef code="ca_objects.measurementSet.measurements">^ca_objects.measurementSet.measurements (^ca_objects.measurementSet.measurementsType)</ifdef><ifdef code="ca_objects.measurementSet.measurements,ca_objects.measurementSet.measurements"> x </ifdef><ifdef code="ca_objects.measurementSet.measurements2">^ca_objects.measurementSet.measurements2 (^ca_objects.measurementSet.measurementsType2)</ifdef>}}}
 				
 				
-				
+				{{{<ifdef code="ca_objects.idno"><H6>Identifier:</H6>^ca_objects.idno<br/></ifdef>}}}
 				{{{<ifdef code="ca_objects.containerID"><H6>Box/series:</H6>^ca_objects.containerID<br/></ifdef>}}}				
 				
-				
+				{{{<ifdef code="ca_objects.description">
+					<div class='unit'><h6>Description</h6>
+						<span class="trimText">^ca_objects.description</span>
+					</div>
+				</ifdef>}}}
 				
 				
 				{{{<ifdef code="ca_objects.dateSet.setDisplayValue"><H6>Date:</H6>^ca_objects.dateSet.setDisplayValue<br/></ifdef>}}}
@@ -172,7 +119,15 @@
 						</div>
 					</div><!-- end row -->
 						
-
+			</div><!-- end col -->
+		</div><!-- end row --></div><!-- end container -->
+	</div><!-- end col -->
+	<div class='navLeftRight col-xs-1 col-sm-1 col-md-1 col-lg-1'>
+		<div class="detailNavBgRight">
+			{{{nextLink}}}
+		</div><!-- end detailNavBgLeft -->
+	</div><!-- end col -->
+</div><!-- end row -->
 
 <script type='text/javascript'>
 	jQuery(document).ready(function() {
