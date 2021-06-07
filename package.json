@@ -1,0 +1,44 @@
+{
+  "name": "pawtucket",
+  "version": "1.0.0",
+  "description": "### About CollectiveAccess",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel watch src/theme.js --out-dir themes/belkin/assets/pawtucket/css --no-source-maps",
+    "build": "parcel build src/theme.js --out-dir themes/belkin/assets/pawtucket/css --no-source-maps"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denimandsteel/pawtucket2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denimandsteel/pawtucket2/issues"
+  },
+  "homepage": "https://github.com/denimandsteel/pawtucket2#readme",
+  "devDependencies": {
+    "autoprefixer": "9.8.6",
+    "parcel-bundler": "^1.12.5",
+    "postcss-modules": "^4.1.1",
+    "sass": "^1.32.12"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
+}
