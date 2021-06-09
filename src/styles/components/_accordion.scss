@@ -1,5 +1,11 @@
 .accordion {
   height: max-content;
+
+  &.accordion--hidden {
+    .accordion-toggle:before{
+      content: '+';
+    }
+  }
 }
 
 .accordion-details {

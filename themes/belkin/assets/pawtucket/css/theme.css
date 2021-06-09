@@ -108,6 +108,9 @@ html {
 .accordion {
   height: max-content;
 }
+.accordion.accordion--hidden .accordion-toggle:before {
+  content: "+";
+}
 
 .accordion-details {
   overflow: hidden;

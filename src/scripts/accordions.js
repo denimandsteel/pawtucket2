@@ -45,8 +45,9 @@ function collapseSection(element) {
     });
   });
   
-  seeDetailsBtn.innerText = "Show";
   element.setAttribute('aria-expanded', 'false');
+  accordionItem.classList.add('accordion--hidden');
+  seeDetailsBtn.innerText = "Show";
 
 }
 
@@ -61,6 +62,6 @@ function expandSection(element) {
   }, { once: true });
   
   element.setAttribute('aria-expanded', 'true');
-
+  accordionItem.classList.remove('accordion--hidden');
   seeDetailsBtn.innerText = "Hide";
 }
