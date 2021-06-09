@@ -1,0 +1,67 @@
+$color_grey: rgb(243, 244, 244);
+$color_dark_grey: rgb(177, 180, 182);
+$color_black: #333;
+
+/* THEME COLORS */
+$colors: (
+  mid-grey: #979797,
+  light-grey: #D8D8D8,
+  // light:       #ffffff,
+  // bg-yellow:   #fbfeae,
+  // pale-yellow: #FEFFEA,
+  // lake-blue:   #271B7C,
+  // dark:        #000000,
+  // dark-50:     #00000016,
+);
+
+@each $color, $value in $colors {
+  .b-#{$color} {
+    border-color: $value;
+  }
+	.bg-#{$color} {
+		background-color: $value;
+	}
+	.color-#{$color} {
+		color: $value;
+	}
+}
+
+@function color($key) {
+	@return map-get($colors, $key);
+}
+
+@function rem($vals) {
+  $remvals: ();
+  @for $i from 1 through length(($vals)) {
+      $unit: nth($vals, $i);
+      $parsedUnit: if(unitless($unit), $unit * 1px, $unit); //this is a ternary shorthand, adds 'px' to unitless val
+      $remvals: append($remvals, ($parsedUnit / 16px) * 1rem, space);
+  }
+  @return $remvals;
+}
+
+/* LAYOUT */
+$wrapper-width: 90rem; 
+// $inner-wrapper-width: 45rem; 
+
+/* BREAKPOINTS */
+$tablet: 600px;
+$desktop: 1100px;
+
+@mixin mobile {
+	@media screen and (max-width: $tablet - 1px) {
+		@content;
+	}
+}
+
+@mixin tablet {
+	@media screen and (min-width: $tablet) {
+		@content;
+	}
+}
+
+@mixin desktop {
+	@media screen and (min-width: $desktop) {
+		@content;
+	}
+}

@@ -1,0 +1,68 @@
+.object {
+
+
+  .object-images {
+
+  }
+
+  .object-image {
+
+  }
+
+  .object-image-caption {
+    font-size: rem(18px);
+  }
+
+  .object-images-gallery {
+
+  }
+
+  .object-details {
+    display: grid;
+    grid-gap: rem(50px);
+    
+    border-top: 1px solid color(mid-grey);
+    padding-top: rem(30px);
+    
+    @include desktop {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .object-details-intro {
+    grid-column: 1 / -1;
+    h1 {
+      margin-bottom: rem(30px);
+    }
+
+  }
+  .object-details-box{
+    border: 1px solid color(mid-grey);
+    padding: rem(30px) rem(20px);
+  } 
+
+  .object-label { // on other page?
+    background-color: color(light-grey);
+    font-size: rem(24px);
+    font-weight: 700;
+    padding: rem(6px) rem(6px) rem(2px);
+  }
+
+  .object-detail-list { //on other pages?
+
+    font-size: rem(24px);
+    font-weight: 400;
+
+    dt {
+      margin-bottom: rem(20px);
+    }
+
+    dd {
+
+    }
+  }
+
+  .object-actions { //on other pages?
+    grid-column: 1 / -1;
+  }
+}

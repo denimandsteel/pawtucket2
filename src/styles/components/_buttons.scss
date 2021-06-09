@@ -1,0 +1,17 @@
+// this extends .button class from main belkin CSS
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: top;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  min-height: 44px;
+
+  &.button--catalogue {
+    font-size: rem(24px);
+    text-transform: capitalize;
+    padding: 0 rem(20px);
+  }
+}
