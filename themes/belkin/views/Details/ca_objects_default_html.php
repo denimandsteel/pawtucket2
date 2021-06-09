@@ -65,25 +65,31 @@
         <dd></dd>
       </dl>
     </div>
-    <div class="object-details-box bordered hideable">
-      <h2>Physical Description</h2>
-      <dl class="object-detail-list">
+    <div class="object-details-box bordered accordion">
+      <div class="object-details-box-header">
+        <h2>Physical Description</h2>
+        <button class="button accordion-toggle">Hide</button>
+      </div>
+      <dl class="object-detail-list accordion-details" aria-expanded="true">
       <!-- Can you loop through these and only show ones that have values? -->
         <dt>Physical extent:</dt>
-        <dd></dd>
+        <dd>Example with longer text that will go to the second line</dd>
         <dt>Object type:</dt>
-        <dd></dd>
+        <dd>example</dd>
         <dt>Medium:</dt>
-        <dd></dd>        
+        <dd>example</dd>        
         <dt>Duration:</dt>
-        <dd></dd>
+        <dd>example</dd>
         <dt>Dimensions:</dt>
-        <dd></dd>
+        <dd>example</dd>
       </dl>
     </div>
-    <div class="object-details-box bordered hideable">
-      <h2>Collection History</h2>
-      <dl class="object-detail-list">
+    <div class="object-details-box bordered accordion">
+      <div class="object-details-box-header">
+        <h2>Collection History</h2>
+        <button class="button accordion-toggle">Hide</button>
+      </div>
+      <dl class="object-detail-list accordion-details" aria-expanded="true">
       <!-- Can you loop through these and only show ones that have values? -->
         <dt>Collection:</dt>
         <dd></dd>

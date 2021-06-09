@@ -189,11 +189,73 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"theme.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"scripts/accordions.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  let accordions = Array.from(document.querySelectorAll('.accordion'));
+
+  if (!accordions.length) {
+    return;
+  } // add event listeners to expand buttons
+
+
+  let expandBtns = document.querySelectorAll('.accordion-toggle');
+  expandBtns.forEach(btn => {
+    btn.addEventListener('click', event => {
+      let accordionItem = event.target.closest('.accordion');
+      let detailsSection = accordionItem.querySelector('.accordion-details');
+      let isCollapsed = detailsSection.getAttribute('aria-expanded') === "false";
+
+      if (isCollapsed) {
+        expandSection(detailsSection);
+      } else {
+        collapseSection(detailsSection);
+      }
+    });
+  });
+}); // modified from https://css-tricks.com/using-css-transitions-auto-dimensions/
+
+function collapseSection(element) {
+  // only proceed if height is null aka expansion has finished
+  if (element.style.height != "") {
+    return;
+  }
+
+  let sectionHeight = element.scrollHeight;
+  let elementTransition = element.style.transition;
+  let accordionItem = element.closest('.accordion');
+  let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
+  element.style.transition = '';
+  requestAnimationFrame(() => {
+    element.style.height = sectionHeight + 'px';
+    element.style.transition = elementTransition;
+    requestAnimationFrame(() => {
+      element.style.height = 0 + 'px';
+    });
+  });
+  seeDetailsBtn.innerText = "Show";
+  element.setAttribute('aria-expanded', 'false');
+}
+
+function expandSection(element) {
+  let sectionHeight = element.scrollHeight;
+  let accordionItem = element.closest('.accordion');
+  let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
+  element.style.height = sectionHeight + 'px';
+  element.addEventListener('transitionend', e => {
+    element.style.height = null;
+  }, {
+    once: true
+  });
+  element.setAttribute('aria-expanded', 'true');
+  seeDetailsBtn.innerText = "Hide";
+}
+},{}],"theme.js":[function(require,module,exports) {
 "use strict";
 
 require("./styles/theme");
-},{"./styles/theme":"styles/theme.scss"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+
+require("./scripts/accordions");
+},{"./styles/theme":"styles/theme.scss","./scripts/accordions":"scripts/accordions.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;

@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* THEME COLORS */
 .b-mid-grey {
   border-color: #979797;
@@ -36,6 +37,24 @@ html {
   margin-right: auto;
 }
 
+#skipNavigation {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+}
+.visually-hidden, #skipNavigation:not(:focus) {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+
 .object .object-image-caption {
   font-size: 1.125rem;
 }
@@ -58,7 +77,11 @@ html {
 }
 .object .object-details-box {
   border: 1px solid #979797;
-  padding: 1.875rem 1.25rem;
+  padding: 1.875rem 1.25rem 0;
+}
+.object .object-details-box .object-details-box-header {
+  display: flex;
+  justify-content: space-between;
 }
 .object .object-label {
   background-color: #D8D8D8;
@@ -67,14 +90,49 @@ html {
   padding: 0.375rem 0.375rem 0.125rem;
 }
 .object .object-detail-list {
+  display: grid;
+  grid-template-columns: minmax(min-content, 30%) minmax(min-content, 1fr);
+  justify-content: center;
+  row-gap: 10px;
   font-size: 1.5rem;
   font-weight: 400;
+  margin-top: 1.875rem;
 }
 .object .object-detail-list dt {
-  margin-bottom: 1.25rem;
+  display: inline-flex;
 }
 .object .object-actions {
   grid-column: 1/-1;
+}
+
+.accordion {
+  height: max-content;
+}
+
+.accordion-details {
+  overflow: hidden;
+  transition: height 400ms ease-out;
+  height: auto;
+  margin: 0;
+}
+.accordion-details[aria-expanded=true] {
+  margin-bottom: 1.875rem;
+}
+
+.button.accordion-toggle {
+  position: relative;
+  font-size: 24px;
+  text-transform: capitalize;
+  border: none;
+}
+.button.accordion-toggle:hover {
+  color: initial;
+  background-color: initial;
+}
+.button.accordion-toggle:before {
+  content: "—";
+  position: absolute;
+  right: 0;
 }
 
 .button {

@@ -1,0 +1,34 @@
+.accordion {
+  height: max-content;
+}
+
+.accordion-details {
+  overflow: hidden;
+  transition: height 400ms ease-out;
+  height: auto;
+  margin: 0;
+
+  &[aria-expanded="true"]{
+    margin-bottom: rem(30px);
+  }
+}
+
+.button.accordion-toggle {
+  position: relative;
+  font-size: 24px;
+  text-transform: capitalize;
+  border: none;
+  // padding-right: rem(20px);
+
+  &:hover {
+    color: initial;
+    background-color: initial;
+  }
+
+  &:before {
+    content: '—';
+    position: absolute;
+    right: 0;
+    // top: 0;
+  }
+}

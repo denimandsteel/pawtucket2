@@ -38,7 +38,12 @@
   }
   .object-details-box{
     border: 1px solid color(mid-grey);
-    padding: rem(30px) rem(20px);
+    padding: rem(30px) rem(20px) 0;
+
+    .object-details-box-header {
+      display: flex;
+      justify-content: space-between;
+    }
   } 
 
   .object-label { // on other page?
@@ -49,12 +54,20 @@
   }
 
   .object-detail-list { //on other pages?
-
+    display: grid;
+    grid-template-columns: minmax(min-content,30%) minmax(min-content,1fr);
+    justify-content: center;
+    row-gap: 10px;
     font-size: rem(24px);
     font-weight: 400;
+    margin-top: rem(30px);
+  
 
+    dt, dd {
+    }
+    
     dt {
-      margin-bottom: rem(20px);
+      display: inline-flex;
     }
 
     dd {
