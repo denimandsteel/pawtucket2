@@ -33,12 +33,17 @@
 	$vn_share_enabled = 	$this->getVar("shareEnabled");
 	$vn_pdf_enabled = 		$this->getVar("pdfEnabled");
 	$vn_id =				$t_object->get('ca_objects.object_id');
+  // echo '<pre>';
+  // echo var_dump($t_object);
+  // echo '</pre>';
+
 ?>
 <article class="object">
-  <a href="">Back to search results</a>
+  <a class="link link--back" href="">Back to search results</a>
 
   <!-- what if there are multiple images? generate/style carousel?? -->
-  <!-- if image -->
+  <!-- if image --> 
+
   <div class="object-images">
     <figure class="object-image">
       <img src="" alt="" width="1200" height="800">
@@ -54,15 +59,23 @@
   <!-- endif image -->
   <div class="object-details">
     <div class="object-details-intro">
-      <span class="object-label">Object</span>
-      <h1>Title</h1>
+      <span class="object-label record-type">Object</span>
+      <h1>{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> ➔ </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</h1>
       <dl class="object-detail-list">
-        <dt>Artist/Creator:</dt>
-        <dd></dd>
-        <dt>Date:</dt>
-        <dd></dd>
-        <dt>Object number:</dt>
-        <dd></dd>
+        {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator:</dt></ifcount>}}}
+        {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
+        <dd>
+          {{{<unit relativeTo="ca_objects_x_entities" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels</l></unit> (^relationship_typename)</unit>}}}
+        </dd>
+				{{{<ifdef code="ca_objects.dateSet.setDisplayValue"><dt>Date:</dt><dd>^ca_objects.dateSet.setDisplayValue</dd></ifdef>}}}
+
+        <!-- <dt>Date:</dt>
+        <dd></dd> -->
+        <!-- Is idno the Object Number? -->
+				{{{<ifdef code="ca_objects.idno"><dt>Object Number:</dt><dd>^ca_objects.idno<dd/></ifdef>}}}
+
+        <!-- <dt>Object number:</dt>
+        <dd></dd> -->
       </dl>
     </div>
     <div class="object-details-box bordered accordion">
@@ -71,17 +84,23 @@
         <button class="button accordion-toggle">Hide</button>
       </div>
       <dl class="object-detail-list accordion-details" aria-expanded="true">
-      <!-- Can you loop through these and only show ones that have values? -->
+      <!-- Is description different than phyiscal extent?? -->
+        {{{<ifdef code="ca_objects.description">
+					<dt class='unit'>Description</dt>
+          <dd class="trimText">^ca_objects.description</dd>
+				</ifdef>}}}
         <dt>Physical extent:</dt>
         <dd>Example with longer text that will go to the second line</dd>
         <dt>Object type:</dt>
-        <dd>example</dd>
-        <dt>Medium:</dt>
-        <dd>example</dd>        
-        <dt>Duration:</dt>
-        <dd>example</dd>
-        <dt>Dimensions:</dt>
-        <dd>example</dd>
+        <dd>{{{<unit>^ca_objects.type_id</unit>}}}</dd>
+        <!-- <dt>Medium:</dt>
+        <dd>example</dd>         -->
+        <!-- <dt>Duration:</dt>
+        <dd>example</dd> -->
+        <!-- Measurements? test this -->
+				<!-- {{{<ifdef code="ca_objects.measurementSet.measurements">^ca_objects.measurementSet.measurements (^ca_objects.measurementSet.measurementsType)</ifdef><ifdef code="ca_objects.measurementSet.measurements,ca_objects.measurementSet.measurements"> x </ifdef><ifdef code="ca_objects.measurementSet.measurements2">^ca_objects.measurementSet.measurements2 (^ca_objects.measurementSet.measurementsType2)</ifdef>}}} -->
+        <!-- <dt>Dimensions:</dt>
+        <dd>example</dd> -->
       </dl>
     </div>
     <div class="object-details-box bordered accordion">

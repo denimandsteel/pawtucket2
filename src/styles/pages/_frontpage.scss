@@ -1,0 +1,37 @@
+.frontpage {
+  display: grid;
+  grid-gap: rem(80px);
+
+  h1 {
+    grid-column: -1 /1;
+  }
+
+  @include desktop {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.frontpage-browse {
+
+  .frontpage-intro {
+
+  }
+  
+  .frontpage-search {
+    margin-top: rem(80px);
+  }
+  
+  .link {
+    display: block;
+    width: max-content;
+  }
+}
+
+.frontpage-item-preview {
+  
+  figure {
+    margin: 0 0 rem(20px);
+  }
+  .link {
+    display: block;
+  }
+}

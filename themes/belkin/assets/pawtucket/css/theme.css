@@ -24,10 +24,39 @@
   color: #D8D8D8;
 }
 
+.b-calcite {
+  border-color: #FFFFFF;
+}
+
+.bg-calcite {
+  background-color: #FFFFFF;
+}
+
+.color-calcite {
+  color: #FFFFFF;
+}
+
+.b-belkin-gray {
+  border-color: #333;
+}
+
+.bg-belkin-gray {
+  background-color: #333;
+}
+
+.color-belkin-gray {
+  color: #333;
+}
+
 /* LAYOUT */
 /* BREAKPOINTS */
 html {
   font-size: 16px;
+}
+
+main {
+  margin-top: 3.375rem;
+  margin-bottom: 3.375rem;
 }
 
 .container {
@@ -37,12 +66,25 @@ html {
   margin-right: auto;
 }
 
+.record-type {
+  text-transform: uppercase;
+  background-color: #D8D8D8;
+  font-weight: 700;
+  padding: 0.375rem 0.375rem 0.125rem;
+  width: max-content;
+  height: max-content;
+}
+
 #skipNavigation {
   position: absolute;
   top: 1rem;
   left: 1rem;
   z-index: 10;
 }
+.spaced-content * + * {
+  margin-top: 1.25rem;
+}
+
 .visually-hidden, #skipNavigation:not(:focus) {
   border: 0;
   clip: rect(0 0 0 0);
@@ -53,6 +95,34 @@ html {
   position: absolute;
   width: 1px;
   white-space: nowrap;
+}
+
+.frontpage {
+  display: grid;
+  grid-gap: 5rem;
+}
+.frontpage h1 {
+  grid-column: -1/1;
+}
+@media screen and (min-width: 1100px) {
+  .frontpage {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.frontpage-browse .frontpage-search {
+  margin-top: 5rem;
+}
+.frontpage-browse .link {
+  display: block;
+  width: max-content;
+}
+
+.frontpage-item-preview figure {
+  margin: 0 0 1.25rem;
+}
+.frontpage-item-preview .link {
+  display: block;
 }
 
 .object .object-image-caption {
@@ -84,10 +154,7 @@ html {
   justify-content: space-between;
 }
 .object .object-label {
-  background-color: #D8D8D8;
   font-size: 1.5rem;
-  font-weight: 700;
-  padding: 0.375rem 0.375rem 0.125rem;
 }
 .object .object-detail-list {
   display: grid;
@@ -103,6 +170,79 @@ html {
 }
 .object .object-actions {
   grid-column: 1/-1;
+}
+
+.search-results-filters {
+  margin-top: 2.5rem;
+}
+
+.search-results-header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3.125rem;
+}
+.search-results-header h2 {
+  display: inline-flex;
+  flex: 0 1 auto;
+}
+
+.search-results-controls {
+  display: flex;
+  font-size: 2.25rem;
+}
+.search-results-controls .search-results-viewmode .button {
+  font-size: 1.5rem;
+}
+.search-results-controls .search-results-viewmode [aria-pressed=false] {
+  color: #979797;
+}
+.search-results-controls .search-results-sort {
+  margin-left: 3.125rem;
+}
+
+.search-results {
+  margin-top: 5rem;
+}
+.search-results .search-results-labels,
+.search-results .search-result {
+  display: grid;
+  grid-template-columns: minmax(150px, 300px) 1fr 1fr 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid #979797;
+  grid-gap: 1rem;
+}
+.search-results .search-results-labels span {
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-bottom: 0.625rem;
+}
+.search-results .search-result {
+  padding: 2rem 0.75rem 1.625rem;
+  font-size: 1.125rem;
+}
+.search-results .search-result:hover {
+  background-color: #FFFFFF;
+}
+.search-results.search-results--grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-gap: 2.5rem;
+}
+.search-results.search-results--grid .search-results-labels {
+  display: none;
+}
+.search-results.search-results--grid .search-result {
+  display: flex;
+  flex-direction: column;
+  border-bottom: none;
+  padding: 0;
+  grid-gap: 0;
+}
+.search-results.search-results--grid .search-result .record-type {
+  margin-bottom: 0.625rem;
+}
+.search-results.search-results--grid .search-result:hover {
+  background-color: transparent;
 }
 
 .accordion {
@@ -151,5 +291,56 @@ html {
 .button.button--catalogue {
   font-size: 1.5rem;
   text-transform: capitalize;
-  padding: 0 1.25rem;
+}
+.button.button--search {
+  font-size: 2.25rem;
+  text-transform: capitalize;
+  color: #FFFFFF;
+  background-color: #333;
+  border-left: none;
+  height: 100%;
+  padding: 1.125rem 0.9375rem 0.75rem;
+}
+.button.button--search:hover {
+  color: #333;
+  background-color: #FFFFFF;
+}
+
+.link.link--back {
+  position: relative;
+  padding-left: 1.875rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+.link.link--back::before {
+  font-family: Helvetica, sans-serif;
+  content: "←";
+}
+.link.link--arrow {
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+.link.link--arrow::after {
+  font-size: 14px;
+  content: " >>";
+  text-decoration: underline;
+  white-space: pre;
+}
+
+.search-form {
+  display: flex;
+}
+
+.search-input {
+  min-height: 44px;
+  font-size: 1.5rem;
+  padding: 0.9375rem;
+  flex: 1 1 auto;
+  padding: 1.125rem 0.9375rem 0.75rem;
+}
+
+.button--search {
+  margin: 0;
 }

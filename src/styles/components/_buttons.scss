@@ -12,6 +12,20 @@
   &.button--catalogue {
     font-size: rem(24px);
     text-transform: capitalize;
-    padding: 0 rem(20px);
+  }
+
+  &.button--search {
+    font-size: rem(36px);
+    text-transform: capitalize;
+    color: color(calcite);
+    background-color: color(belkin-gray);
+    border-left: none;
+    height: 100%;
+    padding: rem(18px) rem(15px) rem(12px);
+
+    &:hover {
+      color: color(belkin-gray);
+      background-color: color(calcite);
+    }
   }
 }

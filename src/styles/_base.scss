@@ -5,3 +5,15 @@ html {
 body {
 }
 
+
+main {
+  margin-top: rem(54px);
+  margin-bottom: rem(54px);
+}
+
+.container {
+  max-width: $wrapper-width;
+  padding: 0 rem(20px); 
+  margin-left: auto;
+  margin-right: auto;
+}

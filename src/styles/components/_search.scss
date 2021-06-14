@@ -1,0 +1,19 @@
+.search-form {
+  // height: 62px;
+  display: flex;
+}
+
+.search-input {
+  min-height: 44px;
+  font-size: rem(24px);
+  padding: rem(15px);
+  flex:1 1 auto;
+  padding: rem(18px) rem(15px) rem(12px);
+
+  // border-right: none;
+}
+
+.button--search {
+  margin: 0;
+
+}

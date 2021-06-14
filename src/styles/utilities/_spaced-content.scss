@@ -1,0 +1,5 @@
+.spaced-content {
+  * + * {
+    margin-top: rem(20px);
+  }
+}

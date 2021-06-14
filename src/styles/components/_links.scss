@@ -1,0 +1,29 @@
+.link {
+  
+  &.link--back {
+    position: relative;
+  
+    padding-left: rem(30px);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: rem(18px);
+  
+    &::before {
+      font-family: Helvetica, sans-serif;
+      content: '←';
+    }
+  }
+  
+  &.link--arrow {
+    font-size: rem(18px);
+    font-weight: 700;
+    text-decoration: underline; 
+  
+    &::after {
+      font-size: 14px;
+      content: ' >>';
+      text-decoration: underline;
+      white-space: pre;
+    }
+  }
+}
