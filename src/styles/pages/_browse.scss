@@ -1,0 +1,40 @@
+// see results.scss for styling shared between browse/search
+
+.browse {
+  .browse-links {
+    
+    .filter-list {
+      margin: 0;
+      padding: rem(10px) 0;
+    }
+
+    .filter-item{
+      // padding-left: 0;
+      padding: rem(8px) rem(10px) rem(1px);
+    }
+  }
+
+  .browse-grid {
+    // display: grid;
+    // grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
+    margin-top: rem(50px);
+    columns: 250px auto;
+
+    .result {
+      display: block;
+      border: none;
+      padding: 5px;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
+
+    .result-object-image, .result-object-title, .result-object-idno, .result-object-year, .result-object-collection {
+      display: none;
+    }
+    .result-object {
+      border: none;
+    }
+  }
+}
