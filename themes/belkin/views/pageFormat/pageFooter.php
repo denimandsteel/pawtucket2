@@ -28,22 +28,7 @@
 ?>
 		<div style="clear:both; height:1px;"><!-- empty --></div>
 		</div><!-- end pageArea --></main><!-- end main -->
-		<!-- <footer id="footer" role="contentinfo">
-			<ul class="list-inline pull-right social">
-				<li><i class="fa fa-twitter" aria-label="<?php print _t("Twitter"); ?>"></i></li>
-				<li><i class="fa fa-facebook-square" aria-label="<?php print _t("Facebook"); ?>"></i></li>
-				<li><i class="fa fa-youtube-play" aria-label="<?php print _t("YouTube"); ?>"></i></li>
-			</ul>
-			<div>
-				Footer text here
-			</div>
-			<ul class="list-inline">
-				<li><a href="#">Link 1</a></li>
-				<li><a href="#">Link 2</a></li>
-				<li><a href="#">Link 3</a></li>
-			</ul>
-			<div><small>powered by <a href="http://www.collectiveaccess.org">CollectiveAccess 2018</a></small></div>
-		</footer>end footer -->
+
     <footer class="footer" role="contentinfo">
     <!-- populated by src/javascript/components/footer.js and shared with Belkin Collective Access install -->
     </footer>
