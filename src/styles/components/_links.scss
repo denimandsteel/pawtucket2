@@ -1,29 +1,27 @@
 .link {
-  
+  text-decoration: underline;
+
   &.link--back {
     position: relative;
-  
-    padding-left: rem(30px);
+    text-decoration: none;
     text-transform: uppercase;
     font-weight: 700;
     font-size: rem(18px);
   
-    &::before {
+    &:before {
+      display: inline-block;
       font-family: Helvetica, sans-serif;
-      content: '←';
-    }
-  }
-  
-  &.link--arrow {
-    font-size: rem(18px);
-    font-weight: 700;
-    text-decoration: underline; 
-  
-    &::after {
-      font-size: 14px;
-      content: ' >>';
-      text-decoration: underline;
+      content: '← ';
       white-space: pre;
+      transform: translateX(0);
+      transition: transform 0.2s ease;
+    }
+
+    &:hover {
+      &:before{
+        transform: translateX(-4px);
+      }
     }
   }
+
 }

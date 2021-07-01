@@ -189,7 +189,69 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"scripts/accordions.js":[function(require,module,exports) {
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"scripts/explore.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  const exploreSection = document.getElementById('explore');
+
+  if (!exploreSection) {
+    return;
+  }
+
+  const resultObjects = Array.from(exploreSection.querySelectorAll('.result-objects'));
+  const filters = Array.from(exploreSection.querySelectorAll('.filters'));
+  const curatorBios = Array.from(exploreSection.querySelectorAll('.frontpage-explore-bio'));
+  const curatorSelect = exploreSection.querySelector('#exploreCurator');
+
+  const hideNotFirst = function (objArray) {
+    objArray.forEach((object, index) => {
+      if (index === 0) return;
+      object.classList.add('hidden');
+    });
+  };
+
+  const hideAll = function (objArray) {
+    objArray.forEach((object, index) => {
+      object.classList.add('hidden');
+    });
+  }; // hide all results objects and filters exccept first
+
+
+  hideNotFirst(resultObjects);
+  hideNotFirst(filters);
+  hideNotFirst(curatorBios); // Add toggle listeners to Select, filters and [more] buttons
+
+  curatorSelect.addEventListener('change', event => {
+    //hide all
+    hideAll(resultObjects);
+    hideAll(filters);
+    hideAll(curatorBios); // show selected curator's bio, filter list, and first object result
+
+    let resultObjectsToShow = filters[event.target.value].nextElementSibling.firstElementChild;
+    resultObjectsToShow.classList.remove('hidden');
+    filters[event.target.value].classList.remove('hidden');
+    curatorBios[event.target.value].classList.remove('hidden');
+  }); // Add listeners to filter buttons to switch result objects
+
+  filters.forEach(filterGroup => {
+    let filterItems = Array.from(filterGroup.querySelectorAll('.filter-item'));
+    let resultObjectContainer = filterGroup.nextElementSibling;
+    let resultObjects = Array.from(resultObjectContainer.querySelectorAll('.result-objects'));
+    filterItems.forEach(filter => {
+      filter.addEventListener('click', event => {
+        let activeItem = filterGroup.querySelector('.filter-item.active');
+        let index = filterItems.indexOf(event.target);
+        let activeObjects = resultObjectContainer.querySelector('div.result-objects:not(.hidden)'); // update list active state
+
+        activeItem.classList.remove('active');
+        event.target.classList.add('active'); // update object hidden state
+
+        activeObjects.classList.add('hidden');
+        resultObjects[index].classList.remove('hidden');
+      });
+    });
+  });
+});
+},{}],"scripts/accordions.js":[function(require,module,exports) {
 window.addEventListener('DOMContentLoaded', event => {
   let accordions = Array.from(document.querySelectorAll('.accordion'));
 
@@ -251,40 +313,114 @@ function expandSection(element) {
   accordionItem.classList.remove('accordion--hidden');
   seeDetailsBtn.innerText = "Hide";
 }
-},{}],"scripts/search-view.js":[function(require,module,exports) {
+},{}],"scripts/filters.js":[function(require,module,exports) {
 window.addEventListener('DOMContentLoaded', event => {
-  let controls = document.querySelector('#searchViewmode');
-  let searchResults = document.querySelector('#searchResults');
+  // Get relevant elements and collections
+  const filter = document.querySelector('#filterGroups');
 
-  if (!(controls && searchResults)) {
+  if (!filter) {
     return;
   }
 
-  let buttons = controls.querySelectorAll('.button');
-  buttons.forEach(btn => {
-    btn.addEventListener('click', event => {
-      let clickedButton = event.target;
-      let otherButton = clickedButton.nextElementSibling ? clickedButton.nextElementSibling : clickedButton.previousElementSibling;
-      toggleAriaPressed(clickedButton);
-      toggleAriaPressed(otherButton);
-      searchResults.classList.toggle('search-results--grid');
+  ;
+  const tablist = filter.querySelector('.filter-header');
+  const moreResults = filter.querySelector('.filter-more-results');
+  const tabs = Array.from(tablist.querySelectorAll('.filter-tab'));
+  const panels = filter.querySelectorAll('.filter-group');
+
+  const switchTab = (oldTab, newTab) => {
+    newTab.focus(); // Make the active tab focusable by the user (Tab key)
+
+    newTab.removeAttribute('tabindex'); // Set the selected state
+
+    newTab.setAttribute('aria-selected', 'true');
+    oldTab.removeAttribute('aria-selected');
+    oldTab.setAttribute('tabindex', '-1'); //to deal with jQuery for more results element
+
+    moreResults.style.display = 'none';
+    panels.forEach(panel => {
+      panel.style.display = 'block';
+    }); // Get the indices of the new and old tabs to find the correct
+    // tab panels to show and hide
+
+    let index = tabs.indexOf(newTab);
+    let oldIndex = tabs.indexOf(oldTab);
+    panels[oldIndex].hidden = true;
+    panels[index].hidden = false;
+  };
+
+  tabs.forEach((tab, i) => {
+    // Handle clicking of tabs for mouse users
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      let currentTab = tablist.querySelector('[aria-selected]');
+
+      if (e.currentTarget !== currentTab) {
+        switchTab(currentTab, e.currentTarget);
+      }
+    }); // Handle keydown events for keyboard users
+
+    tab.addEventListener('keydown', e => {
+      // Get the index of the current tab in the tabs node list
+      let index = tabs.indexOf(e.currentTarget); // Work out which key the user is pressing and
+      // Calculate the new tab's index where appropriate
+
+      let dir = e.which === 37 ? index - 1 : e.which === 39 ? index + 1 : e.which === 40 ? 'down' : null;
+
+      if (dir !== null) {
+        e.preventDefault(); // If the down key is pressed, move focus to the open panel,
+        // otherwise switch to the adjacent tab
+
+        dir === 'down' ? panels[i].focus() : tabs[dir] ? switchTab(e.currentTarget, tabs[dir]) : void 0;
+      }
+    });
+  }); // Add tab panel semantics and hide them all
+
+  panels.forEach((panel, i) => {
+    panel.hidden = true;
+  }); // Initially activate the first tab and reveal the first tab panel
+
+  tabs[0].removeAttribute('tabindex');
+  tabs[0].setAttribute('aria-selected', 'true');
+  panels[0].hidden = false;
+}); // });
+},{}],"scripts/dropdowns.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
+
+  if (!dropdowns) {
+    return;
+  }
+
+  dropdowns.forEach(dropdown => {
+    const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+    const dropdownList = dropdown.querySelector('.dropdown-list'); //add event listener to button
+
+    dropdownToggle.addEventListener('click', event => {
+      dropdownList.classList.toggle('hidden');
+      event.preventDefault();
     });
   });
-
-  function toggleAriaPressed(element) {
-    let ariaPressed = element.getAttribute('aria-pressed') === 'true';
-    element.setAttribute('aria-pressed', !ariaPressed);
-  }
 });
+},{}],"scripts/footer.js":[function(require,module,exports) {
+window.onload = () => {
+  fetch('https://belkin.ubc.ca/wp-json/belkin/v1/footer').then(res => res.json()).then(res => document.querySelector('footer').innerHTML = JSON.parse(res));
+};
 },{}],"theme.js":[function(require,module,exports) {
 "use strict";
 
 require("./styles/theme");
 
+require("./scripts/explore");
+
 require("./scripts/accordions");
 
-require("./scripts/search-view");
-},{"./styles/theme":"styles/theme.scss","./scripts/accordions":"scripts/accordions.js","./scripts/search-view":"scripts/search-view.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+require("./scripts/filters");
+
+require("./scripts/dropdowns");
+
+require("./scripts/footer");
+},{"./styles/theme":"styles/theme.scss","./scripts/explore":"scripts/explore.js","./scripts/accordions":"scripts/accordions.js","./scripts/filters":"scripts/filters.js","./scripts/dropdowns":"scripts/dropdowns.js","./scripts/footer":"scripts/footer.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -312,7 +448,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57286" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50965" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
