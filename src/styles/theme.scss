@@ -1,16 +1,24 @@
 @import '_variables';
 @import '_base';
 
+@import 'utilities/fw-border';
 @import 'utilities/record-type';
 @import 'utilities/skip-link';
 @import 'utilities/spaced-content';
 @import 'utilities/visually-hidden';
 
+@import 'pages/browse';
+@import 'pages/collections';
 @import 'pages/frontpage';
-@import 'pages/object';
-@import 'pages/search-results';
+@import 'pages/detail';
+@import 'pages/search';
+
 
 @import 'components/accordion';
 @import 'components/buttons';
+@import 'components/dropdown';
+@import 'components/filter';
+@import 'components/header';
 @import 'components/links';
+@import 'components/results';
 @import 'components/search';

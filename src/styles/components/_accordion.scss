@@ -21,10 +21,14 @@
 
 .button.accordion-toggle {
   position: relative;
-  font-size: 24px;
-  text-transform: capitalize;
+  font-size: 18px;
+  text-transform: uppercase;
   border: none;
-
+  color: color(mid-grey);
+  background-color: transparent;
+  padding: 10px 20px;
+  letter-spacing: initial;
+  
   &:hover {
     color: initial;
     background-color: initial;

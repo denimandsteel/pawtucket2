@@ -33,95 +33,120 @@
 	$vn_share_enabled = 	$this->getVar("shareEnabled");
 	$vn_pdf_enabled = 		$this->getVar("pdfEnabled");
 	$vn_id =				$t_object->get('ca_objects.object_id');
-  // echo '<pre>';
-  // echo var_dump($t_object);
-  // echo '</pre>';
 
 ?>
-<article class="object">
-  <a class="link link--back" href="">Back to search results</a>
-
+<article class="detail">
+  <nav class="detail-nav">
+    <a class="link link--back" href="">Results</a>
+    <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
+  </nav>
   <!-- what if there are multiple images? generate/style carousel?? -->
   <!-- if image --> 
 
-  <div class="object-images">
-    <figure class="object-image">
-      <img src="" alt="" width="1200" height="800">
-      <figcaption class="object-image-caption">Image caption</figcaption>
-      <button class="button button--catalogue">Download image</button>
-    </figure>
-    <!-- other images in gallery? -->
-    <div class="object-images-gallery">
-      <img src="" alt="" width="120" height="80">
-      <img src="" alt="" width="120" height="80">
+  <div class="detail-images">
+    <div class="container">
+      <!-- <div class="detail-image-grid">
+        <figure class="detail-image">
+          <img src="" alt="" width="1200" height="800">
+          <figcaption class="detail-image-caption">Image caption</figcaption>
+          <a class="link">Request this image</a>
+        </figure> -->
+        <!-- other images in gallery? -->
+        <!-- <div class="detail-images-gallery">
+          <img src="" alt="" width="120" height="80">
+          <img src="" alt="" width="120" height="80">
+        </div>
+      </div> -->
+      {{{representationViewer}}}						
+				<div id="detailAnnotations"></div>			
+				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>
+				
     </div>
   </div>
   <!-- endif image -->
-  <div class="object-details">
-    <div class="object-details-intro">
-      <span class="object-label record-type">Object</span>
-      <h1>{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> ➔ </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</h1>
-      <dl class="object-detail-list">
-        {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator:</dt></ifcount>}}}
-        {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
-        <dd>
-          {{{<unit relativeTo="ca_objects_x_entities" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels</l></unit> (^relationship_typename)</unit>}}}
-        </dd>
-				{{{<ifdef code="ca_objects.dateSet.setDisplayValue"><dt>Date:</dt><dd>^ca_objects.dateSet.setDisplayValue</dd></ifdef>}}}
 
-        <!-- <dt>Date:</dt>
-        <dd></dd> -->
-        <!-- Is idno the Object Number? -->
-				{{{<ifdef code="ca_objects.idno"><dt>Object Number:</dt><dd>^ca_objects.idno<dd/></ifdef>}}}
+  <div class="detail-info">
+    <div class="detail-info-intro fw-border-top">
+      <div class="container">
+        <span class="detail-label">Object</span>
+        {{{<ifdef code="ca_objects.preferred_labels.name">
+            <h1>^ca_objects.preferred_labels.name</h1>
+        </ifdef>}}}
+        <dl class="detail-info-list">
+          {{{<ifcount restrictToRelationshipTypes="creator" code="ca_entities" min="1" max="1"><dt>Artist/Creator:</dt></ifcount>}}}
+          {{{<ifcount restrictToRelationshipTypes="creator" code="ca_entities" min="2"><dt>Artists/Creators:</dt></ifcount>}}}
 
-        <!-- <dt>Object number:</dt>
-        <dd></dd> -->
-      </dl>
-    </div>
-    <div class="object-details-box bordered accordion">
-      <div class="object-details-box-header">
-        <h2>Physical Description</h2>
-        <button class="button accordion-toggle">Hide</button>
+          {{{<unit restrictToRelationshipTypes="creator" relativeTo="ca_objects_x_entities" delimiter="<br/>"><unit restrictToRelationshipTypes="creator" relativeTo="ca_entities"><l>
+            <dd>^ca_entities.preferred_labels</dd>
+          </l>}}}
+
+
+          {{{<ifdef code="ca_objects.pub_date">
+            <dt>Date:</dt>
+            <dd>^ca_objects.pub_date</dd>
+          </ifdef>}}} 
+
+
+          {{{<ifdef code="ca_objects.idno">
+            <dt>Object Number:</dt>
+            <dd>^ca_objects.idno</dd>
+          </ifdef>}}}
+        </dl>
       </div>
-      <dl class="object-detail-list accordion-details" aria-expanded="true">
-      <!-- Is description different than phyiscal extent?? -->
-        {{{<ifdef code="ca_objects.description">
-					<dt class='unit'>Description</dt>
-          <dd class="trimText">^ca_objects.description</dd>
-				</ifdef>}}}
-        <dt>Physical extent:</dt>
-        <dd>Example with longer text that will go to the second line</dd>
-        <dt>Object type:</dt>
-        <dd>{{{<unit>^ca_objects.type_id</unit>}}}</dd>
-        <!-- <dt>Medium:</dt>
-        <dd>example</dd>         -->
-        <!-- <dt>Duration:</dt>
-        <dd>example</dd> -->
-        <!-- Measurements? test this -->
-				<!-- {{{<ifdef code="ca_objects.measurementSet.measurements">^ca_objects.measurementSet.measurements (^ca_objects.measurementSet.measurementsType)</ifdef><ifdef code="ca_objects.measurementSet.measurements,ca_objects.measurementSet.measurements"> x </ifdef><ifdef code="ca_objects.measurementSet.measurements2">^ca_objects.measurementSet.measurements2 (^ca_objects.measurementSet.measurementsType2)</ifdef>}}} -->
-        <!-- <dt>Dimensions:</dt>
-        <dd>example</dd> -->
-      </dl>
     </div>
-    <div class="object-details-box bordered accordion">
-      <div class="object-details-box-header">
-        <h2>Collection History</h2>
-        <button class="button accordion-toggle">Hide</button>
+
+    <div class="detail-info-box fw-border-top accordion">
+      <div class="container">
+        <div class="detail-info-box-header">
+          <h2>Physical Description</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+        <dl class="detail-info-list accordion-details" aria-expanded="true">
+        <!-- Is description different than phyiscal extent?? -->
+          {{{<ifdef code="ca_objects.description">
+            <dt class='unit'>Description</dt>
+            <dd class="trimText">^ca_objects.description</dd>
+          </ifdef>}}}
+          {{{<ifdef code="ca_objects.custom_extent">
+            <dt>Physical Extent:</dt>
+            <dd>^ca_objects.custom_extent</dd>
+          </ifdef>}}}
+          {{{<ifdef code="ca_objects.artwork_object">
+            <dt>Object type:</dt>
+            <dd>^ca_objects.artwork_object</dd>
+          </ifdef>}}}
+          {{{<ifdef code="ca_objects.medium">
+            <dt>Medium:</dt>
+            <dd>^ca_objects.medium</dd>
+          </ifdef>}}}
+          {{{<ifdef code="ca_objects.duration">
+            <dt>Duration:</dt>
+            <dd>^ca_objects.duration</dd>
+          </ifdef>}}}
+        </dl>
       </div>
-      <dl class="object-detail-list accordion-details" aria-expanded="true">
-      <!-- Can you loop through these and only show ones that have values? -->
-        <dt>Collection:</dt>
-        <dd></dd>
-        <dt>Provenance:</dt>
-        <dd></dd>
-        <dt>Exhibition History:</dt>
-        <dd></dd>        
-      </dl>
     </div>
-    <div class="object-actions">
-      <button class="button button--catalogue ">Export</button>
-      <button class="button button--catalogue ">Contact us</button>
-      <button class="button button--catalogue ">Share</button>
+    <div class="detail-info-box fw-border-top accordion">
+      <div class="container">
+        <div class="detail-info-box-header">
+          <h2>Collection History</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+        <dl class="detail-info-list accordion-details" aria-expanded="true">
+          <dt>Collection</dt>
+          {{{<unit relativeTo="ca_collections" delimiter="<br/>"><l><dd>^ca_collections.preferred_labels.name</dd></l></unit>}}}
+          <dt>Related Exhibitions</dt>
+          {{{<unit relativeTo="ca_occurences" delimiter="<br/>"><l><dd>^ca_occurences.preferred_labels.name</dd></l></unit>}}}
+          <dd></dd>
+        </dl>
+      </div>
+      </div>
     </div>
-  </div>
+    <!-- <div class="detail-actions fw-border-top">
+      <div class="container">
+        <button class="button button--catalogue ">Export</button>
+        <button class="button button--catalogue ">Contact us</button>
+        <button class="button button--catalogue ">Share</button>
+      </div>
+    </div> -->
 </article>

@@ -119,13 +119,12 @@
 	<header class="navbar navbar-default yamm" role="navigation">
     <nav class="main-nav">
       <ul class="nav navbar-nav navbar-right menuItems" role="list" aria-label="<?php print _t("Primary Navigation"); ?>">
-      <!-- TODO update home link -->
-        <li><a href="/pawtucket">Catalogue Home</a></li>
-        <li <?php print (($this->request->getController() == "Search") && ($this->request->getAction() == "advanced")) ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Search"), "", "", "Search", "advanced/objects"); ?></li>
-        <li <?php print ($this->request->getController() == "About") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("About the Catalogue"), "", "", "About", "Index"); ?></li>
-
+        <li><a class="link link--back" href="https://belkin.ubc.ca/">Back To Gallery</a></li>  
+        <li><a href="/pawtucket">Collections Home</a></li>
+        <li <?php print ($this->request->getController() == "About") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("About the Collections"), "", "", "About", "Index"); ?></li>
+        <li <?php print ($this->request->getController() == "Contact") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Contact Us"), "", "", "Contact", "Form"); ?></li>
       </ul>
     </nav>
     <div class="name"><a href="https://belkin.ubc.ca/">Morris and Helen <strong>Belkin Art Gallery</strong></a></div>
   </header>
-  <main id="main"><div class="container" id="pageArea" <?php print caGetPageCSSClasses(); ?>>
+  <main id="main"><div id="pageArea" <?php print caGetPageCSSClasses(); ?>>
