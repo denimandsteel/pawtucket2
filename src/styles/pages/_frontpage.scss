@@ -1,37 +1,47 @@
 .frontpage {
-  display: grid;
-  grid-gap: rem(80px);
 
-  h1 {
-    grid-column: -1 /1;
+  article {
+    margin-bottom: rem(50px);
   }
 
-  @include desktop {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.frontpage-browse {
-
-  .frontpage-intro {
-
-  }
-  
   .frontpage-search {
-    margin-top: rem(80px);
+    padding-top: rem(20px);
   }
-  
-  .link {
-    display: block;
-    width: max-content;
-  }
-}
 
-.frontpage-item-preview {
-  
-  figure {
-    margin: 0 0 rem(20px);
+  .frontpage-explore {
+    padding-top: rem(80px);
+
   }
-  .link {
-    display: block;
+  .frontpage-explore-header {
+    margin-bottom: rem(20px);
+
+    h2 {
+      display: inline;
+    }
+    span {
+      font-size: rem(36px);
+    }
+
+    select {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid color(color-black);
+      font-weight: bold;
+      font-size: rem(36px);
+      padding-left: rem(30px);
+      margin-left: rem(30px);
+    }
   }
+
+  .frontpage-explore-bio {
+    p:first-child {
+      display: inline;
+    }
+  }
+
+  .filters .filter .filter-item {
+    margin-bottom: 0;
+  }
+
+
 }
