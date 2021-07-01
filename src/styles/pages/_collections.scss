@@ -1,0 +1,31 @@
+.collections {
+  .collections-intro {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: rem(50px);
+  }
+
+  .collections-intro-tips {
+    flex: 1 0 auto;
+    margin-left: rem(50px);
+
+    a {
+      display: block;
+    }
+  }
+
+  .collections-nav {
+    display: flex;
+    list-style: none;
+    padding-left: 0;
+    margin: rem(80px) 0 rem(20px);
+
+    li {
+      margin-right: rem(20px);
+
+      .active {
+        text-decoration: underline;
+      }
+    }
+  }
+}
