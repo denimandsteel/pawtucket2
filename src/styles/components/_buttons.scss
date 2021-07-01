@@ -7,25 +7,49 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
-  min-height: 44px;
 
   &.button--catalogue {
     font-size: rem(24px);
     text-transform: capitalize;
   }
 
-  &.button--search {
-    font-size: rem(36px);
-    text-transform: capitalize;
-    color: color(calcite);
-    background-color: color(belkin-gray);
-    border-left: none;
-    height: 100%;
-    padding: rem(18px) rem(15px) rem(12px);
+  &.button--toggle {
+    border: none;
+    letter-spacing: initial;
+    background-color: transparent;
+    color: color(belkin-gray);
+    padding-left: 0;
+
+    &:before{
+      content: '+ ';
+      white-space: pre;
+    }
+
+  }
+
+  &.button--filter {
+    font-size: rem(18px);
+    letter-spacing: initial;
+    background-color: color(light-grey);
+    margin-left: rem(20px);
 
     &:hover {
-      color: color(belkin-gray);
-      background-color: color(calcite);
+      color: color(color-black);
+      text-decoration: none;
+    }
+
+    &[disabled]{
+      cursor: default;
+      &:after{
+        content: none;
+      }
+    }
+
+    &:after{
+      content: ' ×';
+      white-space: pre;
+      right: 0;
     }
   }
+
 }

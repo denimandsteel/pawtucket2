@@ -34,18 +34,28 @@
 	$vs_browse_type		= $this->getVar('browse_type');
 	$o_browse			= $this->getVar('browse');
 	
-	$vn_facet_display_length_initial = 7;
+	$vn_facet_display_length_initial = 20;
 	$vn_facet_display_length_maximum = 60;
 	
 	if(is_array($va_facets) && sizeof($va_facets)){
-		print "<div id='bMorePanel'><!-- long lists of facets are loaded here --></div>";
-		print "<div id='bRefine'>";
+		print "<div id='bRefine' class='filter'>";
 		print "<a href='#' class='pull-right' id='bRefineClose' onclick='jQuery(\"#bRefine\").toggle(); return false;'><span class='glyphicon glyphicon-remove-circle'></span></a>";
-		print "<H2>"._t("Filter by")."</H2>";
+		print "<p class='filter-by'>"._t("Filter by")."</p><div class='filter-groups' id='filterGroups' data-active-filter='1'>";
+    print "<div class='filter-header' role='tablist'>";
+    //first print tabs, then groups
 		foreach($va_facets as $vs_facet_name => $va_facet_info) {
-			
+      print "<button class='filter-tab' role='tab' aria-controls='{$vs_facet_name}'>".$va_facet_info['label_singular']."</button>"; 
+    }
+    print "</div >";
+    print "<div id='bMorePanel' class='filter-more-results'><!-- long lists of facets are loaded here --></div>";
+
+
+		foreach($va_facets as $vs_facet_name => $va_facet_info) {
+
+      echo '<p>' . $va_facet_name.'</p>'; //this is always empty??
+
 			if ((caGetOption('deferred_load', $va_facet_info, false) || ($va_facet_info["group_mode"] == 'hierarchical')) && ($o_browse->getFacet($vs_facet_name))) {
-				print "<H3>".$va_facet_info['label_singular']."</H3>";
+				print "<div class='filter-group' tabindex='0' role='tabpanel' aria-labelledby='{$vs_facet_name}'>"; //test this?? I don't know when this if triggers
 				print "<p>".$va_facet_info['description']."</p>";
 ?>
 					<script type="text/javascript">
@@ -57,13 +67,14 @@
 <?php
 			} else {				
 				if (!is_array($va_facet_info['content']) || !sizeof($va_facet_info['content'])) { continue; }
-				print "<h3>".$va_facet_info['label_singular']."</h3>"; 
+				print "<div class='filter-group' tabindex='0' role='tabpanel' aria-labelledby='{$vs_facet_name}'>"; 
 				switch($va_facet_info["group_mode"]){
 					case "alphabetical":
 					case "list":
 					default:
 						$vn_facet_size = sizeof($va_facet_info['content']);
 						$vn_c = 0;
+
 						foreach($va_facet_info['content'] as $va_item) {
 						    $vs_content_count = (isset($va_item['content_count']) && ($va_item['content_count'] > 0)) ? " (".$va_item['content_count'].")" : "";
 							print "<div>".caNavLink($this->request, $va_item['label'].$vs_content_count, '', '*', '*','*', array('key' => $vs_key, 'facet' => $vs_facet_name, 'id' => $va_item['id'], 'view' => $vs_view))."</div>";
@@ -82,18 +93,22 @@
 						
 							$vs_link_open_text = _t("and %1 more", $vn_facet_size - $vn_facet_display_length_initial);
 							$vs_link_close_text = _t("close", $vn_facet_size - $vn_facet_display_length_initial);
-							print "<div><a href='#' class='more' id='{$vs_facet_name}_more_link' onclick='jQuery(\"#{$vs_facet_name}_more\").slideToggle(250, function() { jQuery(this).is(\":visible\") ? jQuery(\"#{$vs_facet_name}_more_link\").text(\"".addslashes($vs_link_close_text)."\") : jQuery(\"#{$vs_facet_name}_more_link\").text(\"".addslashes($vs_link_open_text)."\")}); return false;'><em>{$vs_link_open_text}</em></a></div>";
+							print "<div><button class='more button' id='{$vs_facet_name}_more_link' onclick='jQuery(\"#{$vs_facet_name}_more\").slideToggle(250, function() { jQuery(this).is(\":visible\") ? jQuery(\"#{$vs_facet_name}_more_link\").text(\"".addslashes($vs_link_close_text)."\") : jQuery(\"#{$vs_facet_name}_more_link\").text(\"".addslashes($vs_link_open_text)."\")}); return false;'>{$vs_link_open_text}</button></div>";
 						} elseif (($vn_facet_size > $vn_facet_display_length_initial) && ($vn_facet_size > $vn_facet_display_length_maximum)) {
-							print "<div><a href='#' class='more' onclick='jQuery(\"#bMorePanel\").load(\"".caNavUrl($this->request, '*', '*', '*', array('getFacet' => 1, 'facet' => $vs_facet_name, 'view' => $vs_view, 'key' => $vs_key))."\", function(){jQuery(\"#bMorePanel\").show(); jQuery(\"#bMorePanel\").mouseleave(function(){jQuery(\"#bMorePanel\").hide();});}); return false;'><em>"._t("and %1 more", $vn_facet_size - $vn_facet_display_length_initial)."</em></a></div>";
+							print "<div><button class='more button' onclick='jQuery(\"#bMorePanel\").load(\"".caNavUrl($this->request, '*', '*', '*', array('getFacet' => 1, 'facet' => $vs_facet_name, 'view' => $vs_view, 'key' => $vs_key))."\", function(){jQuery(\"#bMorePanel\").show(); jQuery(\".filter-group\").hide();}); return false;'>"._t("Show %1 more", $vn_facet_size - $vn_facet_display_length_initial)."</button></div>";
 						}
+        		print "</div>\n";
+
+
 					break;
 					# ---------------------------------------------
 				}
 			}
 		}
-		print "</div><!-- end bRefine -->\n";
+		print "</div>\n
+    </div><!-- end bRefine -->\n";
 ?>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		jQuery(document).ready(function() {
             if(jQuery('#browseResultsContainer').height() > jQuery(window).height()){
 				var offset = jQuery('#bRefine').height(jQuery(window).height() - 30).offset();   // 0px top + (2 * 15px padding) = 30px
@@ -110,7 +125,7 @@
 				});
             }
 		});
-	</script>
+	</script> -->
 <?php	
 	}
 ?>

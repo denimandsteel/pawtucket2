@@ -1,0 +1,98 @@
+#bRefine.filter {
+  display: flex;
+  position: relative;
+  margin-bottom: rem(400px);
+  font-size: rem(18px);
+
+  .filter-by {
+    font-size: rem(24px);
+    margin-right: rem(20px);
+  }
+  
+  
+  .filter-groups {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    flex-grow: 1;
+    background-color: color(calcite);
+    border: 1px solid color(color-black);
+    max-width: max-content;
+    min-width: 800px;
+  }
+  
+  .filter-header {
+    // display: flex;
+    // justify-content: space-evenly;
+  }
+  
+  .filter-tab {
+    padding: rem(8px) rem(25px) rem(3px);
+    border: 0;
+    border-right: 1px solid color(color-black);
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    background-color: color(calcite);
+    flex-grow: 2;
+    cursor: pointer;
+    
+    &[aria-selected="true"], &:hover {
+      background-color: color(light-grey);
+    }
+    
+  }
+  
+
+  .filter-group {
+    // display: grid;
+    // grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
+    columns: 250px auto;
+
+    position: absolute;
+    width: 100%;
+    top: rem(38px);
+    padding: rem(20px) rem(20px) rem(60px);
+    margin-bottom: 20px;
+    background-color: color(calcite);
+    border: 1px solid color(mid-grey);
+    max-height: 350px;
+    
+    &.active {
+
+    }
+
+    .more {
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+      height: auto;
+      margin-top: 10px;
+
+      &::after{
+        content: none;
+      }
+    }
+  }
+
+  .filter-more-results {
+    @extend .filter-group; //same styles, but can't have same name for filter.js
+    overflow-y: scroll;
+
+    display: flex;
+
+    #bScrollListLabel {
+      font-size: 18px;
+      text-transform: capitalize;
+      margin-top: 0;
+      margin-right: rem(20px);
+    }
+
+    #bLetterBar {
+      display: none;
+    }
+    div[id*='facetList']{
+      display: none;
+    }
+  }
+}
