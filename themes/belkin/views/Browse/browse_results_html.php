@@ -66,152 +66,18 @@
 	$va_browse_type_info = $o_config->get($va_browse_info["table"]);
 	$va_all_facets = $va_browse_type_info["facets"];	
 	$va_add_to_set_link_info = caGetAddToSetInfo($this->request);
-	
-?>
-<article class="search-results">
-  <h1>Online Catalogue</h1>
-  <form class="search-form" action="/pawtucket/index.php/Search/objects" method="post">
-    <!-- TODO, add Criteria dropdown?? -->
-    <input class="search-input" name="search" type="text" placeholder="Search by"><button class="button button--search">Search</button>
-  </form>
   
-  <!-- Filters - are the checkboxes even possible?? How do I implement this, currently I only see simple filters -->
-  <div class="search-results-filters">
-  <?php
-		print $this->render("Browse/browse_refine_subview_html.php");
-  ?>	
-  </div>
-  
-  <div class="search-results-header">
-    <h2>
-    <?php
-			echo  $vn_result_size;
-    ?>
-     results found for 
-    <?php
-		if (sizeof($va_criteria) > 0) {
-			$i = 0;
-			foreach($va_criteria as $va_criterion) {
-				print "<strong> ".$va_criterion['facet'].':</strong>';
-				if ($va_criterion['facet_name'] != '_search') {
-					print caNavLink($this->request, '<button type="button" class="btn btn-default btn-sm">'.$va_criterion['value'].' <span class="glyphicon glyphicon-remove-circle" aria-label="Remove filter"></span></button>', 'browseRemoveFacet', '*', '*', '*', array('removeCriterion' => $va_criterion['facet_name'], 'removeID' => urlencode($va_criterion['id']), 'view' => $vs_current_view, 'key' => $vs_browse_key));
-				}else{
-					print ' '.$va_criterion['value'];
-					$vs_search = $va_criterion['value'];
-				}
-				$i++;
-				if($i < sizeof($va_criteria)){
-					print " ";
-				}
-				$va_current_facet = $va_all_facets[$va_criterion['facet_name']];
-				if((sizeof($va_criteria) == 1) && !$vb_is_search && $va_current_facet["show_description_when_first_facet"] && ($va_current_facet["type"] == "authority")){
-					$t_authority_table = new $va_current_facet["table"];
-					$t_authority_table->load($va_criterion['id']);
-					$vs_facet_description = $t_authority_table->get($va_current_facet["show_description_when_first_facet"]);
-				}
-			}
-		}
-    ?>		
-    </h2>
-    <div class="search-results-controls">
-      <div id="searchViewmode" class="search-results-viewmode">
-        <span>View</span>
-        <button class="button" aria-pressed="false">Grid<i></i></button><button class="button" aria-pressed="true">List<i></i></button>
-      </div>
-      <div class="search-results-sort">
-        <span>Sort</span>
-      </div>
-    </div>
-  </div>
-  <div id="searchResults" class="search-results">
-    <div class="search-results-labels">
-      <span>Image</span>
-      <span>Record Type</span>
-      <span>Title</span>
-      <span>Artist</span>
-      <span>Date</span>
-      <span>Item #</span>
-      <span>Excerpt</span>
-    </div>
-    <div class="search-result">
-      <div>
-        <img src="" alt="" width="300" height="200">
-      </div>
-      <span class="record-type">Object</span>
-      <span><strong>Object Name</strong></span>
-      <span>Artist Name</span>
-      <span>1900</span>
-      <span>ABCD.EF</span>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-    <div class="search-result">
-      <div>
-        <img src="" alt="" width="300" height="200">
-      </div>
-      <span class="record-type">Object</span>
-      <span><strong>Object Name</strong></span>
-      <span>Artist Name</span>
-      <span>1900</span>
-      <span>ABCD.EF</span>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-    <div class="search-result">
-      <div>
-        <img src="" alt="" width="300" height="200">
-      </div>
-      <span class="record-type">Object</span>
-      <span><strong>Object Name</strong></span>
-      <span>Artist Name</span>
-      <span>1900</span>
-      <span>ABCD.EF</span>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-    <div class="search-result">
-      <div>
-        <img src="" alt="" width="300" height="200">
-      </div>
-      <span class="record-type">Object</span>
-      <span><strong>Object Name</strong></span>
-      <span>Artist Name</span>
-      <span>1900</span>
-      <span>ABCD.EF</span>
-      <p>Lorem ipsum dolor sit amet...</p>
-    </div>
-  </div>
-
-</article>  
-
-<script type="text/javascript">
-	jQuery(document).ready(function() {
-		jQuery('#browseResultsContainer').jscroll({
-			autoTrigger: true,
-			loadingHtml: "<?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?>",
-			padding: 800,
-			nextSelector: 'a.jscroll-next'
-		});
-<?php
-		if($vn_row_id){
+  // there has got to be a better way to do this
+  $isSearch = strpos(caGetPageCSSClasses(), 'search'); //differentiate between browse and search so simplify views
+  // echo $vs_current_view;
+  // echo $isSearch;
+  ?>
+<?php 
+  if(!$isSearch) {
+    include( __DIR__ ."/browse.php");
+  }
+  else {
+    include(__DIR__ . "/search.php");
+  }
 ?>
-			window.setTimeout(function() {
-				$("window,body,html").scrollTop( $("#row<?php print $vn_row_id; ?>").offset().top);
-			}, 0);
-<?php
-		}
-		if(is_array($va_add_to_set_link_info) && sizeof($va_add_to_set_link_info)){
-?>
-		jQuery('#setsSelectMultiple').on('submit', function(e){		
-			objIDs = [];
-			jQuery('#setsSelectMultiple input:checkbox:checked').each(function() {
-			   objIDs.push($(this).val());
-			});
-			objIDsAsString = objIDs.join(';');
-			caMediaPanel.showPanel('<?php print caNavUrl($this->request, '', $va_add_to_set_link_info['controller'], 'addItemForm', array("saveSelectedResults" => 1)); ?>/object_ids/' + objIDsAsString);
-			e.preventDefault();
-			return false;
-		});
-<?php
-		}
-?>
-	});
 
-</script>
