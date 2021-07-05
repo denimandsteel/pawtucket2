@@ -1,7 +1,9 @@
 .frontpage {
+  padding-bottom: rem(100px);
+  border-bottom: 1px solid color(color-dark-grey);
 
   article {
-    margin-bottom: rem(50px);
+    margin-bottom: rem(20px);
   }
 
   .frontpage-search {
@@ -30,7 +32,13 @@
       font-size: rem(36px);
       padding-left: rem(30px);
       margin-left: rem(30px);
+      &:focus {
+        outline: none;
+      }
     }
+  }
+  .frontpage-explore-bios {
+    margin-top: rem(10px);
   }
 
   .frontpage-explore-bio {

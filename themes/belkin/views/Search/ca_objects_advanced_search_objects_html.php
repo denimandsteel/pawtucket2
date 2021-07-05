@@ -1,4 +1,4 @@
-<form class="search-form" action="/pawtucket/index.php/Search/objects" method="post">
+<form class="search-form accordion accordion--hidden" action="/pawtucket/index.php/Search/objects" method="post">
   <div class="basic-search">
     <label for="_fulltext" class="formLabel visually-hidden">Keyword</label>
     <div class="basic-search-container">
@@ -14,17 +14,33 @@
     </div>
     <button class="button">Search</button>
   </div>
-  <button class="button button--toggle">Advanced Search</button>
+  <button class="button accordion-toggle">Advanced Search</button>
 
-  <div class="advanced-search" aria-expanded="false">
+
+
+  <div class="advanced-search accordion-details"  style="height: 0px" aria-expanded="false">
+  <!-- TODO: fix media checkbox -->
+    <!-- <input id="hasMedia" name="ca_object_representations.representation_id" value="[SET]" type="checkbox">
+    <input name="ca_object_representations.representation_id_label" value="CollectiveAccess id (from related object representations)" type="hidden">
+    <label for="hasMedia">Items with images only</label> -->
     <input type="hidden" name="_formName" value="caAdvancedSearch">
     <input name="form_timestamp" value="1623864107" type="hidden">
     <div class="advanced-search-fields">
       <div class="advanced-search-field">
+        <label for="ca_objects_catalogue_destination" class="formLabel">Catalogue</label>
+        <select class="search-input" name="ca_objects_catalogue_destination" class="" id="ca_objects_catalogue_destination">
+          <option value="">Select Catalogue</option>
+          <option value="492">Archive</option>
+          <option value="493">Artwork</option>
+          <option value="494">Library</option>
+        </select>
+        <input name="ca_objects_catalogue_destination_label" value="Type" type="hidden">
+      </div>
+      <!-- <div class="advanced-search-field">
         <label class="formLabel" >Collection</label>
         <input class="search-input" name="ca_collections.preferred_labels" type="text" id="ca_collections_preferred_labels"/>
         <input name="ca_collections.preferred_labels_label" value="Collection names (from related collections)" type="hidden">
-      </div>
+      </div> -->
       <div class="advanced-search-field">
         <label class="formLabel">Artist/Creator </label>
         <input class="search-input" name="ca_entities.preferred_labels" type="text" id="ca_entities_preferred_labels"/>
@@ -39,6 +55,11 @@
         <label class="formLabel" for="ca_objects.search_date">Date</label>
           <input name="ca_objects.search_date" id="ca_objects.search_date" value="" maxlength="255" class="dateBg" type="text">
           <input name="ca_objects.date_created_label" value="Date" type="hidden">
+      </div>
+      <div class="advanced-search-field">
+        <label for="ca_objects.search_date.dates_value[]" class="formLabel" data-content="Search records of a particular date or date range." data-original-title="" title="">Date range <i>(e.g. 1970-1979)</i></label>
+			  <input name="ca_objects.search_date.dateCreated[]" id="ca_objects.search_date.dateCreated[]" type="text">
+        <input name="ca_objects.search_date.dateCreated_label" value="search_date" type="hidden">
       </div>
       <!-- test this -->
       <div class="advanced-search-field">
@@ -59,7 +80,14 @@
         <input name="ca_objects.type_id_label" value="Type" type="hidden">
       </div>
       <div class="advanced-search-field">
-        <label for="ca_objects.date.dates_value[]" class="formLabel" data-content="Search records of a particular date or date range." data-original-title="" title="">Date range <i>(e.g. 1970-1979)</i></label>
+        <label class="formLabel" for="ca_objects.medium">Medium</label>
+        <input class="search-input" name="ca_objects.medium" type="text"  value="" id="ca_objects_medium">
+        <input name="ca_objects.medium" value="" type="hidden">
+      </div>
+      <div class="advanced-search-field">
+        <label class="formLabel" for="ca_objects.level_description">Level of Description</label>
+        <input class="search-input" name="ca_objects.level_description" type="text"  value="" id="ca_objects_level_description">
+        <input name="ca_objects.level_description" value="" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects.idno[]">ID #</label>

@@ -122,13 +122,15 @@
 						if ($vs_table == 'ca_objects') {
 							$t_list_item->load($qr_res->get("type_id"));
 							$vs_typecode = $t_list_item->get("idno");
-							if($vs_type_placeholder = caGetPlaceholder($vs_typecode, "placeholder_media_icon")){
-								$vs_image = "<div class='bResultItemImgPlaceholder'>".$vs_type_placeholder."</div>";
-							}else{
+							// if($vs_type_placeholder = caGetPlaceholder($vs_typecode, "placeholder_media_icon")){
+							// 	$vs_image = "<div class='bResultItemImgPlaceholder'>".$vs_type_placeholder."</div>";
+							// }else{
 								$vs_image = $vs_default_placeholder_tag;
-							}
+							// }
+							// $vs_image = "<img src='".$this->request->getThemeDirectoryPath()."/assets/graphics/no-image-available.png'/>";
+              
 						}else{
-							$vs_image = $vs_default_placeholder_tag;
+							// $vs_image = $vs_default_placeholder_tag;
 						}
 					}
 					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
@@ -139,18 +141,23 @@
 					}
 
           $vs_artist_detail_link = caDetailLink($this->request, $qr_res->get("ca_entities.preferred_labels.displayname"), '', $vs_table, $vn_id);
-          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator'], 'delimiter' => ' '));
+          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator, artist'], 'delimiter' => ' '));
           
           $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
 
 					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
           $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
 
+          $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+ 
 
 					$vs_result_output = "
           <div class='result-object'>
             <div class='result-object-image'>
               {$vs_rep_detail_link}
+            </div>
+            <div class='result-object-catalogue fw-border-bottom'>
+              {$vs_catalogue}
             </div>
             <div class='result-object-artist'>
               {$vs_artist}

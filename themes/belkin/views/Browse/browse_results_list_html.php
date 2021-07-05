@@ -113,7 +113,10 @@
 				}else{
 				
 					$vs_idno_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.idno"), '', $vs_table, $vn_id);
+          $vs_idno_detail_link = $vs_idno_detail_link ? $vs_idno_detail_link : "-";
 					$vs_label_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.preferred_labels"), '', $vs_table, $vn_id);
+          $vs_label_detail_link = $vs_label_detail_link ? $vs_label_detail_link : "-";
+
 					$vs_thumbnail = "";
 					$vs_type_placeholder = "";
 					$vs_typecode = "";
@@ -140,13 +143,16 @@
 					}
 
           $vs_artist_detail_link = caDetailLink($this->request, $qr_res->get("ca_entities.preferred_labels.displayname"), '', $vs_table, $vn_id);
-          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator'], 'delimiter' => ' '));
+          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator, artist'], 'delimiter' => ' '));
           $vs_artist = $vs_artist ? $vs_artist : "-";
           $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
+          $vs_date = $vs_date ? $vs_date : "-";
 
 					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
           $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
+          $vs_collection_detail_link = $vs_collection_detail_link ? $vs_collection_detail_link : "-";
 
+          $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
 
 					$vs_result_output = "
           <div class='result-object'>
@@ -164,7 +170,10 @@
             </div>         
             <div class='result-object-idno'>
               {$vs_idno_detail_link}
-            </div>          
+            </div> 
+            <div class='result-object-catalogue'>
+              {$vs_catalogue}
+            </div>           
             <div class='result-object-collection'>
               {$vs_collection_detail_link}
             </div>   

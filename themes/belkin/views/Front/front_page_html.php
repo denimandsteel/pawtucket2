@@ -44,7 +44,7 @@
       </div>
       <nav>
         <ul class="collections-nav">
-          <li><a class="active" href="">Search + Explore</a></li>
+          <li><a class="active" href="/pawtucket">Search + Explore</a></li>
           <li><a href="/pawtucket/index.php/Browse/entities">Browse</a></li>
         </ul>
       </nav>
@@ -171,7 +171,7 @@
           $vs_thumbnail = "";
           $vs_type_placeholder = "";
           $vs_typecode = "";
-          $vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
+          $vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'medium', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
         
           if(!$vs_image){
             if ($vs_table == 'ca_objects') {
@@ -201,11 +201,16 @@
           $vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
           $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
 
+          $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+
 
           $vs_result_output = "
           <div class='result-object'>
-            <div class='result-object-image fw-border-bottom'>
+            <div class='result-object-image'>
               {$vs_rep_detail_link}
+            </div>
+            <div class='result-object-catalogue fw-border-bottom'>
+              {$vs_catalogue}
             </div>
             <div class='result-object-artist'>
               {$vs_artist}
