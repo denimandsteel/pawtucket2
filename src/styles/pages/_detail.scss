@@ -3,35 +3,62 @@
   .detail-nav {
     display: flex;
     align-items: baseline;
-    font-weight: 800;
+    font-weight: 500;
     text-transform: uppercase;
     font-size: rem(18px);
     padding-left: rem(24px);
+    margin-bottom: rem(20px);
 
     .detail-breadcrumb {
       margin-left: rem(20px);
+      // a {
+      //   text-decoration: underline;
+      // }
     }
   }
   
-  .detail-image-grid {
-    display: grid;
-    grid-template-columns:  1fr 200px;
-  }
+  // Images 
+  .detail-images {
 
-  .detail-image-caption {
-    font-size: rem(18px);
-  }
-
-  .detail-images-gallery {
-    display: flex;
-    flex-direction: column;
-    // justify-content: flex-end;
-    padding-top: rem(24px);
-
-    img {
-      margin-bottom: rem(20px);
+    .j-carousel-wrapper {
+      position: relative;
+    }
+  
+    .detailMediaToolbar, #detailRepNav {
+      display: none;
+    }
+  
+    #detailRepresentationThumbnails {
+      display: flex;
+      flex-wrap: wrap;
+      > div + div {
+        padding-left: rem(10px);
+      }
+      // position: absolute;
+      // top: 0;
+      // right: 0;
     }
   }
+
+  // .detail-image-grid {
+  //   display: grid;
+  //   grid-template-columns:  1fr 200px;
+  // }
+
+  // .detail-image-caption {
+  //   font-size: rem(18px);
+  // }
+
+  // .detail-images-gallery {
+  //   display: flex;
+  //   flex-direction: column;
+  //   // justify-content: flex-end;
+  //   padding-top: rem(24px);
+
+  //   img {
+  //     margin-bottom: rem(20px);
+  //   }
+  // }
 
   .detail-info {
     padding-top: rem(30px);
@@ -56,7 +83,7 @@
 
   .detail-label { // on other page?
     font-size: rem(18px);
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
   }
 
@@ -64,7 +91,7 @@
     display: grid;
     grid-template-columns: minmax(min-content,20%) minmax(min-content,1fr);
     justify-content: center;
-    row-gap: 10px;
+    row-gap: 5px;
     font-size: rem(24px);
     font-weight: 400;
     margin-top: rem(30px);
@@ -77,15 +104,29 @@
       display: inline-flex;
       text-transform: uppercase;
       font-size: rem(18px);
-      font-weight: 700;
+      font-weight: 500;
     }
 
     dd {
+      // text-transform: capitalize;
+      &.detail-related-link {
+        font-style: italic;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        font-weight: 300;
+      }
 
     }
   }
 
+  .detail-info-paragraph {
+    max-width: 70ch;
+    padding-left: rem(40px);
+  }
+
   .detail-actions { //on other pages?
     padding-top: rem(30px);
+    padding-bottom: rem(50px);
+  
   }
 }

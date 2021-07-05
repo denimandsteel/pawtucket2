@@ -7,24 +7,28 @@
   cursor: pointer;
   user-select: none;
   white-space: nowrap;
+  letter-spacing: normal;
 
   &.button--catalogue {
-    font-size: rem(24px);
-    text-transform: capitalize;
-  }
+    background-color: color(calcite);
+    font-size: 18px;
+    border: 1px solid color(mid-grey);
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 5px 15px 0px;
 
-  &.button--toggle {
-    border: none;
-    letter-spacing: initial;
-    background-color: transparent;
-    color: color(belkin-gray);
-    padding-left: 0;
-
-    &:before{
-      content: '+ ';
-      white-space: pre;
+    a {
+      display: block;
     }
 
+    a:hover {
+      text-decoration: none;
+    }
+
+    &:hover {
+      background-color: color(light-grey);
+      color: color(color-black);
+    }  
   }
 
   &.button--filter {

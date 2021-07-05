@@ -8,7 +8,7 @@
 .dropdown-toggle { //button
   letter-spacing: initial;
   padding-right: 10px;
-  font-weight: 700;
+  font-weight: 500;
 
   &:hover {
     color: color(color-black);
@@ -35,7 +35,7 @@
   width: 100%;
 
   .dropdown-option{
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
     padding: 5px;
     a {
