@@ -36,7 +36,7 @@
 	
 	$vn_facet_display_length_initial = 20;
 	$vn_facet_display_length_maximum = 60;
-	
+
 	if(is_array($va_facets) && sizeof($va_facets)){
 		print "<div id='bRefine' class='filter'>";
 		print "<a href='#' class='pull-right' id='bRefineClose' onclick='jQuery(\"#bRefine\").toggle(); return false;'><span class='glyphicon glyphicon-remove-circle'></span></a>";
@@ -44,7 +44,8 @@
     print "<div class='filter-header' role='tablist'>";
     //first print tabs, then groups
 		foreach($va_facets as $vs_facet_name => $va_facet_info) {
-      print "<button class='filter-tab' role='tab' aria-controls='{$vs_facet_name}'>".$va_facet_info['label_singular']."</button>"; 
+			if (!is_array($va_facet_info['content']) || !sizeof($va_facet_info['content'])) { continue; }
+        print "<button class='filter-tab' role='tab' aria-controls='{$vs_facet_name}'>".$va_facet_info['label_singular']."</button>"; 
     }
     print "</div >";
     print "<div id='bMorePanel' class='filter-more-results'><!-- long lists of facets are loaded here --></div>";
@@ -65,7 +66,7 @@
 					</script>
 					<div id='bHierarchyList_<?php print $vs_facet_name; ?>'><?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?></div>
 <?php
-			} else {				
+			} else {			
 				if (!is_array($va_facet_info['content']) || !sizeof($va_facet_info['content'])) { continue; }
 				print "<div class='filter-group' tabindex='0' role='tabpanel' aria-labelledby='{$vs_facet_name}'>"; 
 				switch($va_facet_info["group_mode"]){

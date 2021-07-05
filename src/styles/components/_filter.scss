@@ -1,41 +1,48 @@
 #bRefine.filter {
   display: flex;
   position: relative;
-  margin-bottom: rem(400px);
+  // margin-bottom: rem(250px);
   font-size: rem(18px);
 
   .filter-by {
     font-size: rem(24px);
     margin-right: rem(20px);
+    flex: 0 0 auto;
   }
   
   
   .filter-groups {
     position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
-    background-color: color(calcite);
-    border: 1px solid color(color-black);
-    max-width: max-content;
-    min-width: 800px;
+    // display: flex;
+    // flex-wrap: wrap;
+    // flex-grow: 1;
+    // background-color: color(calcite);
+    // border: 1px solid color(color-black);
+    // max-width: max-content;
+    // min-width: 800px;
   }
   
   .filter-header {
     // display: flex;
     // justify-content: space-evenly;
+    margin-bottom: rem(5px);
+    border: 1px solid color(color-black);
+
   }
   
   .filter-tab {
     padding: rem(8px) rem(25px) rem(3px);
     border: 0;
-    border-right: 1px solid color(color-black);
     text-align: center;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 500;
     background-color: color(calcite);
     flex-grow: 2;
     cursor: pointer;
+    
+    + .filter-tab {
+      border-left: 1px solid color(color-black);
+    }
     
     &[aria-selected="true"], &:hover {
       background-color: color(light-grey);
@@ -49,14 +56,15 @@
     // grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
     columns: 250px auto;
 
-    position: absolute;
-    width: 100%;
-    top: rem(38px);
+    // position: absolute;
+    // width: 100%;
+    // top: rem(40px);
     padding: rem(20px) rem(20px) rem(60px);
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
+
     background-color: color(calcite);
     border: 1px solid color(mid-grey);
-    max-height: 350px;
+    // max-height: 220px;
     
     &.active {
 
@@ -65,7 +73,7 @@
     .more {
       position: absolute;
       left: 20px;
-      bottom: 20px;
+      bottom: 30px;
       height: auto;
       margin-top: 10px;
 
@@ -76,8 +84,14 @@
   }
 
   .filter-more-results {
+    // display: none;
     @extend .filter-group; //same styles, but can't have same name for filter.js
     overflow-y: scroll;
+    width: 100%;
+
+    // position: absolute;
+    max-height: 236px;
+
 
     display: flex;
 

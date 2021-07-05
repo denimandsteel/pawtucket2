@@ -10,6 +10,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const moreResults = filter.querySelector('.filter-more-results');
   const tabs = Array.from(tablist.querySelectorAll('.filter-tab'));
   const panels = filter.querySelectorAll('.filter-group');
+  moreResults.style.display = 'none';
+
 
 
   
