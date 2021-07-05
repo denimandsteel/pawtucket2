@@ -33,7 +33,7 @@
     
     .button {
       font-size: rem(18px);
-      font-weight: 700;
+      font-weight: 500;
       letter-spacing: initial;
       padding: rem(8px) rem(30px) rem(1px) rem(10px);
       position: relative;
@@ -84,7 +84,7 @@
 .result-objects-labels,
 .result-object {
   display: grid;
-  grid-template-columns: 25% 15% 15% 5% 10% 20%;
+  grid-template-columns: 20% 15% 10% 5% 10% 10% 20%;
   border-bottom:1px solid color(mid-grey);
   grid-gap: rem(16px);
 
@@ -94,7 +94,7 @@
 
   span{
     font-size: rem(18px);
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
     padding-bottom: rem(10px);
   }
@@ -115,17 +115,24 @@
   }
 
   .result-object-artist{
-    font-weight: 700;
+    font-weight: 500;
   }
 
   .result-object-title{
     font-style: italic;
   }
 
+  .result-object-year {
+    overflow-wrap: break-word;
+  }
 
-  .result-object-collection{
+  .result-object-catalogue {
+    padding-bottom: rem(10px);
+  }
+
+  .result-object-collection, .result-object-catalogue{
     font-size: rem(18px);
-    font-weight: 700;
+    font-weight: 500;
     text-transform: uppercase;
   }
 
@@ -141,7 +148,6 @@
   padding-bottom: rem(40px);
 }
 .result-objects.result-objects--grid {
-
   .jscroll-inner, .jscroll-added {
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
@@ -155,6 +161,18 @@
 
   .result-objects-labels {
     display: none;
+  }
+  
+  .result-object-image img{
+    height: auto;
+    width: 100%;
+  }
+
+  .result-object-catalogue {
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
   }
   
   .result-object-collection {
@@ -181,7 +199,10 @@
 
 //homepage, 3-wide grid
 #explore .result-objects.result-objects--grid {
+  display: grid;
   grid-template-columns: repeat(auto-fill, 440px);
+  grid-gap: rem(40px);
+  justify-content: stretch;  
 
 }
 

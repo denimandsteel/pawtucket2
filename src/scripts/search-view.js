@@ -1,8 +1,8 @@
 window.addEventListener('DOMContentLoaded', (event) => {
   
-  let controls = document.querySelector('#searchViewmode');
-  let searchResults =  document.querySelector('#searchResults');
-  if(!(controls && searchResults)){
+  let controls = document.querySelector('#viewMode');
+  let results =  document.querySelector('#resultObjects');
+  if(!(controls && results)){
     return;
   }
 
@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
       toggleAriaPressed(clickedButton);
       toggleAriaPressed(otherButton);
-      searchResults.classList.toggle('search-results--grid');
+      results.classList.toggle('result-objects--grid');
     });
   });
 

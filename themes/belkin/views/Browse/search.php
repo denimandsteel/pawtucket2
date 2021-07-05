@@ -12,8 +12,8 @@
     </div>
     <nav>
       <ul class="collections-nav">
-        <li><a class="active" href="">Search + Explore</a></li>
-        <li><a href="">Browse</a></li>
+        <li><a class="active" href="/pawtucket">Search + Explore</a></li>
+        <li><a href="/pawtucket/index.php/Browse/entities">Browse</a></li>
       </ul>
     </nav>
   </div>
@@ -38,16 +38,6 @@
               }
             }
           ?>
-          <!-- 'role="button" aria-pressed="false"' -->
-          <!-- <button class='button' aria-pressed='false'>
-            Grid
-            <i class="fa fa-th"></i>
-          </button>
-          
-          <button class='button' aria-pressed='true'>
-            List
-            <i class="fa fa-bars"></i>
-          </button> -->
         </div>
         <div class='results-sort'>
         <?php
@@ -65,8 +55,8 @@
 					print "</ul></div>\n";
 
           print "<div class='results-order results-toggle'>";
-					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"false" disabled' : 'true').">".caNavLink($this->request, 'Ascending', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-asc'></i></button>";
-					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"true"' : '"false" disabled').">".caNavLink($this->request, 'Descending', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-desc'></i></button>";
+					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"false" disabled' : 'true').">".caNavLink($this->request, 'Asc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-asc'></i></button>";
+					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"true"' : '"false" disabled').">".caNavLink($this->request, 'Desc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-desc'></i></button>";
 					print "</div>\n";
 					print "</div>\n"; // end results-sort
 				
@@ -132,10 +122,10 @@
           <span>Artist/Creator</span>
           <span>Title</span>
           <span>Date</span>
-          <span>Item #</span>
+          <span>ID #</span>
+          <span>Catalogue</span>
           <span>Fonds/Collection</span>
-          <!-- <span>Catalogue</span>
-          <span>Level of Description</span> -->
+          <!-- <span>Level of Description</span> -->
         </div>
 <?php
 } // !ajax
