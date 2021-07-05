@@ -1,16 +1,16 @@
 
 .advanced-search {
   max-width: 800px;
+  // height: 0;
 }
 
 .advanced-search-fields {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: rem(15px);
+  grid-gap: rem(10px);
   background-color: color(calcite);
-  padding: rem(8px);
+  padding: rem(15px);
   border: 1px solid color(color-dark-grey);
-  margin-top: rem(20px);
 }
 
 .advanced-search-field {
@@ -25,7 +25,7 @@
 }
 
 .basic-search-container {
-  position: relative;
+  display: flex;
   max-width: 800px;
   width: 100%;
   margin-right: rem(20px);
@@ -37,11 +37,24 @@
   }
 
   .basic-search-select {
-    position: absolute;
-    right: 0;
+    font-size: 20px;
+    border-left: none;
   }
 }
 
+.search-form {
+  .accordion-toggle {
+    border: none;
+    letter-spacing: initial;
+    background-color: transparent;
+    color: color(belkin-gray);
+    padding-left: 0;
+
+    &:before{
+      content: '×';
+    }
+  }
+}
 
 .search-input {
   padding: rem(6px) rem(8px) rem(3px);

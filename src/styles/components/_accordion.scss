@@ -11,9 +11,9 @@
 .accordion-details {
   overflow: hidden;
   transition: height 400ms ease-out;
-  height: auto;
   margin: 0;
-
+  height: auto;
+  
   &[aria-expanded="true"]{
     margin-bottom: rem(30px);
   }
