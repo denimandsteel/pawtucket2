@@ -30,19 +30,17 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
 			$vs_icon = "";
 			# --- related objects?
 			$vn_rel_object_count = sizeof($qr_collections->get("ca_objects.object_id", array("returnAsArray" => true, 'checkAccess' => $va_access_values)));
-			$vn_rel_object = $qr_collections->get("ca_objects.object_id", array('checkAccess' => $va_access_values));
+			$vn_rel_objects = $qr_collections->get("ca_objects.object_id", array("returnAsArray" => true,'checkAccess' => $va_access_values));
 
-      echo '<pre>';
-      echo var_dump($vn_rel_object);
-      echo '</pre>';
+      
 			// if(is_array($va_options["collection_type_icons"])){
-			// 	$vs_icon = $va_options["collection_type_icons"][$qr_collections->get("ca_collections.type_id")];
-			// }
-			$va_child_ids = $qr_collections->get("ca_collections.children.collection_id", array("returnAsArray" => true, "checkAccess" => $va_access_values, "sort" => "ca_collections.idno_sort"));
-      // echo '<pre>';
-      // echo var_dump($va_child_ids);
-      // echo '</pre>';
+        // 	$vs_icon = $va_options["collection_type_icons"][$qr_collections->get("ca_collections.type_id")];
+        // }
+        $va_child_collection_ids = $qr_collections->get("ca_collections.children.collection_id", array("returnAsArray" => true, "checkAccess" => $va_access_values, "sort" => "ca_collections.idno_sort"));
+        $va_child_object_ids = $qr_collections->get("ca_collections.children.object_id", array("returnAsArray" => true, "checkAccess" => $va_access_values, "sort" => "ca_collections.idno_sort"));
 
+      $va_child_ids = $va_child_collection_ids; //array_merge($va_child_collection_ids, $vn_rel_objects);
+        
 
 			# --- check if collection record type is configured to be excluded
 			if(($vn_level > 1) && is_array($va_options["exclude_collection_type_ids"]) && (in_array($qr_collections->get("ca_collections.type_id"), $va_options["exclude_collection_type_ids"]))){
@@ -67,6 +65,7 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
       $current_item_id = $t_item->get('ca_collections.idno');
 
       $is_current_item = ($qr_collections->get('ca_collections.idno') == $current_item_id);
+      $is_collection = $t_item->get('ca_collections.idno');
 
       $list_class = ($index > 4) ? 'collection-item--hidden' : '';
       if($va_child_ids){
@@ -74,26 +73,17 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
       }
 			$vs_output .= "<li class='collection-item ".$list_class."' data-index='". $index ."'>";
 
-			# --- should collection record link to detail?
-			$vb_link = true;
-			# --- check if collection record type has been configured to not be a link to detail page
-			if(is_array($va_options["non_linkable_collection_type_ids"]) && (in_array($qr_collections->get("ca_collections.type_id"), $va_options["non_linkable_collection_type_ids"]))){
-				$vb_link = false;
-			}
-			if(!$o_config->get("always_link_to_detail")){
-				if(!sizeof($va_child_ids) && !$vn_rel_object_count){
-					$vb_link = false;
-				}
-			}
       $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
       
       if($is_current_item){
         $vs_output.="<strong>";
       }
-			if($vb_link){
+			if($is_collection){
         $vs_output .= $qr_collections->get('ca_collections.idno') ." ". caDetailLink($po_request, $qr_collections->get('ca_collections.preferred_labels'), '', 'ca_collections',  $qr_collections->get("ca_collections.collection_id"));
 
 			}else{
+        // $vs_output .= $qr_collections->get('ca_collections.idno') ." ". caDetailLink($po_request, $qr_collections->get('ca_collections.preferred_labels'), '', 'ca_collections',  $qr_collections->get("ca_collections.collection_id"));
+
         $vs_output .= $qr_collections->get('ca_collections.idno')." ".$qr_collections->get('ca_collections.preferred_labels.name');
 			}
 
