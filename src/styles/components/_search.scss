@@ -47,11 +47,11 @@
     border: none;
     letter-spacing: initial;
     background-color: transparent;
-    color: color(belkin-gray);
+    color: color(color-black);
     padding-left: 0;
 
-    &:before{
-      content: '×';
+    &:after{
+      content: '+';
     }
   }
 }

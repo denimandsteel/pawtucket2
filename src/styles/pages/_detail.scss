@@ -105,24 +105,32 @@
       text-transform: uppercase;
       font-size: rem(18px);
       font-weight: 500;
+      padding-top: 4px;
     }
 
     dd {
-      // text-transform: capitalize;
-      &.detail-related-link {
-        font-style: italic;
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        font-weight: 300;
+
+      &::first-letter{
+        text-transform: capitalize;
+
       }
 
     }
   }
 
-  .detail-info-paragraph {
+  .detail-related-link {
+    font-style: italic;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    font-weight: 300;
+  }
+
+  .detail-info-paragraph, .detail-link-container {
     max-width: 70ch;
     padding-left: rem(40px);
+    margin-top: rem(20px);
   }
+
 
   .detail-actions { //on other pages?
     padding-top: rem(30px);
