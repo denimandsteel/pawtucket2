@@ -1,8 +1,8 @@
 .accordion {
   height: max-content;
 
-  &.accordion--hidden {
-    .accordion-toggle:before{
+  &.accordion--hidden > * {
+    .accordion-toggle:after{
       content: '+';
     }
   }
@@ -34,9 +34,10 @@
     background-color: initial;
   }
 
-  &:before {
+  &:after {
     content: '—';
-    position: absolute;
-    right: 0;
+    // position: absolute;
+    // right: 0;
+    padding-left: rem(6px);
   }
 }

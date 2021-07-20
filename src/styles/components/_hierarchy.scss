@@ -1,0 +1,120 @@
+.hierarchy {
+  margin-top: rem(20px);
+
+  .collection {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .collection-item {
+
+    &--hidden{
+      display: none;
+    }
+  }
+  
+  .collection-bar {
+    display: flex;
+    width: 100%;
+    color: color(light);
+    // position: relative;
+    margin-bottom: -1px;
+    
+    .collection-bar-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid color(color-black);
+      flex-grow: 1;
+      padding: rem(10px) rem(20px) rem(5px);
+      background-color: color(grey-20);
+    }
+    .button.accordion-toggle {
+      // color: color(light);
+      background-color: color(grey-20);
+      border: 1px solid color(color-black);
+      border-left: none;
+      padding: rem(10px) rem(20px) rem(5px);
+    }
+
+
+
+    .button.accordion-toggle, .collection-bar-spacer {
+      display: inline-block;
+      width: 100px;
+    }
+  }
+  
+  .collection-title {
+    color: color(calcite);
+
+    a {
+      color: color(calcite);
+    }
+  }
+
+  .button.see-more {
+    background-color: color(calcite);
+    border: 1px solid color(color-black);
+    margin: rem(10px) rem(20px);
+
+    &:hover {
+      background-color: color(color-black);
+      color: color(calcite);
+
+    }
+  }
+
+  .collection-level, .button.accordion-toggle {
+    font-size: rem(18px);
+    font-weight: 500;
+    text-transform: uppercase;
+    color: color(calcite);
+  }
+
+  .collection--child{
+
+    margin-left: rem(40px);
+
+    .collection-bar-content, .button.accordion-toggle {
+      background-color: color(grey-35);
+      color: color(calcite);
+    }
+  }
+
+  .collection--gchild {
+    margin-left: rem(60px);
+
+    .collection-bar-content, .button.accordion-toggle {
+      background-color: color(grey-50);
+      color: color(calcite);   
+    } 
+  }
+
+  .collection--ggchild {
+    margin-left: rem(80px);
+
+
+    .collection-bar-content, .button.accordion-toggle {
+      background-color: color(grey-65);
+
+      span, a, .button.accordion-toggle {
+        color: color(color-black);    
+      }
+
+    }
+    
+  }
+
+  .collection--gggchild {
+    margin-left: rem(100px);
+
+
+    .collection-bar-content, .button {
+      background-color: color(grey-80);
+      color: color(color-black);    
+    }
+    
+  }
+}
