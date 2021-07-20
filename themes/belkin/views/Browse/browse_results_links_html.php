@@ -31,10 +31,14 @@
 	$va_criteria 		= $this->getVar('criteria');			// array of browse criteria
 	$vs_browse_key 		= $this->getVar('key');					// cache key for current browse
 	$va_access_values 	= $this->getVar('access_values');		// list of access values for this user
-	$vn_hits_per_block 	= (int)$this->getVar('hits_per_block');	// number of hits to display per block
+	$vn_hits_per_block 	= 95;//(int)$this->getVar('hits_per_block');	// number of hits to display per block
 	$vn_start		 	= (int)$this->getVar('start');			// offset to seek to before outputting results
 	$vn_row_id		 	= (int)$this->getVar('row_id');			// id of last visited detail item so can load to and jump to that result - passed in back button
 	$vb_row_id_loaded 	= false;
+
+  // echo '<pre>';
+  // echo var_dump($va_facets);
+  // echo '</pre>';
 	if(!$vn_row_id){
 		$vb_row_id_loaded = true;
 	}
@@ -48,6 +52,7 @@
 	$vs_table 			= $this->getVar('table');
 	$vs_pk				= $this->getVar('primaryKey');
 	$o_config = $this->getVar("config");	
+
 	
 	$va_options			= $this->getVar('options');
 	$vs_extended_info_template = caGetOption('extendedInformationTemplate', $va_options, null);
@@ -92,6 +97,10 @@
 			}
 			
 			$t_list_item = new ca_list_items();
+
+
+      print '<div class="container"><div id="resultObjects" class="browse-links-columns">';
+
 			while($qr_res->nextHit()) {
 				if($vn_c == $vn_hits_per_block){
 					if($vb_row_id_loaded){
@@ -112,22 +121,26 @@
 				}else{
 				
 					$vs_idno_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.idno"), '', $vs_table, $vn_id);
+          $vs_idno_detail_link = $vs_idno_detail_link ? $vs_idno_detail_link : "-";
 					$vs_label_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.preferred_labels"), '', $vs_table, $vn_id);
+          $vs_label_detail_link = $vs_label_detail_link ? $vs_label_detail_link : "-";
+
 					$vs_thumbnail = "";
 					$vs_type_placeholder = "";
 					$vs_typecode = "";
 					$vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
-          $vs_privacy = $qr_res->get("ca_objects.privacy");
-          // echo '<pre>';
-          // echo var_dump($vs_privacy);
-          // echo '</pre>';
+				
 					if(!$vs_image){
 						if ($vs_table == 'ca_objects') {
 							$t_list_item->load($qr_res->get("type_id"));
 							$vs_typecode = $t_list_item->get("idno");
-              if(file_exists($this->request->getThemeDirectoryPath().'/assets/graphics/no-image-available.png')){
-                $vs_image = '<img src="/pawtucket/themes/belkin/assets/graphics/no-image-available.png"/>';
-              }
+							if($vs_type_placeholder = caGetPlaceholder($vs_typecode, "placeholder_media_icon")){
+								$vs_image = "<div class='bResultItemImgPlaceholder'>".$vs_type_placeholder."</div>";
+							}else{
+								$vs_image = $vs_default_placeholder_tag;
+							}
+						}else{
+							$vs_image = $vs_default_placeholder_tag;
 						}
 					}
 					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
@@ -139,39 +152,19 @@
 
           $vs_artist_detail_link = caDetailLink($this->request, $qr_res->get("ca_entities.preferred_labels.displayname"), '', $vs_table, $vn_id);
           $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator, artist'], 'delimiter' => ' '));
-          
+          $vs_artist = $vs_artist ? $vs_artist : "-";
           $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
+          $vs_date = $vs_date ? $vs_date : "-";
 
 					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
           $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
+          $vs_collection_detail_link = $vs_collection_detail_link ? $vs_collection_detail_link : "-";
 
           $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
- 
 
 					$vs_result_output = "
-          <div class='result-object'>
-            <div class='result-object-image'>
-              {$vs_rep_detail_link}
-            </div>
-            <div class='result-object-catalogue fw-border-bottom'>
-              {$vs_catalogue}
-            </div>
-            <div class='result-object-artist'>
-              {$vs_artist}
-            </div>
-            <div class='result-object-title'>
+          <div class='browse-links-item'>
               {$vs_label_detail_link}
-            </div>
-            <div class='result-object-year'>
-              {$vs_date}
-            </div>         
-            <div class='result-object-idno'>
-              {$vs_idno_detail_link}
-            </div>          
-            <div class='result-object-collection'>
-              {$vs_collection_detail_link}
-            </div>   
-            
           </div>";
 					ExternalCache::save($vs_cache_key, $vs_result_output, 'browse_result', $o_config->get("cache_timeout"));
 					print $vs_result_output;
@@ -180,6 +173,8 @@
 				$vn_results_output++;
 			}
 
-			print "<div style='clear:both'></div>".caNavLink($this->request, _t('Next %1', $vn_hits_per_block), 'jscroll-next', '*', '*', '*', array('s' => $vn_start + $vn_results_output, 'key' => $vs_browse_key, 'view' => $vs_current_view, 'sort' => $vs_current_sort, '_advanced' => $this->getVar('is_advanced') ? 1  : 0));
+      print '</div></div>';
+
+			// print "<div style='clear:both'></div>".caNavLink($this->request, _t('Next %1', $vn_hits_per_block), 'jscroll-next', '*', '*', '*', array('s' => $vn_start + $vn_results_output, 'key' => $vs_browse_key, 'view' => $vs_current_view, 'sort' => $vs_current_sort, '_advanced' => $this->getVar('is_advanced') ? 1  : 0));
 		}
 ?>

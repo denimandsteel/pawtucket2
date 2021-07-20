@@ -14,27 +14,51 @@
     }
   }
 
-  .browse-grid {
+
+
+  .browse-links-columns {
     // display: grid;
     // grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
-    margin-top: rem(50px);
-    columns: 250px auto;
+    // margin-top: rem(50px);
+    // columns: 350px auto;
+    margin-top: rem(40px);
+    margin-bottom: rem(40px);
 
-    .result {
-      display: block;
-      border: none;
-      padding: 5px;
-
-      &:hover {
-        background-color: transparent;
-      }
+    .browse-links-item {
+      margin-bottom: rem(15px);
     }
 
-    .result-object-image, .result-object-title, .result-object-idno, .result-object-year, .result-object-collection {
-      display: none;
+  }
+
+
+
+    // Artist Page
+  .letter-nav {
+    display: flex;
+    padding-top: rem(16px);
+    padding-bottom: rem(10px);
+    align-items: center;
+
+    a {
+      margin-right: rem(20px);
+      // line-height: 1;
     }
-    .result-object {
-      border: none;
+  }
+
+  .letter-section {
+    display: flex;
+    margin-top: rem(40px);
+    margin-bottom: rem(40px);
+
+    .letter-heading {
+      font-size: rem(60px);
+    }
+    .letter-name-group {
+      flex-grow: 1;
+      columns: 250px auto;
+      margin-top: 0;
+      padding-left: rem(100px);
+      list-style: none;
     }
   }
 }

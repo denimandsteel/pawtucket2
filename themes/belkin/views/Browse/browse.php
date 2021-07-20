@@ -1,4 +1,29 @@
 <?php
+// get uri to determine Browse view
+  $uri = parse_url($_SERVER['REQUEST_URI']);
+
+  $current_page = basename($uri['path']);
+  $query = $uri['query'];
+  $param = substr($query, strpos($query, "=") + 1);
+
+  $activePage = $current_page;
+  if ($param){
+    $activePage = $activePage . '?' .  $query;
+  }
+
+  // echo '<pre>';
+  // echo var_dump($current_page);
+  // echo '</pre>';
+  // Browse menu
+  $browse_pages = array();
+  $browse_pages["entities"] = "Artist/Creator";
+  $browse_pages["occurrences"] = "Exhibitions";
+  $browse_pages["collections"] = "Fonds/Collection";
+  // $browse_pages["objects?section=type"] = "Object Type";
+  $browse_pages["objects?section=decade"] = "Decade + Date";
+  $browse_pages["objects?section=category"] = "Object Type";
+
+
   if (!$vb_ajax) {	// !ajax
 ?>
 <div class="results collections">
@@ -12,8 +37,8 @@
     </div>
     <nav>
       <ul class="collections-nav">
-        <li><a href="/">Search + Explore</a></li>
-        <li><a class="active" href="">Browse</a></li>
+        <li><a href="/pawtucket">Search + Explore</a></li>
+        <li><a class="active" href="/pawtucket/index.php/Browse/entities">Browse</a></li>
       </ul>
     </nav>
   </div>
@@ -21,10 +46,10 @@
   <div class="browse-links filters fw-border-top fw-border-bottom">
     <div class="filter container">
       <ul class="filter-list">
-        <li class="filter-item button toggle active"><a href="/pawtucket/index.php/Browse/entities">Artist/Creator</a></li>
-        <!-- <li class="filter-item button toggle"><a href="/pawtucket/index.php/Browse/objects">Objects</a></li> -->
-        <li class="filter-item button toggle"><a href="/pawtucket/index.php/Browse/occurrences">Exhibitions</a></li>
-        <li class="filter-item button toggle"><a href="/pawtucket/index.php/Browse/collections">Fonds/Collection</a></li>
+        <?php
+        foreach($browse_pages as $url => $title): ?>
+          <li class="filter-item button toggle <?php if($url === $activePage):?>active<?php endif;?>"><a href="/pawtucket/index.php/Browse/<?php echo $url ?>"><?php echo $title ?></a></li>
+        <?php endforeach; ?>
       </ul>
     </div>
   </div>
@@ -34,9 +59,10 @@
   }	// !ajax
 ?>
 <form id="setsSelectMultiple">
-		<div class="container">
-			<div id="browseResultsContainer" class="browse-grid">
+		<!-- <div class="container">
+			<div id="browseResultsContainer" class="browse-grid"> -->
 <?php
+
 
 # --- check if this result page has been cached
 # --- key is MD5 of browse key, sort, sort direction, view, page/start, items per page, row_id
@@ -44,35 +70,40 @@ $vs_cache_key = md5($vs_browse_key.$vs_current_sort.$vs_sort_dir.$vs_current_vie
 if(($o_config->get("cache_timeout") > 0) && ExternalCache::contains($vs_cache_key,'browse_results')){
 	print ExternalCache::fetch($vs_cache_key, 'browse_results');
 }else{
-	$vs_result_page = $this->render("Browse/browse_results_{$vs_current_view}_html.php");
+
+  switch($current_page){
+    case 'entities':
+      $vs_result_page = $this->render("Browse/browse_results_artists_html.php");
+      break;
+    
+    case 'objects':
+      $vs_result_page = $this->render("Browse/browse_results_facets_html.php");
+      break;
+
+    default:
+      $vs_result_page = $this->render("Browse/browse_results_links_html.php");
+      break;
+  }
+
 	ExternalCache::save($vs_cache_key, $vs_result_page, 'browse_results', $o_config->get("cache_timeout"));
 	print $vs_result_page;
 }		
 
 // if (!$vb_ajax) {	// !ajax
   ?>
-  </div><!-- end browseResultsContainer -->
-</div><!-- end row -->
+  <!-- </div>
+</div> -->
 </form>
 </article>  
 
 <script type="text/javascript">
-jQuery(document).ready(function() {
-jQuery('#browseResultsContainer').jscroll({
-  autoTrigger: true,
-  loadingHtml: "<?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?>",
-  padding: 800,
-  nextSelector: 'a.jscroll-next'
-});
-<?php
-if($vn_row_id){
-?>
-  window.setTimeout(function() {
-    $("window,body,html").scrollTop( $("#row<?php print $vn_row_id; ?>").offset().top);
-  }, 0);
-<?php
-}
-?>
-});
+	jQuery(document).ready(function() {
+		jQuery('#resultObjects').jscroll({
+			autoTrigger: true,
+			loadingHtml: "<?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?>",
+			padding: 800,
+			nextSelector: 'a.jscroll-next'
+		});
+	});
 
 </script>

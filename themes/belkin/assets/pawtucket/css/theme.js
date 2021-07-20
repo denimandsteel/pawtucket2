@@ -213,6 +213,21 @@ window.addEventListener('DOMContentLoaded', event => {
     objArray.forEach((object, index) => {
       object.classList.add('hidden');
     });
+  };
+
+  const shuffle = function (array) {
+    var currentIndex = array.length,
+        randomIndex; // While there remain elements to shuffle...
+
+    while (0 !== currentIndex) {
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--; // And swap it with the current element.
+
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+
+    return array;
   }; // hide all results objects and filters exccept first
 
 
@@ -254,27 +269,75 @@ window.addEventListener('DOMContentLoaded', event => {
 },{}],"scripts/accordions.js":[function(require,module,exports) {
 window.addEventListener('DOMContentLoaded', event => {
   let accordions = Array.from(document.querySelectorAll('.accordion'));
+  let hierarchyBrowser = document.querySelector('#hierarchy');
 
   if (!accordions.length) {
     return;
+  }
+
+  if (hierarchyBrowser) {
+    // Select the node that will be observed for mutations
+    const targetNode = document.getElementById('hierarchy'); // Options for the observer (which mutations to observe)
+
+    const config = {
+      childList: true,
+      subtree: true
+    }; // Callback function to execute when mutations are observed
+
+    const callback = function (mutationsList, observer) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          // update so this only queries the buttons added in the mutation?
+          let expandBtns = document.querySelectorAll('.accordion-toggle');
+          addButtonListeners(expandBtns, accordionClickHandler);
+          let moreBtns = document.querySelectorAll('.button.see-more');
+          addButtonListeners(moreBtns, seeMoreClickHandler);
+        }
+      }
+    }; // Create an observer instance linked to the callback function
+
+
+    const observer = new MutationObserver(callback); // Start observing the target node for configured mutations
+
+    observer.observe(targetNode, config); // Later, you can stop observing
+    // observer.disconnect();
   } // add event listeners to expand buttons
 
 
   let expandBtns = document.querySelectorAll('.accordion-toggle');
-  expandBtns.forEach(btn => {
-    btn.addEventListener('click', event => {
-      let accordionItem = event.target.closest('.accordion');
-      let detailsSection = accordionItem.querySelector('.accordion-details');
-      let isCollapsed = detailsSection.getAttribute('aria-expanded') === "false";
+  addButtonListeners(expandBtns, accordionClickHandler);
+});
 
-      if (isCollapsed) {
-        expandSection(detailsSection);
-      } else {
-        collapseSection(detailsSection);
-      }
-    });
+function addButtonListeners(expandBtns, handler) {
+  expandBtns.forEach(btn => {
+    btn.removeEventListener('click', handler);
+    btn.addEventListener('click', handler);
   });
-}); // modified from https://css-tricks.com/using-css-transitions-auto-dimensions/
+}
+
+function accordionClickHandler(event) {
+  event.preventDefault();
+  let accordionItem = event.target.closest('.accordion');
+  let detailsSection = accordionItem.querySelector('.accordion-details');
+  let isCollapsed = detailsSection.getAttribute('aria-expanded') === "false";
+
+  if (isCollapsed) {
+    expandSection(detailsSection);
+  } else {
+    collapseSection(detailsSection);
+  }
+}
+
+function seeMoreClickHandler(event) {
+  event.preventDefault();
+  let seeMoreBtn = event.target.parentNode;
+  let parentList = event.target.closest('.collection');
+  parentList.childNodes.forEach(child => {
+    child.classList.remove('collection-item--hidden');
+  });
+  seeMoreBtn.remove();
+} // modified from https://css-tricks.com/using-css-transitions-auto-dimensions/
+
 
 function collapseSection(element) {
   // only proceed if height is null aka expansion has finished
@@ -286,6 +349,7 @@ function collapseSection(element) {
   let elementTransition = element.style.transition;
   let accordionItem = element.closest('.accordion');
   let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
+  let isSearch = accordionItem.classList.contains('search-form');
   element.style.transition = '';
   requestAnimationFrame(() => {
     element.style.height = sectionHeight + 'px';
@@ -296,13 +360,14 @@ function collapseSection(element) {
   });
   element.setAttribute('aria-expanded', 'false');
   accordionItem.classList.add('accordion--hidden');
-  seeDetailsBtn.innerText = "Show";
+  seeDetailsBtn.innerText = isSearch ? "Advanced Search" : "Show";
 }
 
 function expandSection(element) {
   let sectionHeight = element.scrollHeight;
   let accordionItem = element.closest('.accordion');
   let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
+  let isSearch = accordionItem.classList.contains('search-form');
   element.style.height = sectionHeight + 'px';
   element.addEventListener('transitionend', e => {
     element.style.height = null;
@@ -311,7 +376,7 @@ function expandSection(element) {
   });
   element.setAttribute('aria-expanded', 'true');
   accordionItem.classList.remove('accordion--hidden');
-  seeDetailsBtn.innerText = "Hide";
+  seeDetailsBtn.innerText = isSearch ? "Advanced Search" : "Hide";
 }
 },{}],"scripts/filters.js":[function(require,module,exports) {
 window.addEventListener('DOMContentLoaded', event => {
@@ -327,6 +392,7 @@ window.addEventListener('DOMContentLoaded', event => {
   const moreResults = filter.querySelector('.filter-more-results');
   const tabs = Array.from(tablist.querySelectorAll('.filter-tab'));
   const panels = filter.querySelectorAll('.filter-group');
+  moreResults.style.display = 'none';
 
   const switchTab = (oldTab, newTab) => {
     newTab.focus(); // Make the active tab focusable by the user (Tab key)
@@ -448,7 +514,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50965" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63726" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

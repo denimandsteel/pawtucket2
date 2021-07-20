@@ -67,13 +67,7 @@
 	$va_all_facets = $va_browse_type_info["facets"];	
 	$va_add_to_set_link_info = caGetAddToSetInfo($this->request);
   
-  // there has got to be a better way to do this
-  $isSearch = strpos(caGetPageCSSClasses(), 'search'); //differentiate between browse and search so simplify views
-  // echo $vs_current_view;
-  // echo $isSearch;
-  ?>
-<?php 
-  if(!$isSearch) {
+  if(!$vb_is_search) {
     include( __DIR__ ."/browse.php");
   }
   else {
