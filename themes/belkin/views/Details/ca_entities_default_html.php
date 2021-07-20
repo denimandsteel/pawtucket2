@@ -21,26 +21,6 @@
             <dt>Vital Dates:</dt>
             <dd>^ca_entities.vital_dates_ind.vital_date_ind</dd>
           </ifdef>}}} 
-
-					
-					{{{<ifcount code="ca_collections" min="1" max="1"><dt>Related collection</dt></ifcount>}}}
-					{{{<ifcount code="ca_collections" min="2"><dt>Related collections</dt></ifcount>}}}
-					{{{<unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_collections"><l><dd class="detail-related-link">^ca_collections.preferred_labels.name</dd></l></unit></unit>}}}
-
-					
-					<!-- {{{<ifcount code="ca_entities.related" min="1" max="1"><dt>Related person</dt></ifcount>}}}
-					{{{<ifcount code="ca_entities.related" min="2"><dt>Related people</dt></ifcount>}}}
-					{{{<unit relativeTo="ca_entities_x_entities" delimiter="<br/>"><unit relativeTo="ca_entities" delimiter="<br/>"><l><dd class="detail-related-link">^ca_entities.related.preferred_labels.displayname</dd></l></unit></unit>}}}
-					 -->
-					{{{<ifcount code="ca_occurrences" min="1" max="1"><dt>Related exhibition</dt></ifcount>}}}
-					{{{<ifcount code="ca_occurrences" min="2"><dt>Related exhibitions</dt></ifcount>}}}
-					{{{<unit relativeTo="ca_entities_x_occurrences" delimiter="<br/>"><unit relativeTo="ca_occurrences" delimiter="<br/>"><l><dd class="detail-related-link">^ca_occurrences.preferred_labels.name</dd></l></unit></unit>}}}
-					
-					<!-- {{{<ifcount code="ca_places" min="1" max="1"><dt>Related place</dt></ifcount>}}}
-					{{{<ifcount code="ca_places" min="2"><dt>Related places</dt></ifcount>}}}
-					{{{<unit relativeTo="ca_entities_x_places" delimiter="<br/>"><unit relativeTo="ca_places" delimiter="<br/>"><l><dd class="detail-related-link">^ca_places.preferred_labels.name</dd></l></unit></unit>}}}		 -->
-
-
         </dl>
       </div>
     </div>
@@ -53,10 +33,41 @@
           <h2>Biography</h2>
           <button class="button accordion-toggle">Hide</button>
         </div>
-          <p class="accordion-details" aria-expanded="true">
-					 <div class='unit detail-info-paragraph'>^ca_entities.biography</div>
-              
-          </p>
+        <div class="accordion-details" aria-expanded="true">
+          <p class='unit detail-info-paragraph'>^ca_entities.biography</p>
+        </div>
+      </div>
+    </div>
+    </ifdef>}}}
+
+    {{{<ifdef code="ca_collections">
+    <div class="detail-info-box fw-border-top accordion">
+      <div class="container">
+        <div class="detail-info-box-header">
+          <h2>Related Collections</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+        <div class="accordion-details" aria-expanded="true">
+          <div class="detail-link-container">
+					  <unit relativeTo="ca_entities_x_collections" delimiter=" "><unit relativeTo="ca_collections"><l><div class="detail-related-link">^ca_collections.preferred_labels.name</div></l></unit></unit>
+          </div>
+        </div>
+      </div>
+    </div>
+    </ifdef>
+
+    <ifdef code="ca_occurrences">
+    <div class="detail-info-box fw-border-top accordion">
+      <div class="container">
+        <div class="detail-info-box-header">
+          <h2>Related Exhibitions</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+        <div class="accordion-details" aria-expanded="true">
+          <div class="detail-link-container">
+					  <unit relativeTo="ca_entities_x_occurrences" delimiter="<br/>"><unit relativeTo="ca_occurrences" delimiter="<br/>"><l><div class="detail-related-link">^ca_occurrences.preferred_labels.name</div></l></unit></unit>
+          </div>
+        </div>
       </div>
     </div>
     </ifdef>}}}

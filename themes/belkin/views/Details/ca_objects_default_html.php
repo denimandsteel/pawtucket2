@@ -43,22 +43,9 @@
 
   <div class="detail-images">
     <div class="container">
-      <!-- <div class="detail-image-grid">
-        <figure class="detail-image">
-          <img src="" alt="" width="1200" height="800">
-          <figcaption class="detail-image-caption">Image caption</figcaption>
-          <a class="link">Request this image</a>
-        </figure> -->
-        <!-- other images in gallery? -->
-        <!-- <div class="detail-images-gallery">
-          <img src="" alt="" width="120" height="80">
-          <img src="" alt="" width="120" height="80">
-        </div>
-      </div> -->
       {{{representationViewer}}}						
 				<div id="detailAnnotations"></div>			
-				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>
-				
+				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>		
     </div>
   </div>
   <!-- endif image -->
@@ -110,7 +97,7 @@
         <!-- Is description different than phyiscal extent?? -->
           <dt>Medium</dt>
           {{{<ifdef code="ca_objects.medium">
-            <dd>^ca_objects.medium</dd>
+            <dd><unit delimiter=", ">^ca_objects.medium</unit></dd>
           </ifdef>
           <ifnotdef code="ca_objects.medium">
             <dd>–</dd>
@@ -134,13 +121,10 @@
             <ifnotdef code="ca_objects.dimensions.width|ca_objects.dimensions.height|ca_objects.dimensions.depth">–</ifnotdef>}}}
           </dd>
 
-          <dt>Duration</dt>
           {{{<ifdef code="ca_objects.duration">
-            <dd>^ca_objects.duration</dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.duration">
-            <dd>–</dd>
-          </ifnotdef>}}}
+          <dt>Duration</dt>
+          <dd>^ca_objects.duration</dd>
+          </ifdef>}}}
 
           <dt class='unit'>Object Description</dt>
           {{{<ifdef code="ca_objects.description">
@@ -198,7 +182,6 @@
       <div class="container">
         <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
         <button class="button button--catalogue ">Contact us</button>
-        <button class="button button--catalogue "><?php print $this->getVar("shareLink"); ?></button>
       </div>
     </div>
 </article>
