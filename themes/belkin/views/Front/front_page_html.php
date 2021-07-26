@@ -73,7 +73,8 @@
     $t_set = new ca_sets();
     
     // get all sets
-    $all_sets = $t_set->getSets();
+    $all_sets = $t_set->getSets(array('checkAccess' => 1));
+
     // separate sets into arrays per Author *set_1_1 etc
     $grouped_sets = array();
     foreach($all_sets as $set){
