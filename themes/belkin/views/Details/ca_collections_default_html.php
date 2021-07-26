@@ -4,7 +4,7 @@
 	
 	# --- get the collection hierarchy parent to use for exportin finding aid
 	$vn_top_level_collection_id = array_shift($t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true)));
-
+  $current_id = $t_item->get('ca_collections.collection_id');
 ?>
 <article class="detail">
   <nav class="detail-nav">
@@ -110,7 +110,7 @@
             <div id="hierarchy"><?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?></div>
             <script>
               $(document).ready(function(){
-                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id )); ?>"); 
+                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id, 'current_id' => $current_id ), array('useQueryString' => true)); ?>"); 
               })
             </script>
           </div>

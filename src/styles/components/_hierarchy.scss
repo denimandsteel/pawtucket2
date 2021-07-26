@@ -9,7 +9,32 @@
 
   .collection-item {
 
-    &--hidden{
+
+    .collection-item--sousfond {
+      .collection-bar-content, .button.accordion-toggle {
+        background-color: color(grey-65);
+      }
+    }
+
+    .collection-item--series {
+      .collection-bar-content, .button.accordion-toggle {
+        background-color: color(grey-80);
+      } 
+    }
+
+    .collection-item--file {
+      .collection-bar-content, .button.accordion-toggle {
+        background-color: color(offwhite);
+      }
+    }
+    .collection-item--current > .collection-bar {
+      .collection-bar-content, .button {
+        background-color: color(calcite);
+        font-weight: 500;
+      }
+    }
+
+    .collection-item--hidden{
       display: none;
     }
   }
@@ -28,11 +53,16 @@
       border: 1px solid color(color-black);
       flex-grow: 1;
       padding: rem(10px) rem(20px) rem(5px);
-      background-color: color(grey-20);
+      background-color: color(grey-50);
+      color: color(color-black);
+
+      span, a, .button.accordion-toggle {
+        color: color(color-black);    
+      }
     }
     .button.accordion-toggle {
-      // color: color(light);
-      background-color: color(grey-20);
+      color: color(color-black);
+      background-color: color(grey-50);
       border: 1px solid color(color-black);
       border-left: none;
       padding: rem(10px) rem(20px) rem(5px);
@@ -74,47 +104,19 @@
   }
 
   .collection--child{
-
     margin-left: rem(40px);
-
-    .collection-bar-content, .button.accordion-toggle {
-      background-color: color(grey-35);
-      color: color(calcite);
-    }
   }
 
   .collection--gchild {
     margin-left: rem(60px);
-
-    .collection-bar-content, .button.accordion-toggle {
-      background-color: color(grey-50);
-      color: color(calcite);   
-    } 
   }
 
   .collection--ggchild {
     margin-left: rem(80px);
-
-
-    .collection-bar-content, .button.accordion-toggle {
-      background-color: color(grey-65);
-
-      span, a, .button.accordion-toggle {
-        color: color(color-black);    
-      }
-
-    }
-    
+  
   }
 
   .collection--gggchild {
-    margin-left: rem(100px);
-
-
-    .collection-bar-content, .button {
-      background-color: color(grey-80);
-      color: color(color-black);    
-    }
-    
+    margin-left: rem(100px);    
   }
 }

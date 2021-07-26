@@ -34,6 +34,9 @@
 	$vn_pdf_enabled = 		$this->getVar("pdfEnabled");
 	$vn_id =				$t_object->get('ca_objects.object_id');
 
+	$t_item = $this->getVar("item");
+  $vn_top_level_collection_id = $t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true))[0];
+
 ?>
 <article class="detail">
   <nav class="detail-nav">
@@ -176,12 +179,28 @@
           }}} -->
         </dl>
       </div>
-      </div>
     </div>
-    <div class="detail-actions fw-border-top">
+    <div class="detail-info-box fw-border-top accordion">
       <div class="container">
-        <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
-        <button class="button button--catalogue ">Contact us</button>
+        <div class="detail-info-box-header">
+          <h2>Navigate Fonds</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+          <div class="accordion-details" aria-expanded="true">
+            <div id="hierarchy"><?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?></div>
+            <script>
+              $(document).ready(function(){
+                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id )); ?>"); 
+              })
+            </script>
+          </div>
       </div>
     </div>
+  </div>
+  <div class="detail-actions fw-border-top">
+    <div class="container">
+      <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
+      <button class="button button--catalogue ">Contact us</button>
+    </div>
+  </div>
 </article>
