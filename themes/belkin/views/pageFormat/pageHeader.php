@@ -121,7 +121,7 @@
       <ul class="nav navbar-nav navbar-right menuItems" role="list" aria-label="<?php print _t("Primary Navigation"); ?>">
         <li><a class="link link--back" href="https://belkin.ubc.ca/">Back To Gallery</a></li>  
         <li><a href="/pawtucket">Collections Home</a></li>
-        <li <?php print ($this->request->getController() == "About") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("About the Collections"), "", "", "About", "Index"); ?></li>
+        <li><a href="https://belkin.ubc.ca/collections/">About the Collections</a></li>
         <li <?php print ($this->request->getController() == "Contact") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Contact Us"), "", "", "Contact", "Form"); ?></li>
       </ul>
     </nav>

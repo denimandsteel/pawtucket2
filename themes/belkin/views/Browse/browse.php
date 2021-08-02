@@ -32,7 +32,7 @@
     <div class="collections-intro">
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, orci quis vehicula eleifend, metus elit laoreet elit.</p>
       <div class="collections-intro-tips spaced-content">
-        <a class="link" href="/pawtucket/index.php/Browse/entities">More About the Collections</a>
+        <a class="link" href="https://belkin.ubc.ca/collections/">More About the Collections</a>
       </div>
     </div>
     <nav>
