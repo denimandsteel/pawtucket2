@@ -12,6 +12,11 @@
   
   // Images 
   .detail-images {
+
+    .detail-images-container {
+      position: relative;
+    }
+  
     .j-carousel-wrapper {
       position: relative;
     }
@@ -20,6 +25,60 @@
       display: none;
     }
   
+    .sensitive-content-wrapper {
+      position: absolute;
+      height: 100%;
+      width: calc(100% -  40px);
+      box-sizing: border-box;
+    }
+
+    .sensitive-content {
+      padding-left: 10%;
+      padding-right: 10%;
+      overflow: hidden;
+      position: relative;
+      height: 100%;
+      display: grid;
+      place-content: center;
+      background-color: color(color-black);
+      
+      div {
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        color: color(calcite);
+        font-weight: 500;
+
+        > * {
+          margin-top: rem(20px);
+        }
+      }
+
+      p{
+        max-width: 60ch;
+      }
+
+      span {
+        text-transform: uppercase;
+      }
+
+      button {
+        align-self: flex-start;
+        color: color(calcite);
+        background-color: transparent;
+        border: 2px solid color(calcite);
+        font-size: rem(22px);
+        font-weight: 500;
+      }
+
+      img {
+        filter: blur(15px) brightness(40%);
+        height: 100%;
+        width: 100%;
+        position: absolute;
+      }
+    }
+
     #detailRepresentationThumbnails {
       list-style: none;
       padding: 0;
