@@ -37,8 +37,14 @@
       }
     }
   }
+  
   .frontpage-explore-bios {
     margin-top: rem(10px);
+  }
+
+  button#extend-bio {
+    border: none;
+    cursor: pointer;
   }
 
   .frontpage-explore-bio {
@@ -47,6 +53,10 @@
     }
   }
 
+  .filters {
+    padding-left: 0;
+    padding-right: 0;
+  }
   .filters .filter .filter-item {
     margin-bottom: 0;
   }

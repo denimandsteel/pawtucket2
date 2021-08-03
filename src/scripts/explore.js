@@ -7,38 +7,59 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const resultObjects = Array.from(exploreSection.querySelectorAll('.result-objects'));
   const filters = Array.from(exploreSection.querySelectorAll('.filters'));
   const curatorBios = Array.from(exploreSection.querySelectorAll('.frontpage-explore-bio'));
+  const curatorBioMoreBtns = Array.from(exploreSection.querySelectorAll('#extend-bio'));
+  const curatorGroups = Array.from(exploreSection.querySelectorAll('.frontpage-explore-group'));
   const curatorSelect = exploreSection.querySelector('#exploreCurator');
   
-  const hideNotFirst = function(objArray) {
+  // generate random curator index and random tag index
+  const randCurator =  Math.floor(Math.random() * (curatorGroups.length));
+  const randCuratorGroup = curatorGroups[randCurator];
+  const randCuratorFilters = Array.from(randCuratorGroup.querySelectorAll('.filter-item'));
+  const numberTags = randCuratorFilters.length;
+  const randTag =  Math.floor(Math.random() * (numberTags)); 
+
+  // hide all elements except the one you want shown
+  const hideElements = function(objArray, exception = null) {
     objArray.forEach( (object, index) => {
-      if (index === 0) return;
+      if (index === exception) return;
       object.classList.add('hidden');
     });
-  }
+  }  
 
-  const hideAll = function(objArray) {
-    objArray.forEach( (object, index) => {
-      object.classList.add('hidden');
-    });
-  }
+  const showTagGroup = function(curatorGroup, tagIndex) {
+    const activeCuratorFilters = Array.from(curatorGroup.querySelectorAll('.filter-item'));
+    const activeCuratorObjects = Array.from(curatorGroup.querySelectorAll('.result-objects'));
+    activeCuratorFilters[tagIndex].classList.add('active');
+    activeCuratorObjects[tagIndex].classList.remove('hidden');
+  }  
 
-  
-  // hide all results objects and filters exccept first
-  hideNotFirst(resultObjects);
-  hideNotFirst(filters);
-  hideNotFirst(curatorBios);
+  // set select index to the random curator
+  curatorSelect.selectedIndex = randCurator;
 
-  // Add toggle listeners to Select, filters and [more] buttons
+  // hide all gruops/bios except for the randomly selected curator
+  hideElements(curatorGroups, randCurator);
+  hideElements(curatorBios, randCurator);
+
+  // hide all objects
+  hideElements(resultObjects);
+
+  // show a random tag's objects from the random curator
+  showTagGroup(randCuratorGroup, randTag);
+
+  // Add toggle listeners to Select
   curatorSelect.addEventListener('change', (event) => {
-    //hide all
-    hideAll(resultObjects);
-    hideAll(filters);
-    hideAll(curatorBios);
-    // show selected curator's bio, filter list, and first object result
-    let resultObjectsToShow =  filters[event.target.value].nextElementSibling.firstElementChild;
-    resultObjectsToShow.classList.remove('hidden');
-    filters[event.target.value].classList.remove('hidden');
+    hideElements(curatorGroups);
+    hideElements(curatorBios);
+    hideElements(resultObjects);
+
+    curatorGroups[event.target.value].classList.remove('hidden');
     curatorBios[event.target.value].classList.remove('hidden');
+
+    //set first tag to active, show first result group
+    const activeCuratorGroup =  curatorGroups[event.target.value];
+
+    // set first tag to active and show objects from that tag
+    showTagGroup(activeCuratorGroup, 0);
   })
   
   // Add listeners to filter buttons to switch result objects
@@ -61,4 +82,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })
   })
 
+  //listeners for [more] toggles on bios
+  curatorBioMoreBtns.forEach( (button) => {
+
+    button.addEventListener('click', (event) => {
+      event.preventDefault();
+      let toggleButton = event.target;
+      let buttonText = toggleButton.innerText;
+      let extendedBio = toggleButton.nextElementSibling;
+  
+      //change text to [less]
+      toggleButton.innerText = (buttonText == "[more]") ? "[less]" : "[more]";
+      //show extendedBio
+      extendedBio.classList.toggle('hidden');
+    })
+  })
 });
