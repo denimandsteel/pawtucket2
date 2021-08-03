@@ -37,18 +37,21 @@
 	$t_item = $this->getVar("item");
   $vn_top_level_collection_id = $t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true))[0];
 
+  $is_artwork = ($t_item->get('ca_objects.catalogue_destination.preferred_labels') == "Artwork");
+  $is_archive = ($t_item->get('ca_objects.catalogue_destination.preferred_labels') == "Archive");
+
 ?>
 <article class="detail">
   <nav class="detail-nav">
-    <a class="link link--back" href="">Results</a>
-    <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
+    <!-- <a class="link link--back" href="">Results</a> -->
+    <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
   </nav>
 
   <div class="detail-images">
-    <div class="container">
+    <div class="detail-images-container container">
       {{{representationViewer}}}						
 				<div id="detailAnnotations"></div>			
-				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "bsCols", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>		
+				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "list", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>		
     </div>
   </div>
   <!-- endif image -->
@@ -56,6 +59,7 @@
   <div class="detail-info">
     <div class="detail-info-intro fw-border-top">
       <div class="container">
+
         {{{<ifdef code="ca_objects.catalogue_destination">
             <span class="detail-label">^ca_objects.catalogue_destination.preferred_labels</span>
         </ifdef>}}}
@@ -63,12 +67,33 @@
             <h1>^ca_objects.preferred_labels.name</h1>
         </ifdef>}}}
         <dl class="detail-info-list">
+
+
+
           {{{<ifcount restrictToRelationshipTypes="creator, artist" code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
           {{{<ifcount restrictToRelationshipTypes="creator, artist" code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
 
-          {{{<unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_objects_x_entities" delimiter="<br/>"><unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_entities"><l>
-            <dd>^ca_entities.preferred_labels</dd>
-          </l>}}}
+          {{{
+            <unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_objects_x_entities" delimiter="<br/>">
+              <unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_entities">
+                <ifdef code="ca_entities.preferred_labels.surname,ca_entities.preferred_labels.forename">
+                  <l>
+                    <dd>^ca_entities.preferred_labels.surname, ^ca_entities.preferred_labels.forename</dd>
+                  </l>
+                </ifdef>
+                <ifnotdef code="ca_entities.preferred_labels.surname|ca_entities.preferred_labels.forename">
+                  <l>
+                    <dd>^ca_entities.preferred_labels.displayname</dd>
+                  </l>
+                </ifnotdef>
+                <ifnotdef code="ca_entities.preferred_labels.displayname,ca_entities.preferred_labels.surname,ca_entities.preferred_labels.forename">
+                  <dd>–</dd>
+                </ifnotdef>
+              </unit>
+            </unit>
+          }}}
+
+
 
           <dt>Date</dt>
           {{{<ifdef code="ca_objects.search_date">
@@ -78,6 +103,18 @@
             <dd>–</dd>
           </ifnotdef>}}} 
 
+          <?php if($is_archive): ?>
+            <dt>Catalogue Number</dt>
+            {{{<ifdef code="ca_objects.idno">
+              <dd>^ca_objects.idno</dd>
+            </ifdef>
+            <ifnotdef code="ca_objects.idno">
+              <dd>–</dd>
+            </ifnotdef>}}}
+          <?php endif ?>
+
+          <?php if($is_artwork): ?>
+
           <dt>ID #</dt>
           {{{<ifdef code="ca_objects.idno">
             <dd>^ca_objects.idno</dd>
@@ -85,10 +122,25 @@
           <ifnotdef code="ca_objects.idno">
             <dd>–</dd>
           </ifnotdef>}}}
+
+          <?php endif ?>
             
         </dl>
       </div>
     </div>
+    <?php if($is_archive): ?>
+    <div class="detail-info-box fw-border-top accordion">
+      <div class="container">
+        <div class="detail-info-box-header">
+          <h2>Object Description</h2>
+          <button class="button accordion-toggle">Hide</button>
+        </div>
+        <div class="accordion-details" aria-expanded="true">
+          {{{<p class='unit detail-info-paragraph'>^ca_objects.description</p>}}}
+        </div>
+      </div>
+    </div>
+    <?php endif ?>
 
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
@@ -98,6 +150,9 @@
         </div>
         <dl class="detail-info-list accordion-details" aria-expanded="true">
         <!-- Is description different than phyiscal extent?? -->
+
+        <?php if($is_artwork): ?>
+
           <dt>Medium</dt>
           {{{<ifdef code="ca_objects.medium">
             <dd><unit delimiter=", ">^ca_objects.medium</unit></dd>
@@ -114,14 +169,16 @@
             <dd>–</dd>
           </ifnotdef>}}} 
 
-          <!-- ONLY FOR ARTWORKS - add condition? -->
           <dt>Dimensions</dt>
-          <dd>
-            {{{<ifdef code="ca_objects.dimensions.height">h- ^ca_objects.dimensions.height</ifdef>
-            <ifdef code="ca_objects.dimensions.width">w- ^ca_objects.dimensions.width</ifdef> 
-            <ifdef code="ca_objects.dimensions.depth">d- ^ca_objects.dimensions.depth </ifdef>
-            <ifdef code="ca_objects.dimensions.width|ca_objects.dimensions.height|ca_objects.dimensions.depth"> cm</ifdef>
-            <ifnotdef code="ca_objects.dimensions.width|ca_objects.dimensions.height|ca_objects.dimensions.depth">–</ifnotdef>}}}
+          <dd class="lowercase">
+            {{{
+            <ifdef code="ca_objects.measurements_item.dimensions_height_item">h-^ca_objects.measurements_item.dimensions_height_item</ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_width_item">w-^ca_objects.measurements_item.dimensions_width_item</ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_depth_item">d-^ca_objects.measurements_item.dimensions_depth_item</ifdef>
+            <!-- Removed because 'cm' seems to be included in DB field -->
+            <!-- <ifdef code="ca_objects.measurements_item.dimensions_depth_item|ca_objects.measurements_item.dimensions_width_item|ca_objects.measurements_item.dimensions_depth_item"> cm</ifdef> -->
+            <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item">–</ifnotdef>
+          }}}
           </dd>
 
           {{{<ifdef code="ca_objects.duration">
@@ -136,6 +193,29 @@
           <ifnotdef code="ca_objects.description">
             <dd>–</dd>
           </ifnotdef>}}}
+
+        <?php endif ?>
+
+        <?php if($is_archive): ?>
+        
+          <dt>Physical Extent</dt>
+          {{{<ifdef code="ca_objects.custom_extent">
+            <dd>^ca_objects.custom_extent</dd>
+          </ifdef>
+          <ifnotdef code="ca_objects.custom_extent">
+            <dd>–</dd>
+          </ifnotdef>}}} 
+
+          <dt>Material Type</dt>
+          {{{<ifdef code="ca_objects.gmd">
+            <dd><unit delimiter=", ">^ca_objects.gmd</unit></dd>
+          </ifdef>
+          <ifnotdef code="ca_objects.gmd">
+            <dd>–</dd>
+          </ifnotdef>}}} 
+        <?php endif ?>
+
+
         </dl>
       </div>
     </div>
@@ -180,6 +260,9 @@
         </dl>
       </div>
     </div>
+
+    <?php if($vn_top_level_collection_id){?>
+    <!-- IF HIERARCHY -->
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
@@ -197,6 +280,9 @@
       </div>
     </div>
   </div>
+  <!-- ENDIF HIERARCHY -->
+  <?php } ?>
+
   <div class="detail-actions fw-border-top">
     <div class="container">
       <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
