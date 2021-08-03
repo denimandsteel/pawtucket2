@@ -34,8 +34,12 @@
       }
     }
 
-    .collection-item--hidden{
-      display: none;
+    .collection-item--hidden {
+      height: auto;
+      margin: 0;
+      padding: 0;
+      transition: height 400ms ease-out;
+      overflow: hidden;
     }
   }
   
@@ -73,6 +77,7 @@
     .button.accordion-toggle, .collection-bar-spacer {
       display: inline-block;
       width: 100px;
+      min-width: 100px;
     }
   }
   
