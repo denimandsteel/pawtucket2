@@ -112,29 +112,24 @@
 					print ExternalCache::fetch($vs_cache_key, 'browse_result');
 				}else{
 				
-					$vs_idno_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.idno"), '', $vs_table, $vn_id);
-          $vs_idno_detail_link = $vs_idno_detail_link ? $vs_idno_detail_link : "-";
-					$vs_label_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.preferred_labels"), '', $vs_table, $vn_id);
-          $vs_label_detail_link = $vs_label_detail_link ? $vs_label_detail_link : "-";
-
-					$vs_thumbnail = "";
-					$vs_type_placeholder = "";
+          $vs_idno = $qr_res->get("ca_objects.idno");
+          $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
 					$vs_typecode = "";
 					$vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
-				
+          $vs_privacy = explode(';', $qr_res->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
+          $contains_personal_info = ($vs_privacy[0] == "Yes");
+          $contains_sensitive_info = ($vs_privacy[1] == "Yes");
+
 					if(!$vs_image){
 						if ($vs_table == 'ca_objects') {
-							$t_list_item->load($qr_res->get("type_id"));
-							$vs_typecode = $t_list_item->get("idno");
-							if($vs_type_placeholder = caGetPlaceholder($vs_typecode, "placeholder_media_icon")){
-								$vs_image = "<div class='bResultItemImgPlaceholder'>".$vs_type_placeholder."</div>";
-							}else{
-								$vs_image = $vs_default_placeholder_tag;
-							}
-						}else{
-							$vs_image = $vs_default_placeholder_tag;
+              $vs_image = "<div class='no-image-available'><span>No Image<br>Available</span></div>";
 						}
 					}
+
+          if($contains_sensitive_info) {
+            $vs_image = '<div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><span>Access Record<br>To View</span></div>';
+          }
+
 					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
 				
 					$vs_add_to_set_link = "";
@@ -142,18 +137,23 @@
 						$vs_add_to_set_link = "<a href='#' onclick='caMediaPanel.showPanel(\"".caNavUrl($this->request, '', $va_add_to_set_link_info["controller"], 'addItemForm', array($vs_pk => $vn_id))."\"); return false;' title='".$va_add_to_set_link_info["link_text"]."'>".$va_add_to_set_link_info["icon"]."</a>";
 					}
 
-          $vs_artist_detail_link = caDetailLink($this->request, $qr_res->get("ca_entities.preferred_labels.displayname"), '', $vs_table, $vn_id);
-          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator, artist'], 'delimiter' => ' '));
-          $vs_artist = $vs_artist ? $vs_artist : "-";
+          $vs_artist_displayname = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
+          $vs_artist_surname = $qr_res->get("ca_entities.preferred_labels.surname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
+          $vs_artist_forename = $qr_res->get("ca_entities.preferred_labels.forename", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
+          
+          if($vs_artist_surname && $vs_artist_forename){
+            $vs_artist = $vs_artist_surname . ', ' . $vs_artist_forename;
+          } else if ($vs_artist_displayname) {
+            $vs_artist = $vs_artist_displayname;
+          }else {
+            $vs_artist = "<div class='text-center'>-</div>";
+          }
           $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
-          $vs_date = $vs_date ? $vs_date : "-";
 
-					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
-          $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
-          $vs_collection_detail_link = $vs_collection_detail_link ? $vs_collection_detail_link : "-";
+					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values,'returnAsArray' => true))[0];
 
           $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
-
+ 
 					$vs_result_output = "
           <div class='result-object'>
             <div class='result-object-image'>
@@ -163,19 +163,19 @@
               {$vs_artist}
             </div>
             <div class='result-object-title'>
-              {$vs_label_detail_link}
+              {$vs_label_detail}
             </div>
             <div class='result-object-year'>
               {$vs_date}
             </div>         
             <div class='result-object-idno'>
-              {$vs_idno_detail_link}
+              {$vs_idno}
             </div> 
             <div class='result-object-catalogue'>
               {$vs_catalogue}
             </div>           
             <div class='result-object-collection'>
-              {$vs_collection_detail_link}
+              {$vs_collection}
             </div>   
             
           </div>";

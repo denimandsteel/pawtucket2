@@ -87,7 +87,6 @@
   grid-template-columns: 20% 15% 10% 5% 10% 10% 20%;
   border-bottom:1px solid color(mid-grey);
   grid-gap: rem(16px);
-
 }
 
 .result-objects-labels {
@@ -103,6 +102,7 @@
 .result-object {
   padding: rem(32px) 0 rem(26px);
   font-size: rem(20px);
+  position: relative;
 
   * + * {
     margin-top: rem(5px);
@@ -111,11 +111,61 @@
   .result-object-image {
     a {
       display: block; // for "Image is being processed" link
+      text-decoration: none;
+
+      &:after {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+      }
     }
+
+    .no-image-available {
+      border: 1px solid color(color-dark-grey);
+      color: color(color-dark-grey);
+      height: 200px;
+      display: grid;
+      place-content: center;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .sensitive-content {
+      overflow: hidden;
+      position: relative;
+      height: 200px;
+      display: grid;
+      place-content: center;
+      
+      span {
+        color: color(calcite);
+        font-weight: 500;
+        text-transform: uppercase;
+        z-index: 1;
+        text-align: center;
+      }
+
+      img {
+        filter: blur(8px);
+        height: 100%;
+        width: auto;
+        position: absolute;
+      }
+    }
+
   }
 
   .result-object-artist{
     font-weight: 500;
+
+    .text-center {
+      width: 100%;
+      text-align: center;
+    }
   }
 
   .result-object-title{
@@ -124,10 +174,6 @@
 
   .result-object-year {
     overflow-wrap: break-word;
-  }
-
-  .result-object-catalogue {
-    padding-bottom: rem(10px);
   }
 
   .result-object-collection, .result-object-catalogue{
@@ -152,7 +198,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
     grid-gap: rem(40px);
-    justify-content: stretch;  
+    justify-content: center;  
   }
 
   .jscroll-added {
@@ -168,11 +214,18 @@
     width: 100%;
   }
 
+  .result-object-artist{
+    font-weight: 500;
+    padding-top: rem(8px);
+  }
+
   .result-object-catalogue {
     text-transform: uppercase;
     font-size: 16px;
     font-weight: 500;
     display: flex;
+    padding-top: rem(8px);
+    padding-bottom: rem(8px);
   }
   
   .result-object-collection {
@@ -202,7 +255,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, 440px);
   grid-gap: rem(40px);
-  justify-content: stretch;  
+  justify-content: center;  
 
 }
 
