@@ -68,11 +68,11 @@ function accordionClickHandler(event){
   }
 }
 
-function seeMoreClickHandler(event){
+function seeMoreClickHandler(event) {
   event.preventDefault();
   let seeMoreBtn = event.target.parentNode;
   let parentList = event.target.closest('.collection');
-  parentList.childNodes.forEach( (child) =>{
+  parentList.childNodes.forEach(child => {
     child.classList.remove('collection-item--hidden');
   })
   seeMoreBtn.remove();
