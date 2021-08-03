@@ -25,6 +25,7 @@
   .filter-header {
     // display: flex;
     // justify-content: space-evenly;
+    display: inline-block;
     margin-bottom: rem(5px);
     border: 1px solid color(color-black);
 
@@ -39,9 +40,10 @@
     background-color: color(calcite);
     flex-grow: 2;
     cursor: pointer;
+    border-right: 1px solid color(color-black);
     
-    + .filter-tab {
-      border-left: 1px solid color(color-black);
+    &:last-of-type {
+      border-right: none;
     }
     
     &[aria-selected="true"], &:hover {

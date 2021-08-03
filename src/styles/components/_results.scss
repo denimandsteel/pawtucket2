@@ -66,12 +66,20 @@
 
   .results-criteria {
     margin-top: rem(50px);
-    padding: rem(10px) 0;
+    padding: rem(10px) 0 0;
+
+    .button {
+      margin-bottom: rem(10px);
+    }
     
     .container {
       display: flex;
       align-items: baseline;
       justify-content: flex-start;
+
+      &--wrap {
+        flex-wrap: wrap;
+      }
     }
 
     h2 {

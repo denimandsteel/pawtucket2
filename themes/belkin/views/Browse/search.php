@@ -89,9 +89,16 @@
   <div class="results-criteria fw-border-top fw-border-bottom">
     <div class="container">
         <?php
+        session_start();
+
+        if (sizeof($va_criteria) == 1 && $_SESSION['object_search_query_key'] != $vs_browse_key) {
+          $_SESSION['object_search_query_key'] = $vs_browse_key;
+        }
+
         if (sizeof($va_criteria) > 0) {
           $i = 0;
           print "<span>Selected</span>";
+          print "<div class='container--wrap'>";
           foreach($va_criteria as $va_criterion) {
             if ($va_criterion['facet_name'] != '_search') {
               print caNavLink($this->request, $va_criterion['facet'].': '.$va_criterion['value'], 'button button--filter', '*', '*', '*', array('removeCriterion' => $va_criterion['facet_name'], 'removeID' => urlencode($va_criterion['id']), 'view' => $vs_current_view, 'key' => $vs_browse_key));
@@ -110,6 +117,13 @@
               $vs_facet_description = $t_authority_table->get($va_current_facet["show_description_when_first_facet"]);
             }
           }
+        }
+
+        if (sizeof($va_criteria) > 1) {
+          print caNavLink($this->request, 'Clear All', 'button button--filter', '*', '*', '*', array('view' => $vs_current_view, 'key' => $_SESSION['object_search_query_key']));
+        }
+        if (sizeof($va_criteria) > 0) {
+          print "</div>";
         }
         ?>		
     </div>
