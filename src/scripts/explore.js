@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const showTagGroup = function(curatorGroup, tagIndex) {
     const activeCuratorFilters = Array.from(curatorGroup.querySelectorAll('.filter-item'));
     const activeCuratorObjects = Array.from(curatorGroup.querySelectorAll('.result-objects'));
+    activeCuratorFilters.forEach(filter => filter.classList.remove('active'));
     activeCuratorFilters[tagIndex].classList.add('active');
     activeCuratorObjects[tagIndex].classList.remove('hidden');
   }  
