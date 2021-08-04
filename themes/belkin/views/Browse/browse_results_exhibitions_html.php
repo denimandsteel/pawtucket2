@@ -117,47 +117,16 @@
 					print ExternalCache::fetch($vs_cache_key, 'browse_result');
 				}else{
 				
-					$vs_idno_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.idno"), '', $vs_table, $vn_id);
-          $vs_idno_detail_link = $vs_idno_detail_link ? $vs_idno_detail_link : "-";
-					$vs_label_detail_link 	= caDetailLink($this->request, $qr_res->get("{$vs_table}.preferred_labels"), '', $vs_table, $vn_id);
-          $vs_label_detail_link = $vs_label_detail_link ? $vs_label_detail_link : "-";
 
-					$vs_thumbnail = "";
-					$vs_type_placeholder = "";
-					$vs_typecode = "";
-					$vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
-				
-					if(!$vs_image){
-						if ($vs_table == 'ca_objects') {
-							$t_list_item->load($qr_res->get("type_id"));
-							$vs_typecode = $t_list_item->get("idno");
-							if($vs_type_placeholder = caGetPlaceholder($vs_typecode, "placeholder_media_icon")){
-								$vs_image = "<div class='bResultItemImgPlaceholder'>".$vs_type_placeholder."</div>";
-							}else{
-								$vs_image = $vs_default_placeholder_tag;
-							}
-						}else{
-							$vs_image = $vs_default_placeholder_tag;
-						}
-					}
-					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
-				
-					$vs_add_to_set_link = "";
-					if(($vs_table == 'ca_objects') && is_array($va_add_to_set_link_info) && sizeof($va_add_to_set_link_info)){
-						$vs_add_to_set_link = "<a href='#' onclick='caMediaPanel.showPanel(\"".caNavUrl($this->request, '', $va_add_to_set_link_info["controller"], 'addItemForm', array($vs_pk => $vn_id))."\"); return false;' title='".$va_add_to_set_link_info["link_text"]."'>".$va_add_to_set_link_info["icon"]."</a>";
-					}
 
-          $vs_artist_detail_link = caDetailLink($this->request, $qr_res->get("ca_entities.preferred_labels.displayname"), '', $vs_table, $vn_id);
-          $vs_artist = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator, artist'], 'delimiter' => ' '));
-          $vs_artist = $vs_artist ? $vs_artist : "-";
-          $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
-          $vs_date = $vs_date ? $vs_date : "-";
 
-					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values));
-          $vs_collection_detail_link = caDetailLink($this->request, $qr_res->get("ca_collections.preferred_labels"), '', $vs_table, $vn_id);
-          $vs_collection_detail_link = $vs_collection_detail_link ? $vs_collection_detail_link : "-";
+          $vs_date_start = date_create_from_format("F j Y", $qr_res->get( "ca_occurrences.exhibit_date.exhibit_datestart"));
+          $vs_date_end = date_create_from_format("F j Y", $qr_res->get( "ca_occurrences.exhibit_date.exhibit_dateend"));
 
-          $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+          $date_range = $vs_date_start->format("j M Y") . ' - ' . $vs_date_end->format("j M Y");
+          // $vs_date = $vs_date ? $vs_date : "-";
+
+					$vs_label_detail_link 	= caDetailLink($this->request,  $qr_res->get("{$vs_table}.preferred_labels") . ' ('.$date_range.')', '', $vs_table, $vn_id);
 
 					$vs_result_output = "
           <div class='browse-links-item'>

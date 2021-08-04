@@ -7,13 +7,12 @@
   $param = substr($query, strpos($query, "=") + 1);
 
   $activePage = $current_page;
+  $pageClass = $activePage;
   if ($param){
     $activePage = $activePage . '?' .  $query;
+    $pageClass = $param;
   }
 
-  // echo '<pre>';
-  // echo var_dump($current_page);
-  // echo '</pre>';
   // Browse menu
   $browse_pages = array();
   $browse_pages["entities"] = "Artist/Creator";
@@ -58,7 +57,7 @@
 <?php
   }	// !ajax
 ?>
-<form id="setsSelectMultiple">
+<form id="setsSelectMultiple" class="<?php print $pageClass ?>">
 		<!-- <div class="container">
 			<div id="browseResultsContainer" class="browse-grid"> -->
 <?php
@@ -75,7 +74,11 @@ if(($o_config->get("cache_timeout") > 0) && ExternalCache::contains($vs_cache_ke
     case 'entities':
       $vs_result_page = $this->render("Browse/browse_results_artists_html.php");
       break;
-    
+
+    case 'occurrences':
+      $vs_result_page = $this->render("Browse/browse_results_exhibitions_html.php");
+      break;
+
     case 'objects':
       $vs_result_page = $this->render("Browse/browse_results_facets_html.php");
       break;
