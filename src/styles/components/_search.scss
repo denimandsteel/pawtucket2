@@ -16,6 +16,18 @@
 .advanced-search-field {
   display: flex;
   flex-direction: column;
+
+  input {
+    font-size: rem(20px);
+    line-height: 1;
+    padding: rem(5px) rem(5px) rem(2px);
+
+  }
+
+  label {
+    font-size: rem(20px);
+    margin-top: rem(3px);
+  }
 }
 
 
@@ -51,7 +63,14 @@
     padding-left: 0;
 
     &:after{
-      content: '+';
+      content: '—';
+    }
+
+  }
+
+  &.accordion--hidden {
+    .accordion-toggle:after {
+        content: '+';
     }
   }
 }
