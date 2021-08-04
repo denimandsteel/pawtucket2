@@ -37,8 +37,8 @@
 	$t_item = $this->getVar("item");
   $vn_top_level_collection_id = $t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true))[0];
 
-  $is_artwork = ($t_item->get('ca_objects.catalogue_destination.preferred_labels') == "Artwork");
-  $is_archive = ($t_item->get('ca_objects.catalogue_destination.preferred_labels') == "Archive");
+  $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "492");
+  $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "493");
 
   $vs_privacy = explode(';', $t_object->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
   $contains_personal_info = ($vs_privacy[0] == "Yes");
@@ -49,14 +49,13 @@
 ?>
 <article class="detail">
   <nav class="detail-nav">
-    <!-- <a class="link link--back" href="">Results</a> -->
-    <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
+    <div class="detail-breadcrumb container">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
   </nav>
 
   <div class="detail-images">
     <div class="detail-images-container container">
       <?php 
-      if ($web_notice) {
+      if ($contains_sensitive_info) {
         print '<div class="sensitive-content-wrapper"><div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><div><span>Notice</span><p>'. $web_notice.'</p><button class="button button--sensitive">Show Image</button></div></div></div>';
       }
       ?>
@@ -139,6 +138,7 @@
         </dl>
       </div>
     </div>
+
     <?php if($is_archive): ?>
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
@@ -152,6 +152,8 @@
       </div>
     </div>
     <?php endif ?>
+
+    <?php if($is_archive || $is_artwork): ?>
 
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
@@ -225,11 +227,11 @@
             <dd>–</dd>
           </ifnotdef>}}} 
         <?php endif ?>
-
-
         </dl>
       </div>
     </div>
+    <?php endif ?>
+
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
@@ -272,8 +274,7 @@
       </div>
     </div>
 
-    <?php if($vn_top_level_collection_id){?>
-    <!-- IF HIERARCHY -->
+    <?php if($vn_top_level_collection_id):?>
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
@@ -291,8 +292,7 @@
       </div>
     </div>
   </div>
-  <!-- ENDIF HIERARCHY -->
-  <?php } ?>
+  <?php endif ?>
 
   <div class="detail-actions fw-border-top">
     <div class="container">
