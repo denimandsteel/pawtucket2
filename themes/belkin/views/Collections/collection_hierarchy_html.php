@@ -37,18 +37,9 @@
             while($qr_collection_children->nextHit()) {
 
               $current_item_id = $t_item->get('ca_collections.collection_id');
-
-              // $is_current_item = ($qr_collections->get('ca_collections.collection_id') == $current_item_id);
               $list_class = ($index > 4) ? 'collection-item--hidden ' : '';
-              // if(sizeof($va_child_collection_ids) || sizeof($va_child_object_ids)){
-              //   $list_class .= ' accordion';
-              // }
-              // if($is_current_item){
-              //   $list_class .= 'collection-item--current';
-              // }
               
               print "<li class='collection-item accordion ".$list_class."' id='collection".$qr_collection_children->get('ca_collections.collection_id')."'>";
-              // print "<div class='collection-bar'>";
 
 							# --- link open in panel or to detail
 							$va_grand_children_type_ids = $qr_collection_children->get("ca_collections.children.type_id", array('returnAsArray' => true, 'checkAccess' => $va_access_values));
@@ -65,7 +56,18 @@
 ?>													
             <script>
               $(document).ready(function(){
-                $('#collection<?php print $qr_collection_children->get("ca_collections.collection_id");?>').load("<?php print caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $qr_collection_children->get("ca_collections.collection_id"), 'current_id' => $current_id ), array('useQueryString' => true)); ?>"); 
+                $('#collection<?php print $qr_collection_children->get("ca_collections.collection_id");?>').load("<?php print caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $qr_collection_children->get("ca_collections.collection_id"), 'current_id' => $current_id ), array('useQueryString' => true)); ?>", undefined, function() {
+                	$current_item = $(this).find('.collection-item--current');
+                	$accordion_details = $(this).find('.accordion-details').has($current_item);
+                	$toggle = $(this).find('.accordion-details').has($current_item).prev().find('.accordion-toggle');
+                	if ($current_item.length && $accordion_details.length && $toggle.length) {
+                		$current_item.removeClass('accordion--hidden');
+                		$accordion_details.attr('aria-expanded', true).removeAttr('style');
+                		if ($toggle.closest('.accordion--hidden').find('ul[aria-expanded="true"]').length) {
+                			$toggle.text('Hide');
+                		}
+                	}
+                }); 
               });
             </script>
 <?php							

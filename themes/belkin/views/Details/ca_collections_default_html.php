@@ -5,6 +5,8 @@
 	# --- get the collection hierarchy parent to use for exportin finding aid
 	$vn_top_level_collection_id = array_shift($t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true)));
   $current_id = $t_item->get('ca_collections.collection_id');
+  $search_date_time = strtotime($t_item->get('ca_collections.search_date'));
+  $search_date = $search_date_time ? date('j M Y', $search_date_time) : '-';
 ?>
 <article class="detail">
   <nav class="detail-nav">
@@ -31,12 +33,7 @@
 					{{{<dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>}}}
 					
           <dt>Date</dt>
-          {{{<ifdef code="ca_collections.search_date">
-            <dd><unit delimiter=", ">^ca_collections.search_date</unit></dd>
-          </ifdef>
-          <ifnotdef code="ca_collections.search_date">
-            <dd>–</dd>
-          </ifnotdef>}}} 
+          <dd><?php echo $search_date; ?></dd>
 
           <dt>Identifier</dt>
           {{{<ifdef code="ca_collections.alt_idno">
