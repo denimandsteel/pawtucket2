@@ -83,8 +83,8 @@ if(($o_config->get("cache_timeout") > 0) && ExternalCache::contains($vs_cache_ke
       $vs_result_page = $this->render("Browse/browse_results_facets_html.php");
       break;
 
-    default:
-      $vs_result_page = $this->render("Browse/browse_results_links_html.php");
+    case 'collections':
+      $vs_result_page = $this->render("Browse/browse_results_collections_html.php");
       break;
   }
 
