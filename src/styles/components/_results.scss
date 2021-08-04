@@ -176,10 +176,15 @@
     overflow-wrap: break-word;
   }
 
-  .result-object-collection, .result-object-catalogue{
+  .result-object-catalogue{
     font-size: rem(18px);
     font-weight: 500;
     text-transform: uppercase;
+  }
+
+  .result-object-collection {
+    text-transform: capitalize;
+    font-weight: 400;
   }
 
   &:hover {
@@ -228,10 +233,7 @@
     padding-bottom: rem(8px);
   }
   
-  .result-object-collection {
-    text-transform: capitalize;
-    font-weight: 400;
-  }
+
 
   .result-object {
     display: flex;
