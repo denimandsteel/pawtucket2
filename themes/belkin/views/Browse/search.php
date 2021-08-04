@@ -3,19 +3,7 @@
 ?>
 <div class="results collections">
   <div class="container">
-    <h1>Online Collections</h1>
-    <div class="collections-intro">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, orci quis vehicula eleifend, metus elit laoreet elit.</p>
-      <div class="collections-intro-tips spaced-content">
-        <a class="link" href="https://belkin.ubc.ca/collections/">More About the Collections</a>
-      </div>
-    </div>
-    <nav>
-      <ul class="collections-nav">
-        <li><a class="active" href="/pawtucket">Search + Explore</a></li>
-        <li><a href="/pawtucket/index.php/Browse/entities">Browse</a></li>
-      </ul>
-    </nav>
+    <?php include( dirname(__FILE__, 2).'/Search/ca_objects_advanced_search_objects_html.php'); ?>
   </div>
 
   <div class="fw-border-top">
