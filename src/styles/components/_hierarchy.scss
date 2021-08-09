@@ -9,37 +9,52 @@
 
   .collection-item {
 
+    .collection-bar-content, .button.accordion-toggle {
+      // background-color: color(grey-50);
+      color: color(color-black);
+    }
 
-    .collection-item--sousfond {
-      .collection-bar-content, .button.accordion-toggle {
-        background-color: color(grey-65);
+    &.collection-item--fond {
+      .collection-bar-content, .button.accordion-toggle, a {
+        background-color: color(grey-50);
+        color: color(calcite);
       }
     }
 
-    .collection-item--series {
-      .collection-bar-content, .button.accordion-toggle {
+    &.collection-item--sousfond {
+      .collection-bar-content, .button.accordion-toggle, a {
+        background-color: color(grey-65);
+        color: color(color-black);
+      }
+    }
+
+    &.collection-item--series {
+      .collection-bar-content, .button.accordion-toggle, a {
         background-color: color(grey-80);
+        color: color(color-black);
       } 
     }
 
-    .collection-item--file {
-      .collection-bar-content, .button.accordion-toggle {
+    &.collection-item--file {
+      .collection-bar-content, .button.accordion-toggle, a {
         background-color: color(offwhite);
+        color: color(color-black);
       }
     }
-    .collection-item--current > .collection-bar {
+    &.collection-item--current > .collection-bar {
       .collection-bar-content, .button {
         background-color: color(calcite);
+        color: color(color-black);
         font-weight: 500;
       }
     }
 
-    .collection-item--hidden {
-      height: auto;
-      margin: 0;
-      padding: 0;
-      transition: height 400ms ease-out;
-      overflow: hidden;
+    &.collection-item--hidden {
+      display: none;
+    }
+
+    &.collection-item--current {
+      display: static;
     }
   }
   
@@ -48,30 +63,31 @@
     width: 100%;
     color: color(light);
     // position: relative;
-    margin-bottom: -1px;
+    margin-top: -1px;
     
     .collection-bar-content {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      position: relative;
       border: 1px solid color(color-black);
       flex-grow: 1;
       padding: rem(10px) rem(20px) rem(5px);
-      background-color: color(grey-50);
-      color: color(color-black);
 
-      span, a, .button.accordion-toggle {
-        color: color(color-black);    
+      a:after {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top: 0; left: 0;
       }
     }
+
     .button.accordion-toggle {
-      color: color(color-black);
-      background-color: color(grey-50);
       border: 1px solid color(color-black);
       border-left: none;
       padding: rem(10px) rem(20px) rem(5px);
     }
-
 
 
     .button.accordion-toggle, .collection-bar-spacer {
@@ -81,13 +97,6 @@
     }
   }
   
-  .collection-title {
-    color: color(calcite);
-
-    a {
-      color: color(calcite);
-    }
-  }
 
   .button.see-more {
     background-color: color(calcite);
@@ -101,11 +110,14 @@
     }
   }
 
+  .collection-level {
+    margin-left: rem(10px);
+  }
+
   .collection-level, .button.accordion-toggle {
     font-size: rem(18px);
     font-weight: 500;
     text-transform: uppercase;
-    color: color(calcite);
   }
 
   .collection--child{

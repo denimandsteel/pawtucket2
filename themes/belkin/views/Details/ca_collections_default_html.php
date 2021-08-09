@@ -6,13 +6,12 @@
 	$vn_top_level_collection_id = array_shift($t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true)));
   $current_id = $t_item->get('ca_collections.collection_id');
   $search_date_time = strtotime($t_item->get('ca_collections.search_date'));
-  $search_date = $search_date_time ? date('j M Y', $search_date_time) : '-';
+  $search_date = $search_date_time ? date('j M Y', $search_date_time) : '–';
 ?>
 <article class="detail">
-  <nav class="detail-nav">
-    <!-- <a class="link link--back" href="">Results</a> -->
+  <nav class="detail-nav container">
     <div class="detail-breadcrumb">
-      {{{<ifdef code="ca_collections.parent_id"><div class="unit">Part of: <unit relativeTo="ca_collections.hierarchy" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit></div></ifdef>}}}
+      {{{<ifdef code="ca_collections.parent_id"><div class="unit"><unit relativeTo="ca_collections.hierarchy" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit></div></ifdef>}}}
     </div>
   </nav>
 
@@ -107,7 +106,13 @@
             <div id="hierarchy"><?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?></div>
             <script>
               $(document).ready(function(){
-                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id, 'current_id' => $current_id ), array('useQueryString' => true)); ?>"); 
+                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id, 'current_id' => $current_id ), array('useQueryString' => true)); ?>", undefined, function(){
+                  $hierarchy = $('#hierarchy');
+                  $isEmpty = !$hierarchy.children().length;
+                  if($isEmpty){
+                    $hierarchy.closest('.detail-info-box').hide();
+                  }
+                });
               })
             </script>
           </div>

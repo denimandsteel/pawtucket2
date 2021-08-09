@@ -35,10 +35,10 @@
 	$vn_id =				$t_object->get('ca_objects.object_id');
 
 	$t_item = $this->getVar("item");
-  $vn_top_level_collection_id = $t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true))[0];
+  $vn_top_level_collection_id = $t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true))[0][0];
 
-  $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "492");
-  $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "493");
+  $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
+  $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
   $vs_privacy = explode(';', $t_object->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
   $contains_personal_info = ($vs_privacy[0] == "Yes");
@@ -48,8 +48,8 @@
   $web_notice = $t_object->get("ca_objects.web_notice");
 ?>
 <article class="detail">
-  <nav class="detail-nav">
-    <div class="detail-breadcrumb container">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
+  <nav class="detail-nav container">
+    <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
   </nav>
 
   <div class="detail-images">
@@ -274,7 +274,9 @@
       </div>
     </div>
 
-    <?php if($vn_top_level_collection_id):?>
+    <?php 
+    if($vn_top_level_collection_id):
+    ?>
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
@@ -285,7 +287,14 @@
             <div id="hierarchy"><?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?></div>
             <script>
               $(document).ready(function(){
-                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id )); ?>"); 
+                $('#hierarchy').load("<?php print caNavUrl($this->request, '', 'Collections', 'collectionHierarchy', array('collection_id' => $vn_top_level_collection_id, 'current_id' => $vn_id ), array('useQueryString' => true)); ?>", undefined, function(){
+                  $hierarchy = $('#hierarchy');
+                  $isEmpty = !$hierarchy.children().length;
+                  if($isEmpty){
+                    $hierarchy.closest('.detail-info-box').hide();
+                  }
+                }); 
+
               })
             </script>
           </div>

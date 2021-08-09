@@ -72,7 +72,8 @@ function seeMoreClickHandler(event) {
   event.preventDefault();
   let seeMoreBtn = event.target.parentNode;
   let parentList = event.target.closest('.collection');
-  parentList.childNodes.forEach(child => {
+  let childrenArray = Array.from(parentList.children);
+  childrenArray.forEach(child => {
     child.classList.remove('collection-item--hidden');
   })
   seeMoreBtn.remove();

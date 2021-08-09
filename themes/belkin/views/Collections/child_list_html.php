@@ -36,24 +36,17 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
 			}
 
       $hierarchy_type = $qr_collections->get('ca_collections.level_description');
-      // echo '<pre>';
-      // echo var_dump($hierarchy_type);
-      // echo '</pre>';
 
       switch($hierarchy_type){
-        // case 162: //fonds
-        //   $hierarchy_class = "collection--gchild";
-        //   break;
         case 163: //sous-fonds
           $list_class = "collection-item--sousfond";
           break;
         case 164://series
           $list_class = "collection-item--series";
           break;
-        // case 165://sub-series - never used
-        //   $hierarchy_class = "collection--ggchild";
-        //   break;
-        // case 166://file
+        case 165://sub-series - never used
+          $hierarchy_class = "collection-item--subseries";
+          break;
         default: //files and objects
           $list_class = "collection-item--file";
           break;
@@ -71,32 +64,24 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
           break;
       }
 
-      //TODO
-      // if this is current obj ->  only show 2 results before, and 2 results after
-      // echo '<pre>';
-      // echo var_dump($current_id);
-      // echo '</pre>';
-
-      // $param = substr($query, strpos($query, "=") + 1);
-      // $current_id = $t_item->get('ca_collections.collection_id');
       $is_current_item = ($qr_collections->get('ca_collections.collection_id') == $current_id);
 
-      $list_class .= ($index > 4) ? ' collection-item--hidden ' : '';
-      $list_style = ($index > 4) ? ' style="height:0px;" aria-expanded="false"' : '';
+      $list_class .= ($index > 4 && !$is_current_item) ? ' collection-item--hidden ' : '';
+      // $list_style = ($index > 4) ? ' style="height:0px;" aria-expanded="false"' : '';
       
       if(sizeof($va_child_collection_ids) || sizeof($va_child_object_ids)){
-        $list_class .= ' accordion';
+        $list_class .= ' accordion accordion--hidden';
       }
       if($is_current_item){
         $list_class .= ' collection-item--current';
       }
 
-			$vs_output .= "<li class='collection-item accordion--hidden " . $list_class . "' data-index='" . $index . "'" . $list_style . ">";
+			$vs_output .= "<li class='collection-item " . $list_class . "' data-index='" . $index . "'>";
 
       $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
       
 
-      $vs_output .= $qr_collections->get('ca_collections.idno') ." ". caDetailLink($po_request, $qr_collections->get('ca_collections.preferred_labels'), '', 'ca_collections',  $qr_collections->get("ca_collections.collection_id"));
+      $vs_output .= $qr_collections->get('ca_collections.idno') ."  ". caDetailLink($po_request, $qr_collections->get('ca_collections.preferred_labels'), '', 'ca_collections',  $qr_collections->get("ca_collections.collection_id"));
 
       $vs_output.="</span><span class='collection-level'>". $qr_collections->get('ca_collections.level_description', array('convertCodesToDisplayText' => true))."</span>";
 
@@ -109,17 +94,38 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
         $vs_output .= "<ul class='collection ". $hierarchy_class. " accordion-details' aria-expanded='false' style='height:0px'>";
 				$vs_output .=  printLevel($po_request, $va_child_collection_ids, $o_config, $vn_level + 1, $va_options, $t_item, $current_id);
 
-			  $qr_objects = caMakeSearchResult('ca_objects', $va_child_object_ids); 
+        //if there are a mix of objs and files, make two queries and combine, sort by id. THEN print both
 
-        if($qr_objects->numHits()){
-          while($qr_objects->nextHit()) {
-            $current_class = ($qr_objects->get('ca_objects.object_id') == $current_id) ? 'collection-item--current' : '';
-            $vs_output.= "<li class='collection-item collection-item--file". $current_class ."' data-index='". $index ."'>";
-            $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
-            $vs_output.= caDetailLink($po_request, $qr_objects->get('ca_objects.idno') ." " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
-            $vs_output.="</span><span class='collection-level'>". $qr_objects->get('ca_objects.catalogue_destination.preferred_labels') ."</span></div><span class='collection-bar-spacer'></span></div>";
+        $count_children_collections = count($va_child_collection_ids);
+
+        if($va_child_object_ids) {
+          $obj_index = $count_children_collections;
+          $qr_objects = caMakeSearchResult('ca_objects', $va_child_object_ids); 
+          $list_length += count($va_child_object_ids);
+
+          if($qr_objects->numHits()){
+            while($qr_objects->nextHit()) {
+  
+              $object_list_class = "collection-item--file ";
+              $is_current_item = ($qr_objects->get('ca_objects.object_id') == $current_id);
+
+              if($is_current_item){ 
+                $list_class .= ' collection-item--current';
+              }
+
+              // HIDE IF under more 
+              $object_list_class .= ($obj_index > 4 && !$is_current_item) ? ' collection-item--hidden ' : '';
+  
+              $current_class = ($qr_objects->get('ca_objects.object_id') == $current_id) ? 'collection-item--current' : '';
+              $vs_output.= "<li class='collection-item " . $object_list_class . $current_class ."' data-index='". $obj_index ."'>";
+              $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
+              $vs_output.= caDetailLink($po_request, $qr_objects->get('ca_objects.idno') ." " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
+              $vs_output.="</span><span class='collection-level'>". $qr_objects->get('ca_objects.catalogue_destination.preferred_labels') ."</span></div><span class='collection-bar-spacer'></span></div>";
+              $obj_index++;
+            }
           }
         }
+
 
 
         $vs_output .= "</ul>";
