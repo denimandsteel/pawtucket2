@@ -203,11 +203,13 @@
                 $vs_add_to_set_link = "<a href='#' onclick='caMediaPanel.showPanel(\"".caNavUrl($this->request, '', $va_add_to_set_link_info["controller"], 'addItemForm', array($vs_pk => $vn_id))."\"); return false;' title='".$va_add_to_set_link_info["link_text"]."'>".$va_add_to_set_link_info["icon"]."</a>";
               }
     
-              $vs_artist_displayname = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
-              $vs_artist_surname = $qr_res->get("ca_entities.preferred_labels.surname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
-              $vs_artist_forename = $qr_res->get("ca_entities.preferred_labels.forename", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'returnAsArray' => true))[0];
-              
-              $vs_artist = ($vs_artist_surname && $vs_artist_forename) ? $vs_artist_surname . ', ' . $vs_artist_forename : $vs_artist_displayname;
+              $vs_artist_display_name = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'delimiter' => '<br>'));
+          
+              if($vs_artist_display_name ){
+                $vs_artist = $vs_artist_display_name;
+              }else {
+                $vs_artist = "<div class='text-center'>-</div>";
+              }
               $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
     
               $vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values,'returnAsArray' => true))[0];
