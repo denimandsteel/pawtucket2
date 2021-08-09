@@ -1,0 +1,15 @@
+#contactForm {
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-top: rem(10px);
+
+    input, .button {
+      max-width: max-content;
+    }
+    textarea {
+      max-width: 40ch;
+    }
+  }
+}
