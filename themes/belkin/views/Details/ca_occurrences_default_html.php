@@ -5,8 +5,7 @@
 	$vn_share_enabled = 	$this->getVar("shareEnabled");	
 ?>
 <article class="detail">
-  <nav class="detail-nav">
-    <a class="link link--back" href="">Results</a>
+  <nav class="detail-nav container">
     <div class="detail-breadcrumb">Exhibition</div>
   </nav>
 
@@ -17,6 +16,11 @@
             <h1>^ca_occurrences.preferred_labels.name</h1>
         </ifdef>}}}
         <dl class="detail-info-list">
+
+          {{{<ifdef code="ca_occurrences.exhibition_website">
+            <dt>Exhibition Website</dt>
+            <dd><a href="^ca_occurrences.exhibition_website">Visit Exhibition Page</dd>
+          </ifdef>}}} 
 
           {{{<ifdef code="ca_occurrences.exhibit_date">
             <dt>Start Date</dt>
@@ -29,13 +33,16 @@
           </ifdef>}}} 
 
 
+          
+
+
 
           
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="1" max="1"><dt>Curator</dt></ifcount>}}}
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="2"><dt>Curators</dt></ifcount>}}}
 
           {{{<unit restrictToRelationshipTypes="curator" relativeTo="ca_entities" delimiter="<br/>"><l>
-            <dd>^ca_entities.preferred_labels.forename, ^ca_entities.preferred_labels.surname</dd>
+            <dd>^ca_entities.preferred_labels.surname, ^ca_entities.preferred_labels.forename</dd>
           </l></unit>}}}
 
 

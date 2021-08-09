@@ -5,8 +5,7 @@
 	$vn_share_enabled = 	$this->getVar("shareEnabled");	
 ?>
 <article class="detail">
-  <nav class="detail-nav">
-    <a class="link link--back" href="">Results</a>
+  <nav class="detail-nav container">
     <div class="detail-breadcrumb">Artist/Creator</div>
   </nav>
 
@@ -19,7 +18,7 @@
         
           {{{<ifdef code="ca_entities.vital_dates_ind.vital_date_ind">
             <dt>Vital Dates:</dt>
-            <dd>^ca_entities.vital_dates_ind.vital_date_ind</dd>
+            <dd>^ca_entities.vital_dates_ind.ind_date_types.preferred_labels: ^ca_entities.vital_dates_ind.vital_date_ind</dd>
           </ifdef>}}} 
         </dl>
       </div>
@@ -65,7 +64,7 @@
         </div>
         <div class="accordion-details" aria-expanded="true">
           <div class="detail-link-container">
-					  <unit relativeTo="ca_entities_x_occurrences" delimiter="<br/>"><unit relativeTo="ca_occurrences" delimiter="<br/>"><l><div class="detail-related-link">^ca_occurrences.preferred_labels.name</div></l></unit></unit>
+					  <unit relativeTo="ca_entities_x_occurrences" delimiter=" "><unit relativeTo="ca_occurrences" delimiter="<br/>"><l><div class="detail-related-link">^ca_occurrences.preferred_labels.name</div></l></unit></unit>
           </div>
         </div>
       </div>
