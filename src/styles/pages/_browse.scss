@@ -65,7 +65,10 @@
   }
 
   .occurrences {
-
+    .browse-links-item a{
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   

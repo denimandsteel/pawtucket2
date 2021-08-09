@@ -123,10 +123,14 @@
           $vs_date_start = date_create_from_format("F j Y", $qr_res->get( "ca_occurrences.exhibit_date.exhibit_datestart"));
           $vs_date_end = date_create_from_format("F j Y", $qr_res->get( "ca_occurrences.exhibit_date.exhibit_dateend"));
 
-          $date_range = $vs_date_start->format("j M Y") . ' - ' . $vs_date_end->format("j M Y");
+          $date_str = '';
+          if($vs_date_end && $vs_date_start){
+            $date_range = $vs_date_start->format("j M Y") . ' - ' . $vs_date_end->format("j M Y");
+            $date_str = '<span>'.$date_range.'</span>';
+          }
           // $vs_date = $vs_date ? $vs_date : "-";
 
-					$vs_label_detail_link 	= caDetailLink($this->request,  $qr_res->get("{$vs_table}.preferred_labels") . ' ('.$date_range.')', '', $vs_table, $vn_id);
+					$vs_label_detail_link 	= caDetailLink($this->request,  $qr_res->get("{$vs_table}.preferred_labels") . $date_str, '', $vs_table, $vn_id);
 
 					$vs_result_output = "
           <div class='browse-links-item'>
