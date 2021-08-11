@@ -16,14 +16,10 @@ if($param == 'decade'){
   $page_facet_items = array_reverse($va_facets[$vs_facet_name]['content']);
 }
 
+
 print '<div class="container"><div class="browse-links-columns">';
 foreach($page_facet_items as $va_item) {
-  // $vs_result_output = "
-  // <div class='browse-links-item'>
-  //     {$vs_label_detail_link}
-  // </div>";
-  // Clear cache??
-  print "<div>".caNavLink($this->request, $va_item['label'].' ('.$va_item['content_count'].')', '', '*', 'Search','*', array('facet' => $vs_facet_name, 'id'=>$va_item['id']))."</div>";
+  print "<div>".caNavLink($this->request, $va_item['label'].' ('.$va_item['content_count'].')', '', '*', 'Search','*', array('facet' => $vs_facet_name, 'id'=>$va_item['id'], 'removeCriterion' => '_search', 'removeID' => "*"), null, array('useQueryString' => true))."</div>";
 }
 
 print '</div></div>';
