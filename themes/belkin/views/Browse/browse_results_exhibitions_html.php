@@ -126,7 +126,7 @@
           $date_str = '';
           if($vs_date_end && $vs_date_start){
             $date_range = $vs_date_start->format("j M Y") . ' - ' . $vs_date_end->format("j M Y");
-            $date_str = '<span>'.$date_range.'</span>';
+            $date_str = '<span> ('.$date_range.')</span>';
           }
           // $vs_date = $vs_date ? $vs_date : "-";
 
@@ -144,7 +144,5 @@
 			}
 
       print '</div></div>';
-
-			// print "<div style='clear:both'></div>".caNavLink($this->request, _t('Next %1', $vn_hits_per_block), 'jscroll-next', '*', '*', '*', array('s' => $vn_start + $vn_results_output, 'key' => $vs_browse_key, 'view' => $vs_current_view, 'sort' => $vs_current_sort, '_advanced' => $this->getVar('is_advanced') ? 1  : 0));
 		}
 ?>
