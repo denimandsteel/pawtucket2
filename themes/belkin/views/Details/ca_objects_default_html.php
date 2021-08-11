@@ -40,11 +40,7 @@
   $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
   $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
-  $vs_privacy = explode(';', $t_object->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
-  $contains_personal_info = ($vs_privacy[0] == "Yes");
-  $contains_sensitive_info = ($vs_privacy[1] == "Yes");
 
-  $content_notice = $t_object->get("ca_objects.content_notice");
   $web_notice = $t_object->get("ca_objects.web_notice");
 ?>
 <article class="detail">
@@ -55,7 +51,7 @@
   <div class="detail-images">
     <div class="detail-images-container container">
       <?php 
-      if ($contains_sensitive_info) {
+      if ($web_notice) {
         print '<div class="sensitive-content-wrapper"><div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><div><span>Notice</span><p>'. $web_notice.'</p><button class="button button--sensitive">Show Image</button></div></div></div>';
       }
       ?>
