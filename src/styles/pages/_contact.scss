@@ -11,9 +11,6 @@
   
   #contactForm{
     max-width: 600px;
-    // display: grid;
-    // grid-template-columns: 1fr 1fr;
-    // grid-gap: rem(10px);
     background-color: color(calcite);
     padding: rem(15px);
     border: 1px solid color(color-dark-grey);
@@ -23,6 +20,10 @@
   .form-group {
     display: flex;
     flex-direction: column;
+    + .form-group {
+      margin-top: rem(15px);
+    }
+
   
     input {
       font-size: rem(20px);
@@ -31,12 +32,17 @@
   
     }
   
+    label {
+      font-weight: 500;
+    }
+
     label, .form-control-static {
       font-size: rem(20px);
-      margin-top: rem(3px);
     }
+
     textarea {
       max-width: 40ch;
+    
     }
     input, .button {
       max-width: max-content;

@@ -23,7 +23,7 @@
 ?>
 <div class="container"><div class="col-sm-12">
 	<H1><?php print $vs_page_title; ?></H1>
-  <p>For questions about the Belkin collections, email us at <strong>belkin.collections@ubc.ca</strong> or send us your questions and comments below.</p>
+  <p>For questions about the Belkin collections, email us at <a href="mailto:belkin.collections@ubc.ca"><strong>belkin.collections@ubc.ca</strong></a> or send us your questions and comments below.</p>
 <?php
 	if(is_array($va_errors["display_errors"]) && sizeof($va_errors["display_errors"])){
 		print "<div class='alert alert-danger'>".implode("<br/>", $va_errors["display_errors"])."</div>";
@@ -53,7 +53,7 @@
 ?>
     <div class="form-group<?php print (($va_errors["name"]) ? " has-error" : ""); ?>">
       <label for="name">Name</label>
-      <input type="text" class="form-control input-sm" aria-label="enter name" name="name" value="{{{name}}}">
+      <input type="text" class="form-control input-sm" aria-label="enter name" id="name" name="name" value="{{{name}}}">
     </div>
     <div class="form-group<?php print (($va_errors["email"]) ? " has-error" : ""); ?>">
       <label for="email">Email address</label>
