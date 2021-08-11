@@ -36,7 +36,7 @@
     <div class="container">
       <h1>Online Collections</h1>
       <div class="collections-intro">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, orci quis vehicula eleifend, metus elit laoreet elit.</p>
+        <p>With over 5,000 artworks and 20,000 archival records, our collections focus on the Canadian avant-garde of the 1960s and 1970s, the international network developed at that time, and its role in the art of today.</p>
         <div class="collections-intro-tips">
           <a class="link" href="https://belkin.ubc.ca/collections/">More About the Collections</a>
         </div>
@@ -182,17 +182,15 @@
               $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
               $vs_typecode = "";
               $vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'medium', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
-              $vs_privacy = explode(';', $qr_res->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
-              $contains_personal_info = ($vs_privacy[0] == "Yes");
-              $contains_sensitive_info = ($vs_privacy[1] == "Yes");
-    
+              $web_notice = $qr_res->get("ca_objects.web_notice");
+
               if(!$vs_image){
                 if ($vs_table == 'ca_objects') {
                   $vs_image = "<div class='no-image-available'><span>No Image<br>Available</span></div>";
                 }
               }
     
-              if($contains_sensitive_info) {
+              if($web_notice) {
                 $vs_image = '<div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><span>Access Record<br>To View</span></div>';
               }
     

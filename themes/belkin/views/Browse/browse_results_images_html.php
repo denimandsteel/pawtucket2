@@ -114,9 +114,7 @@
           $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
 					$vs_typecode = "";
 					$vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'medium', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
-          $vs_privacy = explode(';', $qr_res->get("ca_objects.privacy", array("convertCodesToDisplayText" => 1)));
-          $contains_personal_info = ($vs_privacy[0] == "Yes");
-          $contains_sensitive_info = ($vs_privacy[1] == "Yes");
+          $web_notice = $qr_res->get("ca_objects.web_notice");
 
 					if(!$vs_image){
 						if ($vs_table == 'ca_objects') {
@@ -124,7 +122,7 @@
 						}
 					}
 
-          if($contains_sensitive_info) {
+          if($web_notice) {
             $vs_image = '<div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><span>Access Record<br>To View</span></div>';
           }
 
