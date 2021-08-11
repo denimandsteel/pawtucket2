@@ -31,12 +31,6 @@
             <dt>End Date</dt>
             <dd>^ca_occurrences.exhibit_date.exhibit_dateend</dd>
           </ifdef>}}} 
-
-
-          
-
-
-
           
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="1" max="1"><dt>Curator</dt></ifcount>}}}
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="2"><dt>Curators</dt></ifcount>}}}
@@ -56,7 +50,7 @@
     </div>
   </div>
 
-  {{{<ifcount code="ca_objects" min="2">
+  {{{<ifcount code="ca_objects" min="1">
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">

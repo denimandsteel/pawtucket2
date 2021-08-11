@@ -71,7 +71,7 @@
     </div>
     </ifdef>}}}
 
-    {{{<ifcount code="ca_objects" min="2">
+    {{{<ifcount code="ca_objects" min="1">
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
