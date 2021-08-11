@@ -1,15 +1,50 @@
-#contactForm {
+.contact {
 
+  p {
+    max-width: 60ch;
+    margin-bottom: rem(40px);
+  }
+
+  .advanced-search {
+    // height: 0;
+  }
+  
+  #contactForm{
+    max-width: 600px;
+    // display: grid;
+    // grid-template-columns: 1fr 1fr;
+    // grid-gap: rem(10px);
+    background-color: color(calcite);
+    padding: rem(15px);
+    border: 1px solid color(color-dark-grey);
+    margin-bottom: 40px;
+  }
+  
   .form-group {
     display: flex;
     flex-direction: column;
-    margin-top: rem(10px);
-
-    input, .button {
-      max-width: max-content;
+  
+    input {
+      font-size: rem(20px);
+      line-height: 1;
+      padding: rem(5px) rem(5px) rem(2px);
+  
+    }
+  
+    label, .form-control-static {
+      font-size: rem(20px);
+      margin-top: rem(3px);
     }
     textarea {
       max-width: 40ch;
     }
+    input, .button {
+      max-width: max-content;
+    }
+
+    .button{
+      margin-top: rem(20px);
+    }
   }
+
 }

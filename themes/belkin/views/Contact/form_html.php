@@ -23,6 +23,7 @@
 ?>
 <div class="container"><div class="col-sm-12">
 	<H1><?php print $vs_page_title; ?></H1>
+  <p>For questions about the Belkin collections, email us at <strong>belkin.collections@ubc.ca</strong> or send us your questions and comments below.</p>
 <?php
 	if(is_array($va_errors["display_errors"]) && sizeof($va_errors["display_errors"])){
 		print "<div class='alert alert-danger'>".implode("<br/>", $va_errors["display_errors"])."</div>";
@@ -50,27 +51,25 @@
 <?php
 	}
 ?>
-		<div class="row">
-      <div class="form-group<?php print (($va_errors["name"]) ? " has-error" : ""); ?>">
-        <label for="name">Name</label>
-        <input type="text" class="form-control input-sm" aria-label="enter name" placeholder="Enter name" name="name" value="{{{name}}}">
-      </div>
-      <div class="form-group<?php print (($va_errors["email"]) ? " has-error" : ""); ?>">
-        <label for="email">Email address</label>
-        <input type="text" class="form-control input-sm" id="email" placeholder="Enter email" name="email" value="{{{email}}}">
-      </div>
-      <div class="form-group<?php print (($va_errors["security"]) ? " has-error" : ""); ?>">
-        <label for="security">Security Question</label>
-        <div class='row'>
-            <span class="form-control-static"><?php print $vn_num1; ?> + <?php print $vn_num2; ?> = </span>
-            <input name="security" value="" id="security" type="text" class="form-control input-sm" />
-        </div><!--end row-->	
-      </div><!-- end form-group -->
-      <div class="form-group<?php print (($va_errors["message"]) ? " has-error" : ""); ?>">
-        <label for="message">Message</label>
-        <textarea class="form-control input-sm" id="message" name="message" rows="5">{{{message}}}</textarea>
-      </div>
-		</div><!-- end row -->
+    <div class="form-group<?php print (($va_errors["name"]) ? " has-error" : ""); ?>">
+      <label for="name">Name</label>
+      <input type="text" class="form-control input-sm" aria-label="enter name" name="name" value="{{{name}}}">
+    </div>
+    <div class="form-group<?php print (($va_errors["email"]) ? " has-error" : ""); ?>">
+      <label for="email">Email address</label>
+      <input type="text" class="form-control input-sm" id="email" name="email" value="{{{email}}}">
+    </div>
+    <div class="form-group<?php print (($va_errors["security"]) ? " has-error" : ""); ?>">
+      <label for="security">Security Question</label>
+      <div class='row'>
+          <span class="form-control-static"><?php print $vn_num1; ?> + <?php print $vn_num2; ?> = </span>
+          <input name="security" value="" id="security" type="text" class="form-control input-sm" />
+      </div><!--end row-->	
+    </div><!-- end form-group -->
+    <div class="form-group<?php print (($va_errors["message"]) ? " has-error" : ""); ?>">
+      <label for="message">Message</label>
+      <textarea class="form-control input-sm" id="message" name="message" rows="5">{{{message}}}</textarea>
+    </div>
 <?php
 	if(!$this->request->isLoggedIn() && defined("__CA_GOOGLE_RECAPTCHA_KEY__") && __CA_GOOGLE_RECAPTCHA_KEY__){
 ?>
