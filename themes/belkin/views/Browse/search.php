@@ -125,7 +125,7 @@
           <span>Title</span>
           <span>Date</span>
           <span>ID #</span>
-          <span>Catalogue</span>
+          <span>Collection Type</span>
           <span>Fonds/Collection</span>
           <!-- <span>Level of Description</span> -->
         </div>

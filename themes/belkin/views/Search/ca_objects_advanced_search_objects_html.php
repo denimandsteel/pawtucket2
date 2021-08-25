@@ -20,14 +20,14 @@
     <input type="hidden" name="_formName" value="caAdvancedSearch">
     <div class="advanced-search-fields">
       <div class="advanced-search-field">
-        <label for="ca_objects.catalogue_destination.preferred_labels" class="formLabel">Catalogue</label>
+        <label for="ca_objects.catalogue_destination.preferred_labels" class="formLabel">Collection Type</label>
         <select class="search-input" name="ca_objects.catalogue_destination.preferred_labels" class="" id="ca_objects.catalogue_destination.preferred_labels">
-          <option value="">Select Catalogue</option>
+          <option value="">Select Collection Type</option>
           <option value="492">Archive</option>
           <option value="493">Artwork</option>
           <option value="494">Library</option>
         </select>
-        <input name="ca_objects.catalogue_destination.preferred_labels_label" value="Catalogue" type="hidden">
+        <input name="ca_objects.catalogue_destination.preferred_labels_label" value="Collection Type" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_entities.preferred_labels.displayname">Artist/Creator</label>
