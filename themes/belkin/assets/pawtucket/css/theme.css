@@ -237,6 +237,7 @@ main {
 }
 .browse .letter-section .letter-heading {
   font-size: 3.75rem;
+  min-width: 50px;
 }
 .browse .letter-section .letter-name-group {
   flex-grow: 1;

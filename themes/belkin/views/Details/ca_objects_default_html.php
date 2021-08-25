@@ -74,32 +74,23 @@
         </ifdef>}}}
         <dl class="detail-info-list">
 
-
-
           {{{<ifcount restrictToRelationshipTypes="creator, artist" code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
           {{{<ifcount restrictToRelationshipTypes="creator, artist" code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
 
           {{{
             <unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_objects_x_entities" delimiter="<br/>">
               <unit restrictToRelationshipTypes="creator, artist" relativeTo="ca_entities">
-                <ifdef code="ca_entities.preferred_labels.surname,ca_entities.preferred_labels.forename">
-                  <l>
-                    <dd>^ca_entities.preferred_labels.surname, ^ca_entities.preferred_labels.forename</dd>
-                  </l>
-                </ifdef>
-                <ifnotdef code="ca_entities.preferred_labels.surname|ca_entities.preferred_labels.forename">
+                <ifdef code="ca_entities.preferred_labels.displayname">
                   <l>
                     <dd>^ca_entities.preferred_labels.displayname</dd>
                   </l>
-                </ifnotdef>
-                <ifnotdef code="ca_entities.preferred_labels.displayname,ca_entities.preferred_labels.surname,ca_entities.preferred_labels.forename">
+                </ifdef>
+                <ifnotdef code="ca_entities.preferred_labels.displayname">
                   <dd>–</dd>
                 </ifnotdef>
               </unit>
             </unit>
           }}}
-
-
 
           <dt>Date</dt>
           {{{<ifdef code="ca_objects.search_date">

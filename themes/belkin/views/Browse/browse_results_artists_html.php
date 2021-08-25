@@ -75,7 +75,11 @@ foreach($qrows as $row){
     print '<h3 class="letter-heading">'.$letter.'</h3>';
     print '<ul class="letter-name-group">';
     foreach($names as $name){
-      print '<li><a href="/pawtucket/index.php/Detail/entities/'.$name["entity_id"].'">'.$name["name_sort"].'</a></li>';
+      $fullname = $name["surname"];
+      if($name["forename"]){
+        $fullname.=', '.$name["forename"];
+      }
+      print '<li><a href="/pawtucket/index.php/Detail/entities/'.$name["entity_id"].'">'.$fullname.'</a></li>';
     }
     print '</ul></div></div>';
   }

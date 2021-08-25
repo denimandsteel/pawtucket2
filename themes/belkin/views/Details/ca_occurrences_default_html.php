@@ -36,7 +36,7 @@
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="2"><dt>Curators</dt></ifcount>}}}
 
           {{{<unit restrictToRelationshipTypes="curator" relativeTo="ca_entities" delimiter="<br/>"><l>
-            <dd>^ca_entities.preferred_labels.surname, ^ca_entities.preferred_labels.forename</dd>
+            <dd>^ca_entities.preferred_labels.displayname</dd>
           </l></unit>}}}
 
 
