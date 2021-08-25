@@ -19,7 +19,7 @@
   $browse_pages["occurrences"] = "Exhibitions";
   $browse_pages["collections"] = "Fonds/Collection";
   // $browse_pages["objects?section=type"] = "Object Type";
-  $browse_pages["objects?section=decade"] = "Decade + Date";
+  $browse_pages["objects?section=decade"] = "Decade and Date";
   $browse_pages["objects?section=category"] = "Object Type";
 
 
@@ -29,14 +29,14 @@
   <div class="container">
     <h1>Online Collections</h1>
     <div class="collections-intro">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vulputate, orci quis vehicula eleifend, metus elit laoreet elit.</p>
+      <p>With over 5,000 artworks and 20,000 archival records, our collections focus on the Canadian avant-garde of the 1960s and 1970s, the international network developed at that time, and its role in the art of today.</p>
       <div class="collections-intro-tips spaced-content">
         <a class="link" href="https://belkin.ubc.ca/collections/">More About the Collections</a>
       </div>
     </div>
     <nav>
       <ul class="collections-nav">
-        <li><a href="/pawtucket">Search + Explore</a></li>
+        <li><a href="/pawtucket">Search and Explore</a></li>
         <li><a class="active" href="/pawtucket/index.php/Browse/entities">Browse</a></li>
       </ul>
     </nav>

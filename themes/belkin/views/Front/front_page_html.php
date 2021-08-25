@@ -43,7 +43,7 @@
       </div>
       <nav>
         <ul class="collections-nav">
-          <li><a class="active" href="/pawtucket">Search + Explore</a></li>
+          <li><a class="active" href="/pawtucket">Search and Explore</a></li>
           <li><a href="/pawtucket/index.php/Browse/entities">Browse</a></li>
         </ul>
       </nav>
