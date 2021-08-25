@@ -101,7 +101,7 @@
           </ifnotdef>}}} 
 
           <?php if($is_archive): ?>
-            <dt>Catalogue Number</dt>
+            <dt>ID #</dt>
             {{{<ifdef code="ca_objects.idno">
               <dd>^ca_objects.idno</dd>
             </ifdef>

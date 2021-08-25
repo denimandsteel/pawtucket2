@@ -21,20 +21,13 @@
         {{{<h1>^ca_collections.preferred_labels.name</h1>}}}
 
         <dl class="detail-info-list">
-          <dt>Catalogue Number</dt>
-					{{{<ifdef code="ca_collections.idno"><dd> ^ca_collections.idno </dd></ifdef>}}}
-					{{{<ifnotdef code="ca_collections.idno"><dd>–</dd></ifnotdef>}}}
-					<!-- {{{<ifdef code="ca_collections.parent_id"><div class="unit">Part of: <unit relativeTo="ca_collections.hierarchy" delimiter=" &gt; "><l>^ca_collections.preferred_labels.name</l></unit></div></ifdef>}}} -->
-				
-          <!-- {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
-					{{{<ifcount code="ca_entities" min="2"><dt>Artist/Creators</dt></ifcount>}}} -->
           <dt>Artist/Creator</dt>
 					{{{<dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>}}}
 					
           <dt>Date</dt>
           <dd><?php echo $search_date; ?></dd>
 
-          <dt>Identifier</dt>
+          <dt>ID #</dt>
           {{{<ifdef code="ca_collections.alt_idno">
             <dd>^ca_collections.alt_idno</dd>
           </ifdef>
