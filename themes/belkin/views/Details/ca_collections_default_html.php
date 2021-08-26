@@ -24,16 +24,12 @@
           <dt>Artist/Creator</dt>
 					{{{<dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>}}}
 					
+          <dt>ID #</dt>
+					{{{<ifdef code="ca_collections.idno"><dd> ^ca_collections.idno </dd></ifdef>}}}
+					{{{<ifnotdef code="ca_collections.idno"><dd>–</dd></ifnotdef>}}}
+
           <dt>Date</dt>
           <dd><?php echo $search_date; ?></dd>
-
-          <dt>ID #</dt>
-          {{{<ifdef code="ca_collections.alt_idno">
-            <dd>^ca_collections.alt_idno</dd>
-          </ifdef>
-          <ifnotdef code="ca_collections.alt_idno">
-            <dd>–</dd>
-          </ifnotdef>}}} 
 
           <dt>Level of Description</dt>
           {{{<ifdef code="ca_collections.level_description">
