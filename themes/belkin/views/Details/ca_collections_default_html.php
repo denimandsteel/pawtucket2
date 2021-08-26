@@ -29,12 +29,12 @@
 					{{{<ifnotdef code="ca_collections.idno"><dd>–</dd></ifnotdef>}}}
 
           {{{<ifdef code="ca_collections.web_notice">
-          <dt>Web Notice</dt>
+          <dt>Notice</dt>
             <dd>^ca_collections.web_notice</dd>
           </ifdef>}}}
 
           {{{<ifdef code="ca_collections.content_notice">
-          <dt>Content Notice</dt>
+          <dt>Notice</dt>
             <dd>^ca_collections.content_notice</dd>
           </ifdef>}}}
 

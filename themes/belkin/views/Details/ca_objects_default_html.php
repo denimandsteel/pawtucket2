@@ -109,12 +109,12 @@
           </ifnotdef>}}}
 
           {{{<ifdef code="ca_objects.web_notice">
-          <dt>Web Notice</dt>
+          <dt>Notice</dt>
             <dd>^ca_objects.web_notice</dd>
           </ifdef>}}}
 
           {{{<ifdef code="ca_objects.content_notice">
-          <dt>Content Notice</dt>
+          <dt>Notice</dt>
             <dd>^ca_objects.content_notice</dd>
           </ifdef>}}}
         </dl>
