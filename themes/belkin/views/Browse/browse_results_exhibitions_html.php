@@ -125,7 +125,7 @@
 
           $date_str = '';
           if($vs_date_end && $vs_date_start){
-            $date_range = $vs_date_start->format("j M Y") . ' - ' . $vs_date_end->format("j M Y");
+            $date_range = $vs_date_start->format("j F Y") . ' - ' . $vs_date_end->format("j F Y");
             $date_str = '<span> ('.$date_range.')</span>';
           }
           // $vs_date = $vs_date ? $vs_date : "-";

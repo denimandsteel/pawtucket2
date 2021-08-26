@@ -3,6 +3,10 @@
 	$va_comments = $this->getVar("comments");
 	$vn_comments_enabled = 	$this->getVar("commentsEnabled");
 	$vn_share_enabled = 	$this->getVar("shareEnabled");	
+  
+  $vs_date_start = date_create_from_format("F j Y", $t_item->get( "ca_occurrences.exhibit_date.exhibit_datestart"))->format("j F Y");
+  $vs_date_end = date_create_from_format("F j Y", $t_item->get( "ca_occurrences.exhibit_date.exhibit_dateend"))->format("j F Y");
+
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -24,12 +28,12 @@
 
           {{{<ifdef code="ca_occurrences.exhibit_date">
             <dt>Start Date</dt>
-            <dd>^ca_occurrences.exhibit_date.exhibit_datestart</dd>
+            <dd><?php print $vs_date_start ?></dd>
           </ifdef>}}} 
 
           {{{<ifdef code="ca_occurrences.exhibit_date">
             <dt>End Date</dt>
-            <dd>^ca_occurrences.exhibit_date.exhibit_dateend</dd>
+            <dd><?php print $vs_date_end ?></dd>
           </ifdef>}}} 
           
           {{{<ifcount restrictToRelationshipTypes="curator" code="ca_entities" min="1" max="1"><dt>Curator</dt></ifcount>}}}
