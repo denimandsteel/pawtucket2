@@ -100,18 +100,6 @@
             <dd>–</dd>
           </ifnotdef>}}} 
 
-          <?php if($is_archive): ?>
-            <dt>ID #</dt>
-            {{{<ifdef code="ca_objects.idno">
-              <dd>^ca_objects.idno</dd>
-            </ifdef>
-            <ifnotdef code="ca_objects.idno">
-              <dd>–</dd>
-            </ifnotdef>}}}
-          <?php endif ?>
-
-          <?php if($is_artwork): ?>
-
           <dt>ID #</dt>
           {{{<ifdef code="ca_objects.idno">
             <dd>^ca_objects.idno</dd>
@@ -120,8 +108,15 @@
             <dd>–</dd>
           </ifnotdef>}}}
 
-          <?php endif ?>
-            
+          {{{<ifdef code="ca_objects.web_notice">
+          <dt>Web Notice</dt>
+            <dd>^ca_objects.web_notice</dd>
+          </ifdef>}}}
+
+          {{{<ifdef code="ca_objects.content_notice">
+          <dt>Content Notice</dt>
+            <dd>^ca_objects.content_notice</dd>
+          </ifdef>}}}
         </dl>
       </div>
     </div>
