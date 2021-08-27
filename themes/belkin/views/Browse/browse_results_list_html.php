@@ -135,7 +135,7 @@
 						$vs_add_to_set_link = "<a href='#' onclick='caMediaPanel.showPanel(\"".caNavUrl($this->request, '', $va_add_to_set_link_info["controller"], 'addItemForm', array($vs_pk => $vn_id))."\"); return false;' title='".$va_add_to_set_link_info["link_text"]."'>".$va_add_to_set_link_info["icon"]."</a>";
 					}
 
-          $vs_artist_display_name = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'delimiter' => '<br>'));
+          $vs_artist_display_name = $qr_res->get("ca_entities.preferred_labels.displayname", array('restrictToRelationshipTypes' => ['creator', 'artist'], 'delimiter' => '<br>', 'sort'=> 'ca_entities.preferred_labels.surname'));
           
           if($vs_artist_display_name ){
             $vs_artist = $vs_artist_display_name;
