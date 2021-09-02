@@ -120,7 +120,7 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
               $vs_output.= "<li class='collection-item " . $object_list_class . $current_class ."' data-index='". $obj_index ."'>";
               $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
               $vs_output.= caDetailLink($po_request, $qr_objects->get('ca_objects.idno') ." " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
-              $vs_output.="</span><span class='collection-level'>". $qr_objects->get('ca_objects.catalogue_destination.preferred_labels') ."</span></div><span class='collection-bar-spacer'></span></div>";
+              $vs_output.="</span><span class='collection-level'>Item</span></div><span class='collection-bar-spacer'></span></div>";
               $obj_index++;
             }
           }

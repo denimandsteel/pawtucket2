@@ -138,7 +138,7 @@
           if($vs_artist_display_name ){
             $vs_artist = $vs_artist_display_name;
           }else {
-            $vs_artist = "<div'>-</div>";
+            $vs_artist = "<div>-</div>";
           }
           
           $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));

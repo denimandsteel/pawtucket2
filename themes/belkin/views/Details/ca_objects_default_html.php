@@ -108,6 +108,11 @@
             <dd>–</dd>
           </ifnotdef>}}}
 
+          <?php if($is_archive): ?>
+            <dt>Level of Description</dt>
+            <dd>Item</dd>
+          <?php endif ?>
+
 
           {{{<ifdef code="ca_objects.web_notice">
           <dt>Notice</dt>
