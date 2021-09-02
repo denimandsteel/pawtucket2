@@ -108,6 +108,7 @@
             <dd>–</dd>
           </ifnotdef>}}}
 
+
           {{{<ifdef code="ca_objects.web_notice">
           <dt>Notice</dt>
             <dd>^ca_objects.web_notice</dd>
@@ -217,7 +218,7 @@
     <div class="detail-info-box fw-border-top accordion">
       <div class="container">
         <div class="detail-info-box-header">
-          <h2>Collection History</h2>
+          <h2>History</h2>
           <button class="button accordion-toggle">Hide</button>
         </div>
         <dl class="detail-info-list accordion-details" aria-expanded="true">
