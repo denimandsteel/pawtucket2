@@ -3,6 +3,30 @@
 	$va_comments = $this->getVar("comments");
 	$vn_comments_enabled = 	$this->getVar("commentsEnabled");
 	$vn_share_enabled = 	$this->getVar("shareEnabled");	
+
+
+
+  $convertDate = function($date) {
+    if($date){
+      return date_create_from_format("F j Y", $date)->format("j F Y");
+    }
+  };
+
+  $vitalDateTypes = explode(';',$t_item->get('ca_entities.vital_dates_ind.ind_date_types'));
+  $vitalDates = array_map($convertDate, explode(';', $t_item->get('ca_entities.vital_dates_ind.vital_date_ind')));
+  
+  $dateObjArray = [];
+  for ($i = 0; $i < count($vitalDates); $i++) {
+    // 954 - born
+    // 956 - died
+    if($vitalDateTypes[$i] == '954' || $vitalDateTypes[$i] == '956'){
+      $dateObjArray[$i] = (object) [
+        'date_type' => ($vitalDateTypes[$i] == 954) ? 'Born' : 'Died',
+        'date' => $vitalDates[$i]
+      ];
+    }
+  }
+
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -16,9 +40,16 @@
         {{{<h1>^ca_entities.preferred_labels.displayname</h1>}}}
         <dl class="detail-info-list">
         
+
           {{{<ifdef code="ca_entities.vital_dates_ind.vital_date_ind">
             <dt>Vital Dates:</dt>
-            <dd>^ca_entities.vital_dates_ind.ind_date_types.preferred_labels: ^ca_entities.vital_dates_ind.vital_date_ind</dd>
+            <dd>
+            <?php
+              foreach($dateObjArray as $vitalDate){
+                echo $vitalDate->date_type . ': ' . $vitalDate->date . '<br>';
+              }
+            ?>
+            </dd>
           </ifdef>}}} 
         </dl>
       </div>
@@ -82,7 +113,7 @@
       <div class="accordion-details" aria-expanded="true">
         <div class="container">
           <div class="result-objects result-objects--grid">
-            <div id="browseResultsContainer" class="container">
+            <div id="browseResultsContainer">
               <?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?>
             </div><!-- end browseResultsContainer -->
           </div>
