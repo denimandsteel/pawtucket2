@@ -34,8 +34,6 @@
                             select ca_entities.entity_id
                             from ca_entities
                             inner join ca_objects_x_entities on ca_entities.entity_id = ca_objects_x_entities.entity_id
-                            inner join ca_attributes on ca_attributes.row_id = ca_objects_x_entities.object_id
-                            inner join ca_attribute_values on ca_attributes.attribute_id = ca_attribute_values.attribute_id
                             where ca_objects_x_entities.type_id in (113, 121) -- artist,creator
                             and ca_entities.access = 1
                             group by ca_entities.entity_id
