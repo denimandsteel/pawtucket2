@@ -7,9 +7,14 @@
 
 
   $convertDate = function($date) {
-    if($date){
-      return date_create_from_format("F j Y", $date)->format("j F Y");
-    }
+      $datetime =  date_create_from_format("F j Y", $date);
+      if($datetime){
+        return $datetime->format("j F Y");
+      }
+      else {
+        return $date;
+      }
+      
   };
 
   $vitalDateTypes = explode(';',$t_item->get('ca_entities.vital_dates_ind.ind_date_types'));
