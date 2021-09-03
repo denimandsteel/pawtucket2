@@ -37,12 +37,10 @@
                             inner join ca_attributes on ca_attributes.row_id = ca_objects_x_entities.object_id
                             inner join ca_attribute_values on ca_attributes.attribute_id = ca_attribute_values.attribute_id
                             where ca_objects_x_entities.type_id in (113, 121) -- artist,creator
-                            and ca_attributes.element_id = 131 -- catalogue_destination
-                            and ca_attribute_values.item_id = 493 -- artworks/objects
                             group by ca_entities.entity_id
                           )
                           and is_preferred = true
-                          order by name_sort asc");
+                          order by surname asc");
 
 			
 $qrows = $q_entities->getAllRows();
@@ -50,7 +48,7 @@ $qrows = $q_entities->getAllRows();
 $chunks = array_chunk(range('A','Z'),1); 
 foreach($qrows as $row){
     foreach($chunks as $letters){
-        if(in_array(strtoupper($row['name_sort'][0]), $letters)){  
+        if(in_array(strtoupper($row['surname'][0]), $letters)){  
             $letter_groups[implode($letters)][]=$row;  
             break; 
         }
@@ -75,10 +73,7 @@ foreach($qrows as $row){
     print '<h3 class="letter-heading">'.$letter.'</h3>';
     print '<ul class="letter-name-group">';
     foreach($names as $name){
-      $fullname = $name["surname"];
-      if($name["forename"]){
-        $fullname.=', '.$name["forename"];
-      }
+      $fullname = $name["displayname"];
       print '<li><a href="/pawtucket/index.php/Detail/entities/'.$name["entity_id"].'">'.$fullname.'</a></li>';
     }
     print '</ul></div></div>';
