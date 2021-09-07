@@ -13,6 +13,7 @@
   
   .filter-groups {
     position: relative;
+    width: 100%;
   }
   
   .filter-header {
@@ -47,8 +48,6 @@
   
 
   .filter-group {
-    // display: grid !important;
-    // grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
     columns: 250px auto;
 
     padding: rem(20px) rem(20px) rem(60px);
