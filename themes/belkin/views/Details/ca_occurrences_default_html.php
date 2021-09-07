@@ -65,7 +65,7 @@
       <div class="accordion-details" aria-expanded="true">
         <div class="container">
           <div class="result-objects result-objects--grid">
-            <div id="browseResultsContainer" class="container">
+            <div id="browseResultsContainer">
               <?php print caBusyIndicatorIcon($this->request).' '.addslashes(_t('Loading...')); ?>
             </div><!-- end browseResultsContainer -->
           </div>
