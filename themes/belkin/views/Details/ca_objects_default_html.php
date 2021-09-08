@@ -42,6 +42,9 @@
 
 
   $web_notice = $t_object->get("ca_objects.web_notice");
+
+  $medium = $t_object->get("ca_objects.medium.preferred_labels", array("delimiter" => ", "));
+  $support = $t_object->get("ca_objects.support.preferred_labels", array("delimiter" => ", "));
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -155,20 +158,26 @@
         <?php if($is_artwork): ?>
 
           <dt>Medium</dt>
-          {{{<ifdef code="ca_objects.medium">
-            <dd><unit delimiter=", ">^ca_objects.medium</unit></dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.medium">
-            <dd>–</dd>
-          </ifnotdef>}}} 
+          <?php
+
+          if($medium){
+            print '<dd>'.$medium.'</dd>';
+          }
+          else{
+            print '<dd>–</dd>';
+          }
+          ?>
 
           <dt>Support</dt>
-          {{{<ifdef code="ca_objects.support">
-            <dd>^ca_objects.support</dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.support">
-            <dd>–</dd>
-          </ifnotdef>}}} 
+          <?php
+
+          if($support){
+            print '<dd>'.$support.'</dd>';
+          }
+          else{
+            print '<dd>–</dd>';
+          }
+          ?>
 
           <dt>Dimensions</dt>
           <dd class="lowercase">
