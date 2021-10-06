@@ -25,6 +25,7 @@
  *
  * ----------------------------------------------------------------------
  */
+
  
 	$t_object = 			$this->getVar("item");
 	$va_comments = 			$this->getVar("comments");
@@ -42,9 +43,6 @@
 
 
   $web_notice = $t_object->get("ca_objects.web_notice");
-
-  $medium = $t_object->get("ca_objects.medium.preferred_labels", array("delimiter" => ", "));
-  $support = $t_object->get("ca_objects.support.preferred_labels", array("delimiter" => ", "));
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -158,26 +156,20 @@
         <?php if($is_artwork): ?>
 
           <dt>Medium</dt>
-          <?php
-
-          if($medium){
-            print '<dd>'.$medium.'</dd>';
-          }
-          else{
-            print '<dd>–</dd>';
-          }
-          ?>
+          {{{<ifdef code="ca_objects.medium">
+            <dd><unit delimiter=", ">^ca_objects.medium</unit></dd>
+          </ifdef>
+          <ifnotdef code="ca_objects.medium">
+            <dd>–</dd>
+          </ifnotdef>}}} 
 
           <dt>Support</dt>
-          <?php
-
-          if($support){
-            print '<dd>'.$support.'</dd>';
-          }
-          else{
-            print '<dd>–</dd>';
-          }
-          ?>
+          {{{<ifdef code="ca_objects.support">
+            <dd>^ca_objects.support</dd>
+          </ifdef>
+          <ifnotdef code="ca_objects.support">
+            <dd>–</dd>
+          </ifnotdef>}}} 
 
           <dt>Dimensions</dt>
           <dd class="lowercase">
@@ -239,34 +231,30 @@
 
           <dt>Collection</dt>
           {{{
-          <ifdef code="ca_collections">
-            <unit relativeTo="ca_collections" delimiter="<br/>"><l><dd>^ca_collections.preferred_labels.name</dd></l></unit>
-          </ifdef>
-          <ifnotdef code="ca_collections"><dd>–</dd></ifnotdef>
-        }}}
-
-          <dt>Credit Line</dt>
-          {{{<ifdef code="ca_objects.credit_line">
-            <dd>^ca_objects.credit_line</dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.credit_line">
-            <dd>–</dd>
-          </ifnotdef>}}}
-  
-          <dt>Related Exhibitions</dt>
-          {{{
-            <ifdef code="ca_occurences">
-              <unit relativeTo="ca_occurences" delimiter="<br/>"><l><dd>^ca_occurences.preferred_labels.name</dd></l></unit>
+          <dd>
+            <ifdef code="ca_collections">
+              <unit relativeTo="ca_collections" delimiter="<br/>"><l>^ca_collections.preferred_labels.name</l></unit>
             </ifdef>
-            <ifnotdef code="ca_occurences"><dd>–</dd></ifnotdef>
+            <ifnotdef code="ca_collections">–</ifnotdef>
+          </dd>
           }}}
 
-          <!-- TODO: figure out what this actually is -->
-          <!-- <dt>Exhibition History</dt>
+          <dt>Credit Line</dt>
+
           {{{
-            <ifdef code="^ca_occurences.preferred_labels.name"><unit relativeTo="ca_occurences" delimiter="<br/>"><l><dd>^ca_occurences.preferred_labels.name</dd></l></unit></ifdef>
-            <ifnotdef code="^ca_occurences.preferred_labels.name"><dd>–</dd></ifnotdef>
-          }}} -->
+          <dd>
+            <ifdef code="ca_objects.credit_line">^ca_objects.credit_line</ifdef>
+            <ifnotdef code="ca_objects.credit_line">–</ifnotdef>
+          </dd> 
+         }}}
+  
+          <dt>Related Exhibitions</dt>
+        {{{
+          <dd>
+            <ifdef code="ca_occurrences.preferred_labels.name"><unit relativeTo="ca_occurrences" delimiter="<br/>"><l>^ca_occurrences.preferred_labels.name</l></unit></ifdef>
+            <ifnotdef code="ca_occurrences.preferred_labels.name">–</ifnotdef>
+          </dd>
+          }}}
         </dl>
       </div>
     </div>
