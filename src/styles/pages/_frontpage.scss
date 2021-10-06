@@ -6,6 +6,36 @@
     margin-bottom: rem(20px);
   }
 
+  .select-wrapper {
+    position: relative;
+    display: inline;
+
+    &::after {
+      font-family: "FontAwesome"; 
+      content: "\f107";
+      position: absolute;
+      right: 10px;
+      bottom: 3px;
+      color: color(color-black);
+      pointer-events: none;
+      font-size: 20px;
+    }
+  }
+
+  select {
+    background-color: color(offwhite);
+    
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    outline: none;
+    border: 1px solid color(color-black);
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
   .frontpage-search {
     padding-top: rem(20px);
   }
@@ -25,16 +55,18 @@
     }
 
     select {
-      background-color: transparent;
       border: none;
       border-bottom: 1px solid color(color-black);
       font-weight: bold;
       font-size: rem(36px);
       padding-left: rem(30px);
+      padding-right: rem(30px);
       margin-left: rem(30px);
+
       &:focus {
         outline: none;
       }
+
     }
   }
   
@@ -45,6 +77,8 @@
   button#extend-bio {
     border: none;
     cursor: pointer;
+    background-color: color(offwhite);
+    color: color(color-black);
   }
 
   .frontpage-explore-bio {

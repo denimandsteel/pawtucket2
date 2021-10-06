@@ -105,7 +105,7 @@
       }
 
     }
-    print '<select class="" name="ca_objects.type_id" id="exploreCurator">';
+    print '<div class="select-wrapper"><select class="" name="ca_objects.type_id" id="exploreCurator">';
     $index = 0;
     foreach($grouped_sets as $set_group){ 
 
@@ -115,7 +115,7 @@
       $index++;
     } 
     ?>
-        </select>
+        </select></div>
         <div class="frontpage-explore-bios">
     <?php 
     foreach($grouped_sets as $set_group){ ?>
