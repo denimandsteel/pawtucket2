@@ -5,8 +5,6 @@
 	# --- get the collection hierarchy parent to use for exportin finding aid
 	$vn_top_level_collection_id = array_shift($t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true)));
   $current_id = $t_item->get('ca_collections.collection_id');
-  $search_date_time = strtotime($t_item->get('ca_collections.search_date'));
-  $search_date = $search_date_time ? date('j M Y', $search_date_time) : '–';
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -39,7 +37,12 @@
           </ifdef>}}}
 
           <dt>Date</dt>
-          <dd><?php echo $search_date; ?></dd>
+          {{{<ifdef code="ca_collections.search_date">
+            <dd>^ca_collections.search_date</dd>
+          </ifdef>
+          <ifnotdef code="ca_collections.search_date">
+            <dd>–</dd>
+          </ifnotdef>}}} 
 
           <dt>Level of Description</dt>
           {{{<ifdef code="ca_collections.level_description">
@@ -77,7 +80,7 @@
         <!-- Is description different than phyiscal extent?? -->
           <dt>Physical Extent</dt>
           {{{<ifdef code="ca_collections.RAD_extent">
-            <dd>^ca_collections.RAD_extent</dd>
+            <dd><unit delimiter="<br>">^ca_collections.RAD_extent</unit></dd>
           </ifdef>
           <ifnotdef code="ca_collections.RAD_extent">
             <dd>–</dd>
