@@ -118,3 +118,15 @@ select.search-input {
     margin-bottom: rem(8px);
   }
 }
+
+// Hide Adv Search on Collections search
+.search-form.collection-search {
+  .accordion-toggle,
+  .advanced-search.accordion-details {
+    display: none;
+  }
+
+  .basic-search {
+    margin-bottom: rem(60px);
+  }
+}

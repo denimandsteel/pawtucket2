@@ -42,7 +42,7 @@
       }
     }
     &.collection-item--current > .collection-bar {
-      .collection-bar-content, .button {
+      .collection-bar-content, .button, a {
         background-color: color(calcite);
         color: color(color-black);
         font-weight: 500;

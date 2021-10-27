@@ -1,7 +1,7 @@
 <?php
   if (!$vb_ajax) {	// !ajax
 ?>
-<div class="results collections">
+<div <?php print caGetPageCSSClasses(); ?>>
   <div class="container">
     <?php include( dirname(__FILE__, 2).'/Search/ca_objects_advanced_search_objects_html.php'); ?>
   </div>
@@ -120,7 +120,8 @@
 		<div class="container">
 			<div id="resultObjects" class="result-objects <?php if($vs_current_view === 'images'){ echo 'result-objects--grid';};?>">
         <div class="result-objects-labels">
-          <span>Image</span>
+          <span class="collections-only">Level</span>
+          <span class="objects-only">Image</span>
           <span>Artist/Creator</span>
           <span>Title</span>
           <span>Date</span>

@@ -112,11 +112,22 @@
 					print ExternalCache::fetch($vs_cache_key, 'browse_result');
 				}else{
 				
-          $vs_idno = $qr_res->get("ca_objects.idno");
+          if ($vs_table == 'ca_objects') {
+            $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
+            $vs_idno = $qr_res->get("ca_objects.idno");
+            $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+          }
+          if ($vs_table == 'ca_collections') {
+            $vs_date = $qr_res->get("ca_collections.search_date", array('delimiter' => '<br>'));
+            $vs_idno = $qr_res->get("ca_collections.idno");
+            $vs_catalogue= $qr_res->get("ca_collections.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+
+          }
           $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
 					$vs_typecode = "";
 					$vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
           $web_notice = $qr_res->get("ca_objects.web_notice");
+          $vs_level_desc = $qr_res->get("ca_collections.level_description", array("convertCodesToDisplayText" => 1));
 
 					if(!$vs_image){
 						if ($vs_table == 'ca_objects') {
@@ -128,7 +139,7 @@
             $vs_image = '<div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><span>Access Record<br>To View</span></div>';
           }
 
-					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
+					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_label_detail, '', $vs_table, $vn_id);	
 				
 					$vs_add_to_set_link = "";
 					if(($vs_table == 'ca_objects') && is_array($va_add_to_set_link_info) && sizeof($va_add_to_set_link_info)){
@@ -140,24 +151,25 @@
           if($vs_artist_display_name ){
             $vs_artist = $vs_artist_display_name;
           }else {
-            $vs_artist = "<div class='text-center'>-</div>";
+            $vs_artist = "<div class='text-center'>–</div>";
           }
-          $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
 
 					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values,'returnAsArray' => true))[0];
 
-          $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
  
 					$vs_result_output = "
           <div class='result-object'>
+            <div class='result-object-level-description'>
+              {$vs_level_desc}
+            </div>
             <div class='result-object-image'>
-              {$vs_rep_detail_link}
+              {$vs_image}
             </div>
             <div class='result-object-artist'>
               {$vs_artist}
             </div>
             <div class='result-object-title'>
-              {$vs_label_detail}
+              {$vs_rep_detail_link}
             </div>
             <div class='result-object-year'>
               {$vs_date}

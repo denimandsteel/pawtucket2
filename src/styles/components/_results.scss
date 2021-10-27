@@ -87,16 +87,60 @@
     }
   }
 
+  // Collection search
+  &.ca_collections {
+
+    .result-objects-labels,
+    .result-object {
+      grid-template-columns: 10% 15% 15% 15% 10% 10% 25%;
+    }
+
+    .result-objects-labels {
+      span.collections-only {
+        display: inline;
+      }
+      span.objects-only {
+        display: none;
+      }
+    }
+
+
+    .result-object-level-description {
+      display: block;
+    }
+    .result-object-image {
+      display: none;
+    }
+  }
+
+  // Object Search
+  &.ca_objects {
+    .result-objects-labels {
+      span.collections-only {
+        display: none;
+      }
+      span.objects-only {
+        display: inline;
+      }
+    }
+
+
+    .result-object-level-description {
+      display: none;
+    }
+    .result-object-image {
+      display: block;
+    }
+  }
+
 }
 
 .result-objects-labels,
 .result-object {
   display: grid;
-  grid-template-columns: 20% 15% 15% 5% 10% 10% 20%;
+  grid-template-columns: 20% 15% 15% 10% 10% 10% 20%;
   border-bottom:1px solid color(mid-grey);
-  grid-gap: rem(16px);
-  padding-left: rem(10px);
-  padding-right: rem(10px);
+  // grid-gap: rem(16px);
 }
 
 .result-objects-labels {
@@ -105,12 +149,12 @@
     font-size: rem(18px);
     font-weight: 500;
     text-transform: uppercase;
-    padding-bottom: rem(10px);
+    padding: 0 rem(8px) rem(10px);
   }
 }
 
 .result-object {
-  padding: rem(32px) rem(10px) rem(26px);
+  padding: rem(32px) 0 rem(26px);
   font-size: rem(20px);
   position: relative;
 
@@ -118,22 +162,24 @@
     margin-top: rem(5px);
   }
 
-  .result-object-image {
-    a {
-      display: block; // for "Image is being processed" link
-      text-decoration: none;
+  > * {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
 
-      &:after {
-        content: '';
-        position: absolute;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        cursor: pointer;
-        z-index: 1;
-      }
-    }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .result-object-level-description {
+    font-size: rem(18px);
+    font-weight: 500;
+    text-transform: uppercase;
+    margin-top: rem(5px);
+  }
+
+  .result-object-image {
 
     .no-image-available {
       border: 1px solid color(color-dark-grey);
@@ -181,13 +227,28 @@
 
   .result-object-title{
     font-style: italic;
+
+    a {
+      display: block; // for "Image is being processed" link
+      text-decoration: none;
+    }
+    a:after {
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      left: 0;
+      cursor: pointer;
+      z-index: 1;
+    }
   }
 
   .result-object-year {
     overflow-wrap: break-word;
   }
 
-  .result-object-catalogue{
+  .result-object-catalogue {
     font-size: rem(18px);
     font-weight: 500;
     text-transform: uppercase;
@@ -223,11 +284,6 @@
 
   .result-objects-labels {
     display: none;
-  }
-  
-  .result-object-image img{
-    height: auto;
-    width: 100%;
   }
 
   .result-object-artist{
