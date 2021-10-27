@@ -56,4 +56,20 @@
     }
   }
 
+  &.button--search-type {
+    font-size: rem(18px);
+    letter-spacing: initial;
+    border: none;
+    padding-left: 0;
+    padding-right: 0;
+    margin-right: 20px;
+    background-color: color(offwhite);
+    color: color(color-black);
+
+    &[aria-pressed="true"], &:hover {
+      text-decoration: underline;
+      
+    }
+  }
+
 }

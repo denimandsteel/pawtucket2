@@ -1,21 +1,41 @@
-<form class="search-form accordion accordion--hidden" action="/pawtucket/index.php/Search/objects" method="post" enctype="multipart/form-data">
+<div class="search-type-buttons accordion accordion--hidden">
+  <div class="search-type-buttons-container">
+    <button id="objectSearchButton" class="button button--search-type" aria-pressed="true">Object Search</button>
+    <button id="collectionSearchButton" class="button button--search-type" aria-pressed="false">Collection Search</button>
+    <div class="search-type-info">
+      <img src="/pawtucket/themes/belkin/assets/graphics/questionmark.svg"/>
+      <button class="button accordion-toggle" data-toggle-text="About Search Items">
+        About Search Types
+      </button>
+    </div>
+  </div>
+  <div class="search-type-details accordion-details" style="height: 0px" aria-expanded="false">
+    <p><strong>Objects</strong> includes artworks and single items of archival materials, such as photograph, postcard or publication.</p>
+    <p><strong>Collections</strong> includes distinct groups of art and archival objects (i.e. Permanent, Outdoor and Archives).</p>
+    <p>Note: within the Archives are groupings called fonds, series and files. Not all archival objects have been individually described.</p>
+  </div>
+</div>
+
+<form class="search-form accordion accordion--hidden" action="/pawtucket/index.php/Search/objects" method="post" enctype="multipart/form-data" onSubmit="return handleCollectionsSubmit();">
   <div class="basic-search">
     <label for="_fulltext" class="formLabel visually-hidden">Keyword</label>
     <div class="basic-search-container">
-      <input name="_fulltext[]" placeholder="Search by Keyword" value="" class="search-input" id="_fulltext" rows="1" size="" type="text">
+      <input name="_fulltext[]" placeholder="Search Objects by Keyword" value="" class="search-input" id="_fulltext" rows="1" size="" type="text">
       <input name="_fulltext_label" value="Keywords" type="hidden">	
-      <!-- <select class="basic-search-select">
-        <option value="">All Fields</option>
-        <option value="artist">Artist/Creator</option>
-        <option value="title">Title</option>
-        <option value="date">Date</option>
-        <option value="medium">Medium</option>
-      </select> -->
     </div>
-    <button class="button">Search</button>
+    <button id="searchButton" class="button">Search</button>
   </div>
-  <button class="button accordion-toggle">Advanced Search</button>
-
+  <button class="button accordion-toggle" data-toggle-text="Advanced Search">Advanced Search</button>
+  <script type="text/javascript">
+    function handleCollectionsSubmit(){
+      let form = document.querySelector('.search-form');
+      if(form.action.includes('collection')){
+        let keyword = encodeURIComponent(document.getElementById("_fulltext").value);
+        let action = form.action;
+        form.action += keyword;
+      }
+    }
+  </script>
   <div class="advanced-search accordion-details" style="height: 0px" aria-expanded="false">
     <input type="hidden" name="_formName" value="caAdvancedSearch">
     <div class="advanced-search-fields">
@@ -83,6 +103,6 @@
 
     <input name="_advancedFormName" value="objects" type="hidden">
     <input name="_formElements" value="form|_fulltext|ca_objects.catalogue_destination.preferred_labels|ca_entities.preferred_labels.displayname|ca_objects.preferred_labels.name|ca_objects.search_date|ca_objects.description|ca_objects.idno|ca_objects.type_id|ca_objects_object_category|ca_objects.medium|/form" type="hidden">
-    <input name="_advanced" value="1" type="hidden">
+    <input id="advancedSearchInput" name="_advanced" value="1" type="hidden">
   </div>
 </form>

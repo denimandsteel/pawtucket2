@@ -1,7 +1,6 @@
 
 .advanced-search {
   max-width: 800px;
-  // height: 0;
 }
 
 .advanced-search-fields {
@@ -93,5 +92,29 @@ select.search-input {
 
 .button--search {
   margin: 0;
+}
 
+.search-type-buttons-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.search-type-info {
+  display: flex;
+  align-items: center;
+
+  .button.accordion-toggle {
+    padding: 10px 5px 0px;
+  }
+}
+
+.search-type-details {
+  p {
+    font-size: rem(18px);
+  }
+
+  p:first-of-type {
+    margin-bottom: rem(8px);
+  }
 }

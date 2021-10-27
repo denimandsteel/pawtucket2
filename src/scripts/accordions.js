@@ -57,14 +57,21 @@ function addButtonListeners(expandBtns, handler){
 
 function accordionClickHandler(event){
   event.preventDefault();
+  let seeDetailsBtn = event.target;
   let accordionItem = event.target.closest('.accordion');
   let detailsSection = accordionItem.querySelector('.accordion-details');
   let isCollapsed = ( detailsSection.getAttribute('aria-expanded') === "false" );
+  let toggleText = seeDetailsBtn.dataset.toggleText;
+
   if(isCollapsed){
     expandSection(detailsSection);
+    seeDetailsBtn.innerText = toggleText || "Hide";
+
   }
   else {
     collapseSection(detailsSection);
+    seeDetailsBtn.innerText = toggleText || "Show";
+
   }
 }
 
@@ -89,8 +96,7 @@ function collapseSection(element) {
   let sectionHeight = element.scrollHeight;
   let elementTransition = element.style.transition;
   let accordionItem = element.closest('.accordion');
-  let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
-  let isSearch = accordionItem.classList.contains('search-form');
+  
   element.style.transition = '';
   
   requestAnimationFrame(() => {
@@ -103,16 +109,11 @@ function collapseSection(element) {
   
   element.setAttribute('aria-expanded', 'false');
   accordionItem.classList.add('accordion--hidden');
-
-  seeDetailsBtn.innerText = isSearch ? "Advanced Search" : "Show";
-
 }
 
 function expandSection(element) {
   let sectionHeight = element.scrollHeight;
   let accordionItem = element.closest('.accordion');
-  let seeDetailsBtn = accordionItem.querySelector('.accordion-toggle');
-  let isSearch = accordionItem.classList.contains('search-form');
 
   element.style.height = sectionHeight + 'px';
 
@@ -122,6 +123,5 @@ function expandSection(element) {
   
   element.setAttribute('aria-expanded', 'true');
   accordionItem.classList.remove('accordion--hidden');
-  seeDetailsBtn.innerText = isSearch ? "Advanced Search" : "Hide";
 
 }
