@@ -132,7 +132,12 @@ select.search-input {
   align-items: center;
 
   .button.accordion-toggle {
-    padding: 10px 5px 0px;
+    padding: 5px 5px 0px;
+  }
+
+  img {
+    height: 20px;
+    width: 20px;
   }
 }
 
