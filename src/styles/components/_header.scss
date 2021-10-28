@@ -1,5 +1,41 @@
 header{
   .navbar-nav {
     align-items: baseline;
+
+    li, span {
+      display: inline;
+    }
+  }
+
+  @include mobile {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 rem(20px); 
+
+    .name {
+      display: block;
+      font-size: rem(16px);
+      margin: rem(10px) 0;
+    }
+
+    nav.main-nav {
+      order: 1;
+      display: flex;
+      position: static;
+      padding: 0;
+      top: 0;
+      width: initial;
+      overflow: unset;
+    }
+
+    .nav {
+      flex-direction: row;
+       li {
+         padding-right: rem(10px);
+       }
+    }
+
   }
 }
