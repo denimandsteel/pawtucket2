@@ -1,11 +1,20 @@
 // results of Browse and search
 .results { 
   margin-top: rem(80px);
+
+  @include mobile {
+    margin-top: 0;
+  }
   
   .results-header {
     padding-top: rem(20px);
     display: flex;
     justify-content: space-between;
+
+    @include mobile {
+      flex-direction: column;
+      margin-top: rem(10px);
+    }
   }
 
   .results-filters {
@@ -16,8 +25,16 @@
   .results-controls { //view mode, sorting
     display: flex;
 
+    @include mobile {
+      flex-direction: column;
+    }
+
     .results-view {
       display: flex;
+
+      @include mobile {
+        display: none;
+      }
 
       a {
         height: max-content;
@@ -26,6 +43,11 @@
 
     .results-sort {
       margin-left: rem(50px);
+
+      @include mobile {
+        margin: rem(20px) 0;
+        margin-left: 0;
+      }
     } 
   }
 
@@ -324,6 +346,10 @@
   grid-template-columns: repeat(auto-fill, 440px);
   grid-gap: rem(40px);
   justify-content: center;  
+
+  @include mobile {
+    display: block;
+  }
 
 }
 

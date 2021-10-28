@@ -1,16 +1,24 @@
 .collections {
   .collections-intro {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: rem(50px);
+
+    @include tablet {
+      flex-direction: row;
+    }
   }
 
   .collections-intro-tips {
-    flex: 1 0 auto;
-    margin-left: rem(50px);
-
+    
     a {
       display: block;
+    }
+    
+    @include tablet {
+      flex: 1 0 auto;
+      margin-left: rem(50px);
     }
   }
 

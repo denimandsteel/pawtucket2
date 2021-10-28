@@ -1,6 +1,7 @@
 // see results.scss for styling shared between browse/search
 
 .browse {
+
   .browse-links {
     
     .filter-list {
@@ -11,7 +12,13 @@
     .filter-item{
       // padding-left: 0;
       padding: rem(8px) rem(10px) rem(1px);
+      
+      @include mobile {
+        display: block;
+        max-width: fit-content;
+      }
     }
+
   }
 
 
@@ -56,6 +63,10 @@
       margin-top: 0;
       padding-left: rem(100px);
       list-style: none;
+
+      @include mobile {
+        padding-left: rem(20px);
+      }
     }
   }
 

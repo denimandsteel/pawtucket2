@@ -144,6 +144,10 @@
     font-weight: 400;
     margin-top: rem(30px);
     
+    @include mobile {
+      font-size: rem(20px);
+    }
+    
     dt {
       display: inline-flex;
       text-transform: uppercase;

@@ -81,19 +81,37 @@
         width: 100%;
         top: 0; left: 0;
       }
+
+      @include mobile {
+        padding: rem(10px) rem(10px) rem(5px);
+      }
+    }
+
+    .collection-title {
+      @include mobile {
+        font-size: rem(14px);
+      }
     }
 
     .button.accordion-toggle {
       border: 1px solid color(color-black);
       border-left: none;
       padding: rem(10px) rem(20px) rem(5px);
+
+      @include mobile {
+        padding: rem(10px) rem(5px) rem(5px);
+      }
     }
 
 
     .button.accordion-toggle, .collection-bar-spacer {
       display: inline-block;
-      width: 100px;
       min-width: 100px;
+
+      @include mobile {
+        padding: rem(10px) rem(10px) rem(5px);
+        min-width: 80px;
+      }
     }
   }
   
@@ -118,22 +136,39 @@
     font-size: rem(18px);
     font-weight: 500;
     text-transform: uppercase;
+
+    @include mobile {
+      font-size: rem(14px);
+    }
   }
 
   .collection--child{
     margin-left: rem(40px);
+
+    @include mobile {
+      margin-left: rem(10px);
+    }
   }
 
   .collection--gchild {
     margin-left: rem(60px);
+    @include mobile {
+      margin-left: rem(20px);
+    }
   }
 
   .collection--ggchild {
     margin-left: rem(80px);
+    @include mobile {
+      margin-left: rem(30px);
+    }
   
   }
 
   .collection--gggchild {
-    margin-left: rem(100px);    
+    margin-left: rem(100px);  
+    @include mobile {
+      margin-left: rem(40px);
+    }  
   }
 }

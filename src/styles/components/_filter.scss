@@ -4,6 +4,10 @@
   // margin-bottom: rem(250px);
   font-size: rem(18px);
 
+  @include mobile {
+    flex-direction: column;
+  }
+
   .filter-by {
     font-size: rem(24px);
     margin-right: rem(20px);
@@ -17,11 +21,14 @@
   }
   
   .filter-header {
-    // display: flex;
-    // justify-content: space-evenly;
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
     margin-bottom: rem(5px);
     border: 1px solid color(color-black);
+    
+    @include mobile {
+      flex-direction: column;
+    }
 
   }
   
@@ -34,7 +41,8 @@
     background-color: color(calcite);
     flex-grow: 2;
     cursor: pointer;
-    border-right: 1px solid color(color-black);
+
+
     
     &:last-of-type {
       border-right: none;
@@ -43,7 +51,15 @@
     &[aria-selected="true"], &:hover {
       background-color: color(light-grey);
     }
-    
+
+    & + .filter-tab {
+      border-left: 1px solid color(color-black);
+
+      @include mobile {
+        border-top: 1px solid color(color-black);
+        border-left: none;
+      }
+    }
   }
   
 
