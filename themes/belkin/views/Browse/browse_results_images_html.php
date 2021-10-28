@@ -126,7 +126,7 @@
             $vs_image = '<div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><span>Access Record<br>To View</span></div>';
           }
 
-					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_image, '', $vs_table, $vn_id);	
+					$vs_rep_detail_link 	= caDetailLink($this->request, $vs_label_detail, '', $vs_table, $vn_id);	
 				
 					$vs_add_to_set_link = "";
 					if(($vs_table == 'ca_objects') && is_array($va_add_to_set_link_info) && sizeof($va_add_to_set_link_info)){
@@ -151,7 +151,7 @@
 					$vs_result_output = "
           <div class='result-object'>
             <div class='result-object-image'>
-              {$vs_rep_detail_link}
+              {$vs_image}
             </div>
             <div class='result-object-catalogue fw-border-bottom'>
               {$vs_catalogue}
@@ -160,7 +160,7 @@
               {$vs_artist}
             </div>
             <div class='result-object-title'>
-              {$vs_label_detail}
+              {$vs_rep_detail_link}
             </div>
             <div class='result-object-year'>
               {$vs_date}
