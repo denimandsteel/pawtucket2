@@ -32,12 +32,6 @@
     }
   }
 
-  // fix for empty bios returning as ';'
-  $bio = $t_item->get('ca_entities.biography');
-  if ($bio == ";"){
-    $bio = null;
-  }
-
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -66,7 +60,8 @@
       </div>
     </div>
 
-    <?php if ($bio): ?>
+    {{{<ifdef code="ca_entities.biography.biography_text">
+
         <div class="detail-info-box fw-border-top accordion">
           <div class="container">
             <div class="detail-info-box-header">
@@ -74,11 +69,11 @@
               <button class="button accordion-toggle">Hide</button>
             </div>
             <div class="accordion-details" aria-expanded="true">
-              <p class='unit detail-info-paragraph'><?php echo $bio; ?></p>
+              <p class='unit detail-info-paragraph'>^ca_entities.biography.biography_text</p>
             </div>
           </div>
         </div>
-    <?php endif; ?>
+    </ifdef>}}}
 
     {{{<ifdef code="ca_collections">
     <div class="detail-info-box fw-border-top accordion">
