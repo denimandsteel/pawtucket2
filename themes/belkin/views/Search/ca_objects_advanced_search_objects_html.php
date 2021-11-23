@@ -10,8 +10,8 @@
     </div>
   </div>
   <div class="search-type-details accordion-details" style="height: 0px" aria-expanded="false">
-    <p><strong>Objects</strong> includes artworks and single items of archival materials, such as photograph, postcard or publication.</p>
-    <p><strong>Collections</strong> includes distinct groups of art and archival objects (i.e. Permanent, Outdoor and Archives).</p>
+    <p><strong>Objects</strong> include artworks and single items of archival material, such as a photograph, postcard or publication.</p>
+    <p><strong>Collections</strong> include distinct groups of art and archival objects (i.e. Permanent, Outdoor and Archives).</p>
     <p>Note: within the Archives are groupings called fonds, series and files. Not all archival objects have been individually described.</p>
   </div>
 </div>
