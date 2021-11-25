@@ -79,15 +79,15 @@
         <div class="select-wrapper">
           <select class="search-input" name="ca_objects_object_category" id="ca_objects_object_category">
             <option value="">Select Type</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "408"){echo "selected";}?> value="408">Audio</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "409"){echo "selected";}?> value="409">Film/Video</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "410"){echo "selected";}?> value="410">Painting</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "411"){echo "selected";}?> value="411">Performance</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "412"){echo "selected";}?> value="412">Photography</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "413"){echo "selected";}?> value="413">Sculpture/Installation/Object</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "416"){echo "selected";}?> value="416">Textiles</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "415"){echo "selected";}?> value="415">Texts</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "414"){echo "selected";}?> value="414">Works on Paper</option>
+            <option <?php if($formData["ca_objects_object_category"] == "408"){echo "selected";}?> value="408">Audio</option>
+            <option <?php if($formData["ca_objects_object_category"] == "409"){echo "selected";}?> value="409">Film/Video</option>
+            <option <?php if($formData["ca_objects_object_category"] == "410"){echo "selected";}?> value="410">Painting</option>
+            <option <?php if($formData["ca_objects_object_category"] == "411"){echo "selected";}?> value="411">Performance</option>
+            <option <?php if($formData["ca_objects_object_category"] == "412"){echo "selected";}?> value="412">Photography</option>
+            <option <?php if($formData["ca_objects_object_category"] == "413"){echo "selected";}?> value="413">Sculpture/Installation/Object</option>
+            <option <?php if($formData["ca_objects_object_category"] == "416"){echo "selected";}?> value="416">Textiles</option>
+            <option <?php if($formData["ca_objects_object_category"] == "415"){echo "selected";}?> value="415">Texts</option>
+            <option <?php if($formData["ca_objects_object_category"] == "414"){echo "selected";}?> value="414">Works on Paper</option>
           </select>
         </div>
         <input name="ca_objects_object_category_label" value="Type" type="hidden">
