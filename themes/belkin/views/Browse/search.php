@@ -1,5 +1,19 @@
 <?php
   if (!$vb_ajax) {	// !ajax
+
+  // get search keywords and fill form (adv search too?)
+
+  $uri = parse_url($_SERVER['REQUEST_URI']);
+
+  $current_page = basename($uri['path']);
+
+  if( $current_page == "objects" ) {
+    $num_results_str = $vn_result_size . ' object records';
+  }
+  else {
+    $num_results_str = $vn_result_size . ' collection records';
+  }
+  
 ?>
 <div <?php print caGetPageCSSClasses(); ?>>
   <div class="container">
@@ -9,7 +23,7 @@
   <div class="fw-border-top">
     <div class="results-header container">
       <?php
-      print '<h2 class="results-header-title">' . $vn_result_size . ' results</h2>';
+      print '<h2 class="results-header-title">' . $num_results_str . '</h2>';
       ?>	
       <div class='results-controls'>
         <div id='viewMode' class='results-view results-toggle'>
@@ -43,8 +57,8 @@
 					print "</ul></div>\n";
 
           print "<div class='results-order results-toggle'>";
-					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"false" disabled' : 'true').">".caNavLink($this->request, 'Asc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-asc'></i></button>";
-					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'asc') ? '"true"' : '"false" disabled').">".caNavLink($this->request, 'Desc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => (($vs_sort_dir == 'asc') ? _t("desc") : _t("asc")), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-desc'></i></button>";
+					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'desc') ? '"false" disabled' : 'true').">".caNavLink($this->request, 'Asc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => _t("asc"), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-asc'></i></button>";
+					print "<button class='button' aria-pressed=".(($vs_sort_dir == 'desc') ? '"true"' : '"false" disabled').">".caNavLink($this->request, 'Desc', '', '*', '*', '*', array('view' => $vs_current_view, 'key' => $vs_browse_key, 'direction' => _t("desc"), '_advanced' => $vn_is_advanced ? 1 : 0))."<i class='fa fa-sort-amount-desc'></i></button>";
 					print "</div>\n";
 					print "</div>\n"; // end results-sort
 				

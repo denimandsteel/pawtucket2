@@ -1,3 +1,6 @@
+<?php
+  $formData = $_POST;
+?>
 <div class="search-type-buttons accordion accordion--hidden">
   <div class="search-type-buttons-container">
     <button id="objectSearchButton" class="button button--search-type" aria-pressed="true">Object Search</button>
@@ -20,7 +23,7 @@
   <div class="basic-search">
     <label for="_fulltext" class="formLabel visually-hidden">Keyword</label>
     <div class="basic-search-container">
-      <input name="_fulltext[]" placeholder="Search Objects by Keyword" value="" class="search-input" id="_fulltext" rows="1" size="" type="text">
+      <input name="_fulltext[]" placeholder="Search Objects by Keyword" value="<?php echo $formData["_fulltext"][0] ? $formData["_fulltext"][0] : "";?>" class="search-input" id="_fulltext" rows="1" size="" type="text">
       <input name="_fulltext_label" value="Keywords" type="hidden">	
     </div>
     <button id="searchButton" class="button">Search</button>
@@ -42,33 +45,33 @@
       <div class="advanced-search-field">
         <label for="ca_objects.catalogue_destination.preferred_labels" class="formLabel">Collection Type</label>
         <div class="select-wrapper">
-          <select class="search-input" name="ca_objects.catalogue_destination.preferred_labels" class="" id="ca_objects.catalogue_destination.preferred_labels">
+          <select class="search-input" name="ca_objects.catalogue_destination.preferred_labels" id="ca_objects.catalogue_destination.preferred_labels">
             <option value="">Select Collection Type</option>
-            <option value="492">Archive</option>
-            <option value="493">Artwork</option>
-            <option value="494">Library</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "492"){echo "selected";}?> value="492">Archive</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "493"){echo "selected";}?> value="493">Artwork</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "494"){echo "selected";}?> value="494">Library</option>
           </select>
         </div>
         <input name="ca_objects.catalogue_destination.preferred_labels_label" value="Collection Type" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_entities.preferred_labels.displayname">Artist/Creator</label>
-        <input class="search-input" name="ca_entities.preferred_labels.displayname" type="text" id="ca_entities.preferred_labels.displayname"/>
+        <input class="search-input" name="ca_entities.preferred_labels.displayname" type="text" id="ca_entities.preferred_labels.displayname" value="<?php echo $formData["ca_entities_preferred_labels_displayname"] ? $formData["ca_entities_preferred_labels_displayname"] : "";?>"/>
         <input name="ca_entities.preferred_labels.displayname_label" value="Artist/Creator" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects.preferred_labels.name">Title</label>
-        <input class="search-input" name="ca_objects.preferred_labels.name" id="ca_objects.preferred_labels.name" type="text">
+        <input class="search-input" name="ca_objects.preferred_labels.name" id="ca_objects.preferred_labels.name" type="text" value="<?php echo $formData["ca_objects_preferred_labels_name"] ? $formData["ca_objects_preferred_labels_name"] : "";?>">
         <input name="ca_objects.preferred_labels.name_label" value="Title" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects.search_date[]">Date</label>
-        <input class="search-input" name="ca_objects.search_date[]" id="ca_objects.search_date[]" type="text">
+        <input class="search-input" name="ca_objects.search_date[]" id="ca_objects.search_date[]" type="text" value="<?php echo $formData["ca_objects_search_date"][0] ? $formData["ca_objects_search_date"][0] : "";?>">
         <input name="ca_objects.search_date_label" value="Date" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects.description[]">Description</label>
-        <input class="search-input" name="ca_objects.description[]" id="ca_objects.description[]" type="text">
+        <input class="search-input" name="ca_objects.description[]" id="ca_objects.description[]" type="text" value="<?php echo $formData["ca_objects_description"][0] ? $formData["ca_objects_description"][0] : "";?>">
         <input name="ca_objects.description_label" value="Description" type="hidden">
       </div>
       <div class="advanced-search-field">
@@ -76,27 +79,27 @@
         <div class="select-wrapper">
           <select class="search-input" name="ca_objects_object_category" id="ca_objects_object_category">
             <option value="">Select Type</option>
-            <option value="408">Audio</option>
-            <option value="409">Film/Video</option>
-            <option value="410">Painting</option>
-            <option value="411">Performance</option>
-            <option value="412">Photography</option>
-            <option value="413">Sculpture/Installation/Object</option>
-            <option value="416">Textiles</option>
-            <option value="415">Texts</option>
-            <option value="414">Works on Paper</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "408"){echo "selected";}?> value="408">Audio</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "409"){echo "selected";}?> value="409">Film/Video</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "410"){echo "selected";}?> value="410">Painting</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "411"){echo "selected";}?> value="411">Performance</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "412"){echo "selected";}?> value="412">Photography</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "413"){echo "selected";}?> value="413">Sculpture/Installation/Object</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "416"){echo "selected";}?> value="416">Textiles</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "415"){echo "selected";}?> value="415">Texts</option>
+            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "414"){echo "selected";}?> value="414">Works on Paper</option>
           </select>
         </div>
         <input name="ca_objects_object_category_label" value="Type" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects_medium">Medium</label>
-        <input class="search-input" name="ca_objects_medium" type="text" id="ca_objects_medium">
+        <input class="search-input" name="ca_objects_medium" type="text" id="ca_objects_medium" value="<?php echo $formData["ca_objects_medium"] ? $formData["ca_objects_medium"] : "";?>">
         <input name="ca_objects.medium_label" value="Medium" type="hidden">
       </div>
       <div class="advanced-search-field">
         <label class="formLabel" for="ca_objects_idno[]">ID #</label>
-        <input class="search-input" name="ca_objects_idno[]" type="text"  value="" id="ca_objects_idno[]">
+        <input class="search-input" name="ca_objects_idno[]" type="text" id="ca_objects_idno[]" value="<?php echo $formData["ca_objects_idno"][0] ? $formData["ca_objects_idno"][0] : "";?>">
         <input name="ca_objects.idno_label" value="ID #" type="hidden">
       </div>
     </div>
