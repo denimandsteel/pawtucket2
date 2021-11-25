@@ -22,8 +22,13 @@
 	}
 ?>
 <div class="container"><div class="col-sm-12">
-	<H1><?php print $vs_page_title; ?></H1>
-  <p>For questions about the Belkin collections, email us at <a href="mailto:belkin.collections@ubc.ca"><strong>belkin.collections@ubc.ca</strong></a> or send us your questions and comments below.</p>
+	<h1>Contact Us</h1>
+  <p>For questions and comments about the collections, or if you have noticed information that is incorrect, incomplete or may require further discussion, please contact us. <a href="mailto:belkin.collections@ubc.ca"><strong>belkin.collections@ubc.ca</strong></a></p>
+  <h2>Content Notice</h2>
+  <p>Because the Morris and Helen Belkin Gallery has been a collecting institution since 1948, some content on the Belkin Collections website may be upsetting: original records can reflect the prejudices and attitudes of their historical periods and database descriptions and metadata can reflect biased views. We are working through our records to create descriptions that diminish possible harm. If a record is flagged, it will be reviewed, contextualized and updated, although outdated language may be retained in metadata if it is copied directly from an original work, such as from a title or quote. </p>
+  <h2>Take Down Requests</h2>
+  <p>Due to the nature of archival material, we are not always able to identify potential consequences of publishing a photograph or text. If you appear in a record, you have the right to request this information be removed from publication. Please note that we may ask further questions to better understand the request.</p>
+  <h2>Contact Form</h2>
 <?php
 	if(is_array($va_errors["display_errors"]) && sizeof($va_errors["display_errors"])){
 		print "<div class='alert alert-danger'>".implode("<br/>", $va_errors["display_errors"])."</div>";

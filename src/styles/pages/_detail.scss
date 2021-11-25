@@ -187,6 +187,11 @@
   .detail-actions { //on other pages?
     padding-top: rem(30px);
     padding-bottom: rem(50px);
+
+    .detail-actions-paragraph {
+      margin-bottom: rem(20px); 
+      max-width: 70ch;
+    }
   
   }
 }
