@@ -42,7 +42,6 @@
 
   .frontpage-explore {
     padding-top: rem(80px);
-
   }
   .frontpage-explore-header {
     margin-bottom: rem(20px);
@@ -78,7 +77,8 @@
   }
   
   .frontpage-explore-bios {
-    margin-top: rem(10px);
+    margin-top: rem(40px);
+    margin-bottom: rem(40px);
   }
 
   button#extend-bio {
@@ -89,6 +89,8 @@
   }
 
   .frontpage-explore-bio {
+    max-width: 70ch;
+
     p:first-child {
       display: inline;
     }
@@ -97,6 +99,9 @@
   .filters {
     padding-left: 0;
     padding-right: 0;
+  }
+  .filters .filter:before {
+    content: none;
   }
   .filters .filter .filter-item {
     margin-bottom: 0;
