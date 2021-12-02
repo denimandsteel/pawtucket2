@@ -1,9 +1,12 @@
 // results of Browse and search
 .results { 
-  margin-top: rem(80px);
 
   @include mobile {
     margin-top: 0;
+  }
+
+  .search {
+    padding-top: rem(20px);
   }
   
   .results-header {

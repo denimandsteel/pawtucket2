@@ -16,9 +16,23 @@
   
 ?>
 <div <?php print caGetPageCSSClasses(); ?>>
-  <div class="container">
-    <?php include( dirname(__FILE__, 2).'/Search/ca_objects_advanced_search_objects_html.php'); ?>
+  <div class="container collections">
+    <h1>Search Results</h1>
+    <nav>
+      <ul class="collections-nav">
+        <li><a href="/pawtucket">Search and Explore</a></li>
+        <li><a class="active" href="/pawtucket/index.php/Browse/entities">Browse</a></li>
+      </ul>
+    </nav>
   </div>
+  <article class="search fw-border-top">
+    <div class="container">
+      <?php 
+    include( dirname(__FILE__, 2).'/Search/ca_objects_advanced_search_objects_html.php');
+      ?>
+      
+    </div>
+  </article>
 
   <div class="fw-border-top">
     <div class="results-header container">
