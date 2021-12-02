@@ -11,6 +11,7 @@
 	$vb_has_grandchildren = false;
   $current_id = $this->request->getParameter("current_id", pString);
   $va_collection_children = $t_item->get('ca_collections.children.collection_id', array('returnAsArray' => true, 'checkAccess' => $va_access_values, 'sort' => 'ca_collections.idno_sort'));
+  $va_collection_related_objects = $t_item->get("ca_objects.object_id", array("returnAsArray" => true,'checkAccess' => $va_access_values));
 
   if(!empty($va_collection_children)){
 
@@ -32,30 +33,106 @@
 <?php
           print "<div class='collection-item collection-item--fond'><div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>".$t_item->get('ca_collections.idno')."  ".caDetailLink($this->request, $t_item->get('ca_collections.preferred_labels.name'), '', 'ca_collections',  $t_item->get("ca_collections.collection_id"))."</span><span class='collection-level'>". $t_item->get('ca_collections.type_id', array('convertCodesToDisplayText' => true))."</span></div><button class='button accordion-toggle'>Hide</button></div>";
           print "<ul class='collection collection--child accordion-details accordion' aria-expanded='true'>";
-					if($qr_collection_children->numHits()){
-            $index = 0;
-            while($qr_collection_children->nextHit()) {
 
-              $current_item_id = $t_item->get('ca_collections.collection_id');
-              $list_class = ($index > 4) ? 'collection-item--hidden ' : '';
-              
-              print "<li class='collection-item  ".$list_class ."' id='collection".$qr_collection_children->get('ca_collections.collection_id')."'>";
-							# --- link open in panel or to detail
-							$va_grand_children_type_ids = $qr_collection_children->get("ca_collections.children.type_id", array('returnAsArray' => true, 'checkAccess' => $va_access_values));
-              
-							print "</li>";	
+          $all_children = []; // objects AND collections
 
-              $list_length = $qr_collection_children->numHits();
+          $va_child_object_ids = $t_item->get("ca_objects.object_id", array("returnAsArray" => true, 'sort' => array('ca_objects.idno_sort'), 'checkAccess' => $va_access_values));
 
-              if($index == 5){
-                $count_more_results = $list_length - 5;
-                print "<li><button class='button see-more'>".$count_more_results." More</button></li>";
+          if($va_child_object_ids) {
+            $qr_objects = caMakeSearchResult('ca_objects', $va_child_object_ids); 
+  
+            if($qr_objects->numHits()){
+              while($qr_objects->nextHit()) {
+                // store data in obj
+                $obj = new stdClass();
+                $obj->id = $qr_objects->get('ca_objects.object_id');
+                $obj->idno = $qr_objects->get('ca_objects.idno');
+                $obj->idno_sort = $qr_objects->get('ca_objects.idno_sort');
+                $obj->preferred_labels = $qr_objects->get('ca_objects.preferred_labels');
+                $obj->type = "object";
+                $obj->level = "Item";
+                $obj->link = caDetailLink($this->request, $qr_objects->get('ca_objects.idno') ." " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
+
+                $all_children[] = $obj;
+
               }
-                
-?>													
+            }
+          }
+
+   
+
+					if($qr_collection_children->numHits()){
+
+            while($qr_collection_children->nextHit()) {
+              // store data in obj
+              $coll = new stdClass();
+              $coll->id = $qr_collection_children->get('ca_collections.collection_id');
+              $coll->idno = $qr_collection_children->get('ca_collections.idno');
+              $coll->idno_sort = $qr_collection_children->get('ca_collections.idno_sort');
+              $coll->preferred_labels = $qr_collection_children->get('ca_collections.preferred_labels');
+              $coll->type = "collection";
+              $coll->level = $qr_collection_children->get('ca_collections.level_description', array('convertCodesToDisplayText' => true));
+              $coll->link = caDetailLink($this->request, $qr_collection_children->get('ca_collections.idno') ." " . $qr_collection_children->get('ca_collections.preferred_labels'), '', 'ca_collections', $qr_collection_children->get('ca_collections.collection_id'));
+              
+              // $coll->link = caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $qr_collection_children->get("ca_collections.collection_id"), 'current_id' => $current_id ), array('useQueryString' => true));
+
+              // store obj in array
+              $all_children[] = $coll;
+
+						}
+          }
+
+          // sort array by idno_sort
+          function id_sort($a, $b) {
+            return strcmp($a->idno_sort, $b->idno_sort);
+          }
+          
+          usort($all_children, "id_sort");
+
+            // Loop through $all_children, print
+            $index = 0;
+
+          foreach($all_children as $child){
+
+            switch($child->level){
+              case "Sous-fonds":
+                $list_class = "collection-item--sousfond ";
+                break;
+              case "Series":
+                $list_class = "collection-item--series ";
+                break;
+              case "Sub-series":
+                $list_class = "collection-item--subseries ";
+                break;
+              default: //files and objects
+                $list_class = "collection-item--file ";
+                break;
+            }
+
+            $is_current_item = ($child->id == $current_id);
+
+            $list_class .= ($index > 4 && !$is_current_item && ( $child->level == "File" || $child->level == "Item" )) ? 'collection-item--hidden ' : '';
+
+            if($is_current_item){ 
+              $list_class .= ' collection-item--current';
+            }
+
+            if($index == 5){
+              $count_more_results =  count($all_children) - 5;
+              print "<li><button class='button see-more'>".$count_more_results." More</button></li>";
+            }
+
+            print "<li id='collection". $child->id . "' class='collection-item " . $list_class ."' data-index='". $index ."'>";
+            print "<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
+            print  $child->link;
+            print "</span><span class='collection-level'>". $child->level ."</span></div><span class='collection-bar-spacer'></span></div>";
+            $index++;
+
+            if( $child->level !== "File" && $child->level !== "Item"){
+            ?>													
             <script>
               $(document).ready(function(){
-                $('#collection<?php print $qr_collection_children->get("ca_collections.collection_id");?>').load("<?php print caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $qr_collection_children->get("ca_collections.collection_id"), 'current_id' => $current_id ), array('useQueryString' => true)); ?>", undefined, function() {
+                $('#collection<?php print $child->id;?>').load("<?php print caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $child->id, 'current_id' => $current_id ), array('useQueryString' => true)); ?>", undefined, function() {
                 	$current_item = $(this).find('.collection-item--current');
                   $parent_lists = $current_item.parents('li.accordion');
                   $current_item.removeClass('accordion--hidden');
@@ -72,9 +149,8 @@
                 }); 
               });
             </script>
-<?php							
-              $index++;
-						}
+          <?php			
+            }
 					}
 ?>
 								</ul></div><!-- end findingAidContainer -->
