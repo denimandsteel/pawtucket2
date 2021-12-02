@@ -117,11 +117,12 @@
 <body>
 	<div id="skipNavigation"><a href="#main">Skip to main content</a></div>
 	<header class="navbar navbar-default yamm" role="navigation">
-    <nav class="main-nav">
+    
+    <nav class="navigation">
       <ul class="nav navbar-nav navbar-right menuItems" role="list" aria-label="<?php print _t("Primary Navigation"); ?>">
-        <li><a class="link link--back" href="https://belkin.ubc.ca/">Back To Gallery</a></li>  
-        <li><a href="/pawtucket">Collections Home</a></li>
-        <li><a href="https://belkin.ubc.ca/collections/">About the Collections</a></li>
+        <span class="hide-mobile"><li><a href="https://belkin.ubc.ca/">Gallery Home</a></li></span> 
+        <li><a href="/pawtucket"><span class="hide-mobile">Collections&nbsp;</span>Home</a></li>
+        <li><a href="https://belkin.ubc.ca/collections/">About&nbsp;<span class="hide-mobile"> the Collections</span></a></li>
         <li <?php print ($this->request->getController() == "Contact") ? 'class="active"' : ''; ?>><?php print caNavLink($this->request, _t("Contact Us"), "", "", "Contact", "Form"); ?></li>
       </ul>
     </nav>
