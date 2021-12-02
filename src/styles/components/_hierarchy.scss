@@ -91,6 +91,7 @@
       @include mobile {
         font-size: rem(14px);
       }
+      font-variant: tabular-nums;
     }
 
     .button.accordion-toggle {

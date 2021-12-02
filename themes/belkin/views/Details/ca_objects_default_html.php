@@ -41,6 +41,8 @@
   $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
   $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
+  $artist = ($t_item->get('^ca_entities.preferred_labels.displayname'));
+
 
   $web_notice = $t_object->get("ca_objects.web_notice");
 ?>
@@ -176,12 +178,12 @@
           <dt>Dimensions</dt>
           <dd class="lowercase">
             {{{
-            <ifdef code="ca_objects.measurements_item.dimensions_height_item">h-^ca_objects.measurements_item.dimensions_height_item</ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_width_item">w-^ca_objects.measurements_item.dimensions_width_item</ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_depth_item">d-^ca_objects.measurements_item.dimensions_depth_item</ifdef>
-            <!-- Removed because 'cm' seems to be included in DB field -->
-            <!-- <ifdef code="ca_objects.measurements_item.dimensions_depth_item|ca_objects.measurements_item.dimensions_width_item|ca_objects.measurements_item.dimensions_depth_item"> cm</ifdef> -->
-            <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item">–</ifnotdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_height_item"><span class="dimension">^ca_objects.measurements_item.dimensions_height_item</span></ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_width_item"><span class="dimension">^ca_objects.measurements_item.dimensions_width_item</span></ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_depth_item"><span class="dimension">^ca_objects.measurements_item.dimensions_depth_item</span></ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_type_item">(^ca_objects.measurements_item.dimensions_type_item)</ifdef>
+            <ifdef code="ca_objects.measurements_item.dimensions_notes_item"></br><p>^ca_objects.measurements_item.dimensions_notes_item)</p></ifdef>
+            <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_type_item,ca_objects.measurements_item.dimensions_note_item">–</ifnotdef>
           }}}
           </dd>
 

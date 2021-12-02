@@ -169,6 +169,12 @@
         text-transform: lowercase;
       }
     }
+
+    .dimension + .dimension {
+      &:before {
+        content: '× '
+      }
+    }
   }
 
   .detail-related-link {

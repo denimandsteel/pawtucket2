@@ -150,47 +150,6 @@ function printLevel($po_request, $va_collection_ids, $o_config, $vn_level, $va_o
 
     $index++;
   }
-
-
-  // $is_current_item = ($qr_collections->get('ca_collections.collection_id') == $current_id);
-
-  // $list_class .= ($index > 4 && !$is_current_item) ? ' collection-item--hidden ' : '';
-  // // $list_style = ($index > 4) ? ' style="height:0px;" aria-expanded="false"' : '';
-  
-  // if(sizeof($va_child_collection_ids) || sizeof($va_child_object_ids)){
-  //   $list_class .= ' accordion accordion--hidden';
-  // }
-  // if($is_current_item){
-  //   $list_class .= ' collection-item--current';
-  // }
-
-  // $vs_output .= "<li class='collection-item " . $list_class . "' data-index='" . $index . "'>";
-
-  // $vs_output.="<div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>";
-  
-
-  // $vs_output .= $qr_collections->get('ca_collections.idno') ."  ". caDetailLink($po_request, $qr_collections->get('ca_collections.preferred_labels'), '', 'ca_collections',  $qr_collections->get("ca_collections.collection_id"));
-
-  // $vs_output.="</span><span class='collection-level'>". $qr_collections->get('ca_collections.level_description', array('convertCodesToDisplayText' => true))."</span>";
-
-  // if(sizeof($va_child_collection_ids) || sizeof($va_child_object_ids)) {
-  //   $vs_output.="</div><button class='button accordion-toggle'>Show</button></div>";
-  // }else{
-  //   $vs_output.="</div><span class='collection-bar-spacer'></span></div>";
-  // }
-  // if(sizeof($va_child_collection_ids) || sizeof($va_child_object_ids)) {
-  //   $vs_output .= "<ul class='collection ". $hierarchy_class. " accordion-details' aria-expanded='false' style='height:0px'>";
-  //   $vs_output .=  printLevel($po_request, $va_child_collection_ids, $o_config, $vn_level + 1, $va_options, $t_item, $current_id, $va_child_object_ids);
-  //   $vs_output .= "</ul>";
-  // }
-  // $vs_output .= "</li>";
-  
-  // if ($vn_level > 1 && $index == 5) {
-  //   $count_more_results = 100;// $list_length - 5;
-  //   $vs_output .= "<li><button class='button see-more'>".$count_more_results." More</button></li>";
-  // }
-
-  // $index++;
 }
 
 if ($vn_collection_id) {
