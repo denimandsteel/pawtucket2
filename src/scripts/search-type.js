@@ -3,7 +3,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   
   let buttons = document.querySelectorAll('.button--search-type');
 
-  if(!(buttons)){
+  if(buttons.length < 1){
     return;
   }
 

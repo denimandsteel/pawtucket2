@@ -18,46 +18,53 @@
       <div class="container">
         {{{<h1>^ca_collections.preferred_labels.name</h1>}}}
 
-        <dl class="detail-info-list">
-          <dt>Artist/Creator</dt>
-					{{{<dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>}}}
-					
-          <dt>ID #</dt>
-					{{{<ifdef code="ca_collections.idno"><dd> ^ca_collections.idno </dd></ifdef>}}}
-					{{{<ifnotdef code="ca_collections.idno"><dd>–</dd></ifnotdef>}}}
+        <?php 
+        if ($web_notice) {
+          print '<div class="web-notice"><div class="web-notice-content"><h2>Notice</h2><p>'. $web_notice.'</p><div class="buttons"><button id="webNoticeBack" class="button button--sensitive">Go Back</button><button id="webNoticeContinue" class="button button--sensitive">Continue</button></div></div></div>';
+        }
+        ?>
+        <div class="<?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
+          <dl class="detail-info-list">
+            <dt>Artist/Creator</dt>
+            {{{<dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>}}}
+            
+            <dt>ID #</dt>
+            {{{<ifdef code="ca_collections.idno"><dd> ^ca_collections.idno </dd></ifdef>}}}
+            {{{<ifnotdef code="ca_collections.idno"><dd>–</dd></ifnotdef>}}}
 
-          {{{<ifdef code="ca_collections.web_notice">
-          <dt>Notice</dt>
-            <dd>^ca_collections.web_notice</dd>
-          </ifdef>}}}
+            {{{<ifdef code="ca_collections.web_notice">
+            <dt>Notice</dt>
+              <dd>^ca_collections.web_notice</dd>
+            </ifdef>}}}
 
-          {{{<ifdef code="ca_collections.content_notice">
-          <dt>Notice</dt>
-            <dd>^ca_collections.content_notice</dd>
-          </ifdef>}}}
+            {{{<ifdef code="ca_collections.content_notice">
+            <dt>Notice</dt>
+              <dd>^ca_collections.content_notice</dd>
+            </ifdef>}}}
 
-          <dt>Date</dt>
-          {{{<ifdef code="ca_collections.search_date">
-            <dd>^ca_collections.search_date</dd>
-          </ifdef>
-          <ifnotdef code="ca_collections.search_date">
-            <dd>–</dd>
-          </ifnotdef>}}} 
+            <dt>Date</dt>
+            {{{<ifdef code="ca_collections.search_date">
+              <dd>^ca_collections.search_date</dd>
+            </ifdef>
+            <ifnotdef code="ca_collections.search_date">
+              <dd>–</dd>
+            </ifnotdef>}}} 
 
-          <dt>Level of Description</dt>
-          {{{<ifdef code="ca_collections.level_description">
-            <dd>^ca_collections.level_description</dd>
-          </ifdef>
-          <ifnotdef code="ca_collections.level_description">
-            <dd>–</dd>
-          </ifnotdef>}}} 
-    
-        </dl>
+            <dt>Level of Description</dt>
+            {{{<ifdef code="ca_collections.level_description">
+              <dd>^ca_collections.level_description</dd>
+            </ifdef>
+            <ifnotdef code="ca_collections.level_description">
+              <dd>–</dd>
+            </ifnotdef>}}} 
+      
+          </dl>
+        </div>
       </div>
     </div>
         
     {{{<ifdef code="ca_collections.RAD_scopecontent">
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Scope & Content</h2>
@@ -70,7 +77,7 @@
     </div>
     </ifdef>}}}
 
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Physical Description</h2>
@@ -98,7 +105,7 @@
       </div>
     </div>
 
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Navigate Fonds</h2>
@@ -121,7 +128,7 @@
       </div>
     </div>
     
-    <div class="detail-actions fw-border-top">
+    <div class="detail-actions fw-border-top <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <p class='detail-actions-paragraph'>Descriptions are works in progress and may be updated as new descriptive practices, research and information emerge. To help improve this record, please contact us.</p>
         <button class="button button--catalogue "><?php print caDetailLink($this->request, "Download as PDF", "", "ca_collections",  $vn_top_level_collection_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_collections_summary')); ?></button>

@@ -1,5 +1,4 @@
 .detail {
-
   .detail-nav {
     display: flex;
     align-items: baseline;
@@ -24,61 +23,6 @@
   
     .detailMediaToolbar, #detailRepNav {
       display: none;
-    }
-  
-    .sensitive-content-wrapper {
-      position: absolute;
-      height: 100%;
-      width: calc(100% -  40px);
-      box-sizing: border-box;
-      z-index: 1;
-    }
-
-    .sensitive-content {
-      padding-left: 10%;
-      padding-right: 10%;
-      overflow: hidden;
-      position: relative;
-      height: 100%;
-      display: grid;
-      place-content: center;
-      background-color: color(color-black);
-      
-      div {
-        display: flex;
-        flex-direction: column;
-        z-index: 1;
-        color: color(calcite);
-        font-weight: 500;
-
-        > * {
-          margin-top: rem(20px);
-        }
-      }
-
-      p{
-        max-width: 60ch;
-      }
-
-      span {
-        text-transform: uppercase;
-      }
-
-      button {
-        align-self: flex-start;
-        color: color(calcite);
-        background-color: transparent;
-        border: 2px solid color(calcite);
-        font-size: rem(22px);
-        font-weight: 500;
-      }
-
-      img {
-        filter: blur(15px) brightness(40%);
-        height: 100%;
-        width: 100%;
-        position: absolute;
-      }
     }
 
     #detailRepresentationThumbnails {
@@ -108,6 +52,58 @@
 
       li.active {
         border: 1px solid color(color-black);
+      }
+    }
+  }
+
+  .hidden-from-notice {
+    display: none;
+  }    
+
+  .web-notice {
+    padding: rem(40px);
+    margin-bottom: rem(80px);
+    background-color: color(calcite);
+    max-width: fit-content;
+  }
+
+  .web-notice-content {
+    display: flex;
+    flex-direction: column;
+    
+    > * {
+      margin-top: rem(20px);
+    }
+
+
+    p {
+      max-width: 60ch;
+    }
+
+    h2 {
+      font-weight: 500;
+    }
+
+    .buttons {
+      display: flex;
+      margin-top: rem(40px);
+
+      @include mobile {
+        flex-direction: column;
+      }
+    }
+
+    button {
+      color: color(color-black);
+      background-color: transparent;
+      border: 2px solid color(color-black);
+      font-size: rem(22px);
+      margin-right: rem(20px);
+      align-self: flex-start;
+
+      @include mobile {
+        margin-top: rem(20px);
+
       }
     }
   }

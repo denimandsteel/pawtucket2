@@ -51,13 +51,8 @@
     <div class="detail-breadcrumb">{{{<unit relativeTo="ca_collections" delimiter=" / "><l>^ca_collections.preferred_labels.name</l></unit><ifcount min="1" code="ca_collections"> / </ifcount>}}}{{{ca_objects.preferred_labels.name}}}</div>
   </nav>
 
-  <div class="detail-images">
+  <div class="detail-images <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
     <div class="detail-images-container container">
-      <?php 
-      if ($web_notice) {
-        print '<div class="sensitive-content-wrapper"><div class="sensitive-content"><img src="/pawtucket/themes/belkin/assets/graphics/sensitive-content.jpg"/><div><span>Notice</span><p>'. $web_notice.'</p><button class="button button--sensitive">Show Image</button></div></div></div>';
-      }
-      ?>
       {{{representationViewer}}}						
 				<div id="detailAnnotations"></div>			
 				<?php print caObjectRepresentationThumbnails($this->request, $this->getVar("representation_id"), $t_object, array("returnAs" => "list", "linkTo" => "carousel", "bsColClasses" => "smallpadding col-sm-3 col-md-3 col-xs-4", "primaryOnly" => $this->getVar('representationViewerPrimaryOnly') ? 1 : 0)); ?>		
@@ -75,65 +70,72 @@
         {{{<ifdef code="ca_objects.preferred_labels.name">
             <h1>^ca_objects.preferred_labels.name</h1>
         </ifdef>}}}
-        <dl class="detail-info-list">
+        <?php 
+        if ($web_notice) {
+          print '<div class="web-notice"><div class="web-notice-content"><h2>Notice</h2><p>'. $web_notice.'</p><div class="buttons"><button id="webNoticeBack" class="button button--sensitive">Go Back</button><button id="webNoticeContinue" class="button button--sensitive">Continue</button></div></div></div>';
+        }
+        ?>
+        <div class="<?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
+          <dl class="detail-info-list">
 
-          {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
-          {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
+            {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
+            {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
 
-          {{{
-            <ifdef code="ca_entities.preferred_labels.displayname">
-              <dd>
-                <unit relativeTo="ca_entities" delimiter="<br/>">
-                  <!-- <unit relativeTo="ca_entities"> -->
-                    <l>^ca_entities.preferred_labels.displayname (^relationship_typename)</l> 
-                  <!-- </unit>  -->
+            {{{
+              <ifdef code="ca_entities.preferred_labels.displayname">
+                <dd>
+                  <unit relativeTo="ca_entities" delimiter="<br/>">
+                    <!-- <unit relativeTo="ca_entities"> -->
+                      <l>^ca_entities.preferred_labels.displayname (^relationship_typename)</l> 
+                    <!-- </unit>  -->
+                      
+                  </unit>
                     
-                </unit>
-                  
-              </dd>
+                </dd>
+              </ifdef>
+              <ifnotdef code="ca_entities.preferred_labels.displayname">
+                <dd>–</dd>
+              </ifnotdef>
+            }}}
+
+            <dt>Date</dt>
+            {{{<ifdef code="ca_objects.search_date">
+              <dd>^ca_objects.search_date</dd>
             </ifdef>
-            <ifnotdef code="ca_entities.preferred_labels.displayname">
+            <ifnotdef code="ca_objects.search_date">
               <dd>–</dd>
-            </ifnotdef>
-          }}}
+            </ifnotdef>}}} 
 
-          <dt>Date</dt>
-          {{{<ifdef code="ca_objects.search_date">
-            <dd>^ca_objects.search_date</dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.search_date">
-            <dd>–</dd>
-          </ifnotdef>}}} 
+            <dt>ID #</dt>
+            {{{<ifdef code="ca_objects.idno">
+              <dd>^ca_objects.idno</dd>
+            </ifdef>
+            <ifnotdef code="ca_objects.idno">
+              <dd>–</dd>
+            </ifnotdef>}}}
 
-          <dt>ID #</dt>
-          {{{<ifdef code="ca_objects.idno">
-            <dd>^ca_objects.idno</dd>
-          </ifdef>
-          <ifnotdef code="ca_objects.idno">
-            <dd>–</dd>
-          </ifnotdef>}}}
-
-          <?php if($is_archive): ?>
-            <dt>Level of Description</dt>
-            <dd>Item</dd>
-          <?php endif ?>
+            <?php if($is_archive): ?>
+              <dt>Level of Description</dt>
+              <dd>Item</dd>
+            <?php endif ?>
 
 
-          {{{<ifdef code="ca_objects.web_notice">
-          <dt>Notice</dt>
-            <dd>^ca_objects.web_notice</dd>
-          </ifdef>}}}
+            {{{<ifdef code="ca_objects.web_notice">
+            <dt>Notice</dt>
+              <dd>^ca_objects.web_notice</dd>
+            </ifdef>}}}
 
-          {{{<ifdef code="ca_objects.content_notice">
-          <dt>Notice</dt>
-            <dd>^ca_objects.content_notice</dd>
-          </ifdef>}}}
-        </dl>
+            {{{<ifdef code="ca_objects.content_notice">
+            <dt>Notice</dt>
+              <dd>^ca_objects.content_notice</dd>
+            </ifdef>}}}
+          </dl>
+        </div>
       </div>
     </div>
 
     <?php if($is_archive): ?>
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Object Description</h2>
@@ -148,7 +150,7 @@
 
     <?php if($is_archive || $is_artwork): ?>
 
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Physical Description</h2>
@@ -225,7 +227,7 @@
     </div>
     <?php endif ?>
 
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>History</h2>
@@ -266,7 +268,7 @@
     <?php 
     if($vn_top_level_collection_id):
     ?>
-    <div class="detail-info-box fw-border-top accordion">
+    <div class="detail-info-box fw-border-top accordion <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
       <div class="container">
         <div class="detail-info-box-header">
           <h2>Navigate Fonds</h2>
@@ -292,7 +294,7 @@
   </div>
   <?php endif ?>
 
-  <div class="detail-actions fw-border-top">
+  <div class="detail-actions fw-border-top <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
     <div class="container">
       <p class='detail-actions-paragraph'>Descriptions are works in progress and may be updated as new descriptive practices, research and information emerge. To help improve this record, please contact us.</p>
       <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
