@@ -5,6 +5,9 @@
 	# --- get the collection hierarchy parent to use for exportin finding aid
 	$vn_top_level_collection_id = array_shift($t_item->get('ca_collections.hierarchy.collection_id', array("returnWithStructure" => true)));
   $current_id = $t_item->get('ca_collections.collection_id');
+
+  $web_notice = $t_item->get("ca_collections.web_notice");
+
 ?>
 <article class="detail">
   <nav class="detail-nav container">
