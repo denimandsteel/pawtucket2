@@ -13,7 +13,8 @@
   $va_collection_children = $t_item->get('ca_collections.children.collection_id', array('returnAsArray' => true, 'checkAccess' => $va_access_values, 'sort' => 'ca_collections.idno_sort'));
   $va_collection_related_objects = $t_item->get("ca_objects.object_id", array("returnAsArray" => true,'checkAccess' => $va_access_values));
 
-  if(!empty($va_collection_children)){
+
+  if(!empty($va_collection_children) || !empty($va_collection_related_objects)){
 
 		$vb_has_children = true;
 		$qr_collection_children = caMakeSearchResult("ca_collections", $va_collection_children);
