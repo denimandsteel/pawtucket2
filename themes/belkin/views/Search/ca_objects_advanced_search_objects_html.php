@@ -19,7 +19,7 @@
   </div>
 </div>
 
-<form class="search-form accordion accordion--hidden" action="/pawtucket/index.php/Search/objects" method="post" enctype="multipart/form-data" onSubmit="return handleCollectionsSubmit();">
+<form class="search-form accordion accordion--hidden" action="/index.php/Search/objects" method="post" enctype="multipart/form-data" onSubmit="return handleCollectionsSubmit();">
   <div class="basic-search">
     <label for="_fulltext" class="formLabel visually-hidden">Keyword</label>
     <div class="basic-search-container">
@@ -30,7 +30,7 @@
   </div>
   <button class="button accordion-toggle" data-toggle-text="Advanced Search">Advanced Search</button>
   <script type="text/javascript">
-    function handleCollectionsSubmit(){
+    function handleCollectionsSubmit() {
       let form = document.querySelector('.search-form');
       if(form.action.includes('collection')){
         let keyword = encodeURIComponent(document.getElementById("_fulltext").value);

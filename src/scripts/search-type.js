@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   
   let pageWrapper = document.getElementById("pageArea");
   if (pageWrapper.classList.contains('ca_collections')){ // if collections search
-    searchForm.setAttribute('action', "/pawtucket/index.php/Search/collections/search/");
+    searchForm.setAttribute('action', "/index.php/Search/collections/search/");
     textInput.placeholder = "Search Collections by Keyword";
     advancedInput.value = 0;
     toggleAriaPressed(buttons[0]);
@@ -39,14 +39,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
       if (clickedButton.id == 'collectionSearchButton'){
-        searchForm.setAttribute('action', "/pawtucket/index.php/Search/collections/search/");
+        searchForm.setAttribute('action', "/index.php/Search/collections/search/");
         textInput.placeholder = "Search Collections by Keyword";
         advancedInput.value = 0;
 
         // let submitButton = 
       }
       else {
-        searchForm.setAttribute('action', "/pawtucket/index.php/Search/objects");
+        searchForm.setAttribute('action', "/index.php/Search/objects");
         textInput.placeholder = "Search Objects by Keyword";
         advancedInput.value = 1;
       }

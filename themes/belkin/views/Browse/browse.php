@@ -37,7 +37,7 @@
     <nav>
       <ul class="collections-nav">
         <li><a href="/pawtucket">Search and Explore</a></li>
-        <li><a class="active" href="/pawtucket/index.php/Browse/entities">Browse</a></li>
+        <li><a class="active" href="/index.php/Browse/entities">Browse</a></li>
       </ul>
     </nav>
   </div>
@@ -47,7 +47,7 @@
       <ul class="filter-list">
         <?php
         foreach($browse_pages as $url => $title): ?>
-          <li class="filter-item button toggle <?php if($url === $activePage):?>active<?php endif;?>"><a href="/pawtucket/index.php/Browse/<?php echo $url ?>"><?php echo $title ?></a></li>
+          <li class="filter-item button toggle <?php if($url === $activePage):?>active<?php endif;?>"><a href="/index.php/Browse/<?php echo $url ?>"><?php echo $title ?></a></li>
         <?php endforeach; ?>
       </ul>
     </div>

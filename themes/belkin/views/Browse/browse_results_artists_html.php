@@ -73,7 +73,7 @@ foreach($qrows as $row){
     print '<ul class="letter-name-group">';
     foreach($names as $name){
       $fullname = $name["displayname"];
-      print '<li><a href="/pawtucket/index.php/Detail/entities/'.$name["entity_id"].'">'.$fullname.'</a></li>';
+      print '<li><a href="/index.php/Detail/entities/'.$name["entity_id"].'">'.$fullname.'</a></li>';
     }
     print '</ul></div></div>';
   }
