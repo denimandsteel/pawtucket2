@@ -5,9 +5,7 @@
 
   $uri = parse_url($_SERVER['REQUEST_URI']);
 
-  $current_page = basename($uri['path']);
-
-  if( $current_page == "objects" ) {
+  if(strpos ($uri['path'], "objects") !== false ) {
     $num_results_str = $vn_result_size . ' object records';
   }
   else {
