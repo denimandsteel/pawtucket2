@@ -181,7 +181,7 @@
               $vs_idno = $qr_res->get("ca_objects.idno");
               $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
               $vs_typecode = "";
-              $vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'medium', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
+              $vs_image = ($vs_table === 'ca_objects') ? $qr_res->getMediaTag("ca_object_representations.media", 'small', array("checkAccess" => $va_access_values)) : $va_images[$vn_id];
               $web_notice = $qr_res->get("ca_objects.web_notice");
 
               if(!$vs_image){
