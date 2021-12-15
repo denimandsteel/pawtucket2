@@ -77,18 +77,7 @@
 					print "</div>\n"; // end results-sort
 				
         }
-        // Export as PDF links
-        if(is_array($va_export_formats) && sizeof($va_export_formats)){
-          print "<div class='results-export'>";
-          print "<div class='dropdown'><button class='button dropdown-toggle'>"._t("Export Results")."</button><ul class='dropdown-list hidden'>\n";
-          foreach($va_export_formats as $va_export_format){
-            print "<li class='".$va_export_format["code"]." dropdown-option'>".caNavLink($this->request, $va_export_format["name"], "", "*", "*", "*", array("view" => "pdf", "download" => true, "export_format" => $va_export_format["code"], "key" => $vs_browse_key))."</li>";
-          }
-					print "</div>\n";
-
-        }
         ?>
-        </div>
       </div>
     </div>
   </div>

@@ -297,7 +297,6 @@
   <div class="detail-actions fw-border-top <?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
     <div class="container">
       <p class='detail-actions-paragraph'>Descriptions are works in progress and may be updated as new descriptive practices, research and information emerge. To help improve this record, please contact us.</p>
-      <button class="button button--catalogue "><?php print caDetailLink($this->request, "Export Results", "faDownload", "ca_objects",  $vn_id, array('view' => 'pdf', 'export_format' => '_pdf_ca_objects_summary')); ?></button>
       <?php print caNavLink($this->request, _t("Contact Us"), "button button--catalogue", "", "Contact", "Form"); ?>
     </div>
   </div>
