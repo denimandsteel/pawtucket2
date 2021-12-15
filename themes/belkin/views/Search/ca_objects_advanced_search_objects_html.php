@@ -33,7 +33,7 @@
     function handleCollectionsSubmit() {
       let form = document.querySelector('.search-form');
       if(form.action.includes('collection')){
-        let keyword = '/' + encodeURIComponent(document.getElementById("_fulltext").value);
+        let keyword = encodeURIComponent(document.getElementById("_fulltext").value);
         let action = form.action;
         form.action += keyword;
       }
