@@ -57,7 +57,8 @@
   }
 
   .hidden-from-notice {
-    display: none;
+    position: absolute;
+    opacity: 0;
   }    
 
   .web-notice {
