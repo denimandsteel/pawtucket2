@@ -32,7 +32,7 @@
 				<div class="hierarchy accordion" id="collectionsWrapper">	
           
 <?php
-          print "<div class='collection-item collection-item--fond'><div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>".$t_item->get('ca_collections.idno')."  ".caDetailLink($this->request, $t_item->get('ca_collections.preferred_labels.name'), '', 'ca_collections',  $t_item->get("ca_collections.collection_id"))."</span><span class='collection-level'>". $t_item->get('ca_collections.type_id', array('convertCodesToDisplayText' => true))."</span></div><button class='button accordion-toggle'>Hide</button></div>";
+          print "<div class='collection-item collection-item--fond'><div class='collection-bar'><div class='collection-bar-content'><span class='collection-title'>" . caDetailLink($this->request, $t_item->get('ca_collections.preferred_labels.name'), '', 'ca_collections',  $t_item->get("ca_collections.collection_id"))."</span><span class='collection-level'>". $t_item->get('ca_collections.type_id', array('convertCodesToDisplayText' => true))."</span></div><button class='button accordion-toggle'>Hide</button></div>";
           print "<ul class='collection collection--child accordion-details accordion' aria-expanded='true'>";
 
           $all_children = []; // objects AND collections
