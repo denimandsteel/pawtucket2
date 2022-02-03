@@ -43,7 +43,6 @@
 
   $artist = ($t_item->get('^ca_entities.preferred_labels.displayname'));
 
-
   $web_notice = $t_object->get("ca_objects.web_notice");
 ?>
 <article class="detail">
@@ -78,25 +77,28 @@
         <div class="<?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
           <dl class="detail-info-list">
 
-            {{{<ifcount code="ca_entities" min="1" max="1"><dt>Artist/Creator</dt></ifcount>}}}
+            {{{<ifcount code="ca_entities" min="0" max="1"><dt>Artist/Creator</dt></ifcount>}}}
             {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
 
-            {{{
-              <ifdef code="ca_entities.preferred_labels.displayname">
-                <dd>
-                  <unit relativeTo="ca_entities" delimiter="<br/>">
-                    <!-- <unit relativeTo="ca_entities"> -->
-                      <l>^ca_entities.preferred_labels.displayname (^relationship_typename)</l> 
-                    <!-- </unit>  -->
-                      
-                  </unit>
-                    
-                </dd>
-              </ifdef>
-              <ifnotdef code="ca_entities.preferred_labels.displayname">
-                <dd>–</dd>
-              </ifnotdef>
+            <?php
+              if(isset($artist)):
+            ?>
+            {{{  
+              <dd>
+                <unit relativeTo="ca_entities" delimiter="<br/>">
+                    <l>^ca_entities.preferred_labels.displayname (^relationship_typename)</l> 
+                </unit>
+              </dd>
             }}}
+            <?php
+              else:
+            ?>
+            {{{
+              <dd>–</dd>
+            }}}
+            <?php 
+              endif;
+            ?>
 
             <dt>Date</dt>
             {{{<ifdef code="ca_objects.search_date">
