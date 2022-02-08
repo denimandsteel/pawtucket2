@@ -49,7 +49,6 @@
             <option value="">Select Collection Type</option>
             <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "492"){echo "selected";}?> value="492">Archive</option>
             <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "493"){echo "selected";}?> value="493">Artwork</option>
-            <option <?php if($formData["ca_objects_catalogue_destination_preferred_labels"] == "494"){echo "selected";}?> value="494">Library</option>
           </select>
         </div>
         <input name="ca_objects.catalogue_destination.preferred_labels_label" value="Collection Type" type="hidden">
