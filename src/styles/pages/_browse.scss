@@ -26,6 +26,7 @@
   .browse-links-columns {
     margin-top: rem(40px);
     margin-bottom: rem(40px);
+    list-style: none;
 
     .browse-links-item {
       margin-bottom: rem(15px);
@@ -87,8 +88,10 @@
 
   .decade {
     .browse-links-columns {
-      display: grid;
-      grid-template-columns:  repeat( auto-fit, minmax(250px, 1fr) );
+      flex-grow: 1;
+      columns: 250px auto;
+      margin-top: 0;
+      padding-top: 3rem;
     }
   }
 
