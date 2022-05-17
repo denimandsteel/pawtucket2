@@ -41,6 +41,8 @@
   $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
   $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
+  $dim_display_is_checked = ($t_item->get('ca_objects.measurements_item.displaycheck_dimensions_item') == "914"); //914 checked, 915 unchecked don't ask me why
+
   $artist = ($t_item->get('ca_entities.preferred_labels.displayname'));
 
   $web_notice = $t_object->get("ca_objects.web_notice");
@@ -101,10 +103,10 @@
             ?>
 
             <dt>Date</dt>
-            {{{<ifdef code="ca_objects.search_date">
-              <dd>^ca_objects.search_date</dd>
+            {{{<ifdef code="ca_objects.pub_date">
+              <unit delimiter="<br>"><dd>^ca_objects.pub_date</dd></unit>
             </ifdef>
-            <ifnotdef code="ca_objects.search_date">
+            <ifnotdef code="ca_objects.pub_date">
               <dd>–</dd>
             </ifnotdef>}}} 
 
@@ -124,12 +126,17 @@
 
             {{{<ifdef code="ca_objects.web_notice">
             <dt>Notice</dt>
-              <dd>^ca_objects.web_notice</dd>
+              <dd>
+                <p>^ca_objects.web_notice</p>
+                <button id="webNoticeHide" class="button button--sensitive">Hide Content</button>
+              </dd>
             </ifdef>}}}
 
             {{{<ifdef code="ca_objects.content_notice">
-            <dt>Notice</dt>
-              <dd>^ca_objects.content_notice</dd>
+            <dt>Content Notice</dt>
+              <dd>
+                <p>^ca_objects.content_notice</p>
+              </dd>
             </ifdef>}}}
           </dl>
         </div>
@@ -179,6 +186,8 @@
             <dd>–</dd>
           </ifnotdef>}}} 
 
+          <?php if($dim_display_is_checked): ?>
+          
           <dt>Dimensions</dt>
           <dd class="lowercase">
             {{{
@@ -190,6 +199,7 @@
             <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_type_item,ca_objects.measurements_item.dimensions_note_item">–</ifnotdef>
           }}}
           </dd>
+          <?php endif ?>
 
           {{{<ifdef code="ca_objects.duration">
           <dt>Duration</dt>

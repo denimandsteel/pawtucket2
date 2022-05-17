@@ -17,6 +17,9 @@
       
   };
 
+  $alternateNames = explode(';', $t_item->get("ca_entities.nonpreferred_labels.displayname"));
+  $alternateNamesDisplay = explode(';', $t_item->get("ca_entities.nonpreferred_labels.type_id"));
+
   $vitalDateTypes = explode(';',$t_item->get('ca_entities.vital_dates_ind.ind_date_types'));
   $vitalDates = array_map($convertDate, explode(';', $t_item->get('ca_entities.vital_dates_ind.vital_date_ind')));
   
@@ -44,6 +47,25 @@
       <div class="container">
         {{{<h1>^ca_entities.preferred_labels.displayname</h1>}}}
         <dl class="detail-info-list">
+
+        {{{
+          <dt>Alternate Names:</dt>
+          <ifdef code="ca_entities.nonpreferred_labels.displayname">
+            <dd>
+            <?php
+              foreach($alternateNames as $index=>$altName){
+                $is_displayed = ($alternateNamesDisplay[$index] == "88");
+                if($is_displayed){
+                  echo $altName . '<br>';
+                }
+              }
+            ?>
+            </dd>
+            </ifdef>
+            <ifnotdef code="ca_entities.nonpreferred_labels.displayname">
+              <dd>–</dd>
+            </ifnotdef>
+        }}}
         
 
           {{{<ifdef code="ca_entities.vital_dates_ind.vital_date_ind">

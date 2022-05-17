@@ -118,7 +118,7 @@
             $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
           }
           if ($vs_table == 'ca_collections') {
-            $vs_date = $qr_res->get("ca_collections.search_date", array('delimiter' => '<br>'));
+            $vs_date = $qr_res->get("ca_collections.pub_date", array('delimiter' => '<br>'));
             $vs_idno = $qr_res->get("ca_collections.idno");
             $vs_catalogue= $qr_res->get("ca_collections.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
 

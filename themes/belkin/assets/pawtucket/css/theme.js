@@ -1,19 +1,793 @@
-parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"Vpa2":[function(require,module,exports) {
+// modules are defined as an array
+// [ module function, map of requires ]
+//
+// map of requires is short require name -> numeric require
+//
+// anything defined in a previous bundle is accessed via the
+// orig method which is the require for previous bundles
+parcelRequire = (function (modules, cache, entry, globalName) {
+  // Save the require from previous bundle to this closure if any
+  var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
+  var nodeRequire = typeof require === 'function' && require;
 
-},{}],"GyzZ":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var r=document.getElementById("explore");if(r){var t=Array.from(r.querySelectorAll(".result-objects")),l=Array.from(r.querySelectorAll(".filters")),o=Array.from(r.querySelectorAll(".frontpage-explore-bio")),a=Array.from(r.querySelectorAll("#extend-bio")),n=Array.from(r.querySelectorAll(".frontpage-explore-group")),i=r.querySelector("#exploreCurator"),c=Math.floor(Math.random()*n.length),s=n[c],d=Array.from(s.querySelectorAll(".filter-item")).length,f=Math.floor(Math.random()*d),u=function(e){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;e.forEach(function(e,t){t!==r&&e.classList.add("hidden")})},v=function(e,r){var t=Array.from(e.querySelectorAll(".filter-item")),l=Array.from(e.querySelectorAll(".result-objects"));t.forEach(function(e){return e.classList.remove("active")}),t[r].classList.add("active"),l[r].classList.remove("hidden")};i.selectedIndex=c,u(n,c),u(o,c),u(t),v(s,f),i.addEventListener("change",function(e){u(n),u(o),u(t),n[e.target.value].classList.remove("hidden"),o[e.target.value].classList.remove("hidden");var r=n[e.target.value];v(r,0)}),l.forEach(function(e){var r=Array.from(e.querySelectorAll(".filter-item")),t=e.nextElementSibling,l=Array.from(t.querySelectorAll(".result-objects"));r.forEach(function(o){o.addEventListener("click",function(o){var a=e.querySelector(".filter-item.active"),n=r.indexOf(o.target),i=t.querySelector("div.result-objects:not(.hidden)");a.classList.remove("active"),o.target.classList.add("active"),i.classList.add("hidden"),l[n].classList.remove("hidden")})})}),a.forEach(function(e){e.addEventListener("click",function(e){e.preventDefault();var r=e.target,t=r.innerText,l=r.nextElementSibling;r.innerText="[more]"==t?"[less]":"[more]",l.classList.toggle("hidden")})})}});
-},{}],"Ekrg":[function(require,module,exports) {
-function e(e,n){var r="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!r){if(Array.isArray(e)||(r=t(e))||n&&e&&"number"==typeof e.length){r&&(e=r);var o=0,i=function(){};return{s:i,n:function(){return o>=e.length?{done:!0}:{done:!1,value:e[o++]}},e:function(e){throw e},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,c=!0,l=!1;return{s:function(){r=r.call(e)},n:function(){var e=r.next();return c=e.done,e},e:function(e){l=!0,a=e},f:function(){try{c||null==r.return||r.return()}finally{if(l)throw a}}}}function t(e,t){if(e){if("string"==typeof e)return n(e,t);var r=Object.prototype.toString.call(e).slice(8,-1);return"Object"===r&&e.constructor&&(r=e.constructor.name),"Map"===r||"Set"===r?Array.from(e):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?n(e,t):void 0}}function n(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}function r(e,t){e.forEach(function(e){e.removeEventListener("click",t),e.addEventListener("click",t)})}function o(e){e.preventDefault();var t=e.target,n=e.target.closest(".accordion").querySelector(".accordion-details"),r="false"===n.getAttribute("aria-expanded"),o=t.dataset.toggleText;r?(c(n),t.innerText=o||"Hide"):(a(n),t.innerText=o||"Show")}function i(e){e.preventDefault();var t=e.target.parentNode,n=e.target.closest(".collection");Array.from(n.children).forEach(function(e){e.classList.remove("collection-item--hidden")}),t.remove()}function a(e){if(""==e.style.height){var t=e.scrollHeight,n=e.style.transition,r=e.closest(".accordion");e.style.transition="",requestAnimationFrame(function(){e.style.height=t+"px",e.style.transition=n,requestAnimationFrame(function(){e.style.height="0px"})}),e.setAttribute("aria-expanded","false"),r.classList.add("accordion--hidden")}}function c(e){var t=e.scrollHeight,n=e.closest(".accordion");e.style.height=t+"px",e.addEventListener("transitionend",function(t){e.style.height=null},{once:!0}),e.setAttribute("aria-expanded","true"),n.classList.remove("accordion--hidden")}window.addEventListener("DOMContentLoaded",function(t){var n=Array.from(document.querySelectorAll(".accordion")),a=document.querySelector("#hierarchy");if(n.length){if(a){var c=document.getElementById("hierarchy");new MutationObserver(function(t,n){var a,c=e(t);try{for(c.s();!(a=c.n()).done;)"childList"===a.value.type&&(r(document.querySelectorAll(".accordion-toggle"),o),r(document.querySelectorAll(".button.see-more"),i))}catch(l){c.e(l)}finally{c.f()}}).observe(c,{childList:!0,subtree:!0})}r(document.querySelectorAll(".accordion-toggle"),o)}});
-},{}],"i0KX":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var t=document.querySelector("#filterGroups");if(t){var r=t.querySelector(".filter-header"),n=t.querySelector(".filter-more-results"),i=Array.from(r.querySelectorAll(".filter-tab")),a=t.querySelectorAll(".filter-group");n.style.display="none";var d=function(e,t){t.focus(),t.removeAttribute("tabindex"),t.setAttribute("aria-selected","true"),e.removeAttribute("aria-selected"),e.setAttribute("tabindex","-1"),n.style.display="none",a.forEach(function(e){e.style.display="block"});var r=i.indexOf(t),d=i.indexOf(e);a[d].hidden=!0,a[r].hidden=!1};i.forEach(function(e,t){e.addEventListener("click",function(e){e.preventDefault();var t=r.querySelector("[aria-selected]");e.currentTarget!==t&&d(t,e.currentTarget)}),e.addEventListener("keydown",function(e){var r=i.indexOf(e.currentTarget),n=37===e.which?r-1:39===e.which?r+1:40===e.which?"down":null;null!==n&&(e.preventDefault(),"down"===n?a[t].focus():i[n]&&d(e.currentTarget,i[n]))})}),a.forEach(function(e,t){e.hidden=!0}),i[0].removeAttribute("tabindex"),i[0].setAttribute("aria-selected","true"),a[0].hidden=!1}});
-},{}],"i7uF":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var o=Array.from(document.querySelectorAll(".dropdown"));o&&o.forEach(function(e){var o=e.querySelector(".dropdown-toggle"),n=e.querySelector(".dropdown-list");o.addEventListener("click",function(e){n.classList.toggle("hidden"),e.preventDefault()})})});
-},{}],"wvO4":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var n=document.querySelectorAll(".hidden-from-notice");if(!(n.length<1)){var t=document.querySelector(".web-notice"),o=t.querySelector("#webNoticeContinue"),c=t.querySelector("#webNoticeBack");o.addEventListener("click",function(e){n.forEach(function(e){console.log(e),e.classList.toggle("hidden-from-notice")}),t.style.display="none"}),c.addEventListener("click",function(e){history.back()})}});
-},{}],"JWRY":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var t=document.querySelectorAll(".button--search-type");if(!(t.length<1)){var c=document.querySelector(".search-form"),r=c.querySelector("#_fulltext"),n=c.querySelector("#advancedSearchInput");document.getElementById("pageArea").classList.contains("ca_collections")&&(c.setAttribute("action","/index.php/Search/collections/search/"),r.placeholder="Search Collections by Keyword",n.value=0,a(t[0]),a(t[1]),c.classList.toggle("collection-search")),t.forEach(function(e){e.addEventListener("click",function(e){var t=e.target,o=t.nextElementSibling.classList.contains("button--search-type")?t.nextElementSibling:t.previousElementSibling;"true"!==t.getAttribute("aria-pressed")&&(a(t),a(o),c.classList.toggle("collection-search"),"collectionSearchButton"==t.id?(c.setAttribute("action","/index.php/Search/collections/search/"),r.placeholder="Search Collections by Keyword",n.value=0):(c.setAttribute("action","/index.php/Search/objects"),r.placeholder="Search Objects by Keyword",n.value=1))})})}function a(e){var t="true"===e.getAttribute("aria-pressed");e.setAttribute("aria-pressed",!t)}});
-},{}],"mwQF":[function(require,module,exports) {
-window.onload=function(){fetch("https://belkin.ubc.ca/wp-json/belkin/v1/footer").then(function(n){return n.json()}).then(function(n){return document.querySelector("footer").innerHTML=JSON.parse(n)})};
-},{}],"m3VC":[function(require,module,exports) {
-"use strict";require("./styles/theme"),require("./scripts/explore"),require("./scripts/accordions"),require("./scripts/filters"),require("./scripts/dropdowns"),require("./scripts/content-warning"),require("./scripts/search-type"),require("./scripts/footer");
-},{"./styles/theme":"Vpa2","./scripts/explore":"GyzZ","./scripts/accordions":"Ekrg","./scripts/filters":"i0KX","./scripts/dropdowns":"i7uF","./scripts/content-warning":"wvO4","./scripts/search-type":"JWRY","./scripts/footer":"mwQF"}]},{},["m3VC"], null)
+  function newRequire(name, jumped) {
+    if (!cache[name]) {
+      if (!modules[name]) {
+        // if we cannot find the module within our internal map or
+        // cache jump to the current global require ie. the last bundle
+        // that was added to the page.
+        var currentRequire = typeof parcelRequire === 'function' && parcelRequire;
+        if (!jumped && currentRequire) {
+          return currentRequire(name, true);
+        }
+
+        // If there are other bundles on this page the require from the
+        // previous one is saved to 'previousRequire'. Repeat this as
+        // many times as there are bundles until the module is found or
+        // we exhaust the require chain.
+        if (previousRequire) {
+          return previousRequire(name, true);
+        }
+
+        // Try the node require function if it exists.
+        if (nodeRequire && typeof name === 'string') {
+          return nodeRequire(name);
+        }
+
+        var err = new Error('Cannot find module \'' + name + '\'');
+        err.code = 'MODULE_NOT_FOUND';
+        throw err;
+      }
+
+      localRequire.resolve = resolve;
+      localRequire.cache = {};
+
+      var module = cache[name] = new newRequire.Module(name);
+
+      modules[name][0].call(module.exports, localRequire, module, module.exports, this);
+    }
+
+    return cache[name].exports;
+
+    function localRequire(x){
+      return newRequire(localRequire.resolve(x));
+    }
+
+    function resolve(x){
+      return modules[name][1][x] || x;
+    }
+  }
+
+  function Module(moduleName) {
+    this.id = moduleName;
+    this.bundle = newRequire;
+    this.exports = {};
+  }
+
+  newRequire.isParcelRequire = true;
+  newRequire.Module = Module;
+  newRequire.modules = modules;
+  newRequire.cache = cache;
+  newRequire.parent = previousRequire;
+  newRequire.register = function (id, exports) {
+    modules[id] = [function (require, module) {
+      module.exports = exports;
+    }, {}];
+  };
+
+  var error;
+  for (var i = 0; i < entry.length; i++) {
+    try {
+      newRequire(entry[i]);
+    } catch (e) {
+      // Save first error but execute all entries
+      if (!error) {
+        error = e;
+      }
+    }
+  }
+
+  if (entry.length) {
+    // Expose entry point to Node, AMD or browser globals
+    // Based on https://github.com/ForbesLindesay/umd/blob/master/template.js
+    var mainExports = newRequire(entry[entry.length - 1]);
+
+    // CommonJS
+    if (typeof exports === "object" && typeof module !== "undefined") {
+      module.exports = mainExports;
+
+    // RequireJS
+    } else if (typeof define === "function" && define.amd) {
+     define(function () {
+       return mainExports;
+     });
+
+    // <script>
+    } else if (globalName) {
+      this[globalName] = mainExports;
+    }
+  }
+
+  // Override the current require with this new one
+  parcelRequire = newRequire;
+
+  if (error) {
+    // throw error from earlier, _after updating parcelRequire_
+    throw error;
+  }
+
+  return newRequire;
+})({"../node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)?\/[^/]+(?:\?.*)?$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"../node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"styles/theme.scss":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"scripts/explore.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  const exploreSection = document.getElementById('explore');
+
+  if (!exploreSection) {
+    return;
+  }
+
+  const resultObjects = Array.from(exploreSection.querySelectorAll('.result-objects'));
+  const filters = Array.from(exploreSection.querySelectorAll('.filters'));
+  const curatorBios = Array.from(exploreSection.querySelectorAll('.frontpage-explore-bio'));
+  const curatorBioMoreBtns = Array.from(exploreSection.querySelectorAll('#extend-bio'));
+  const curatorGroups = Array.from(exploreSection.querySelectorAll('.frontpage-explore-group'));
+  const curatorSelect = exploreSection.querySelector('#exploreCurator'); // generate random curator index and random tag index
+
+  const randCurator = Math.floor(Math.random() * curatorGroups.length);
+  const randCuratorGroup = curatorGroups[randCurator];
+  const randCuratorFilters = Array.from(randCuratorGroup.querySelectorAll('.filter-item'));
+  const numberTags = randCuratorFilters.length;
+  const randTag = Math.floor(Math.random() * numberTags); // hide all elements except the one you want shown
+
+  const hideElements = function (objArray, exception = null) {
+    objArray.forEach((object, index) => {
+      if (index === exception) return;
+      object.classList.add('hidden');
+    });
+  };
+
+  const showTagGroup = function (curatorGroup, tagIndex) {
+    const activeCuratorFilters = Array.from(curatorGroup.querySelectorAll('.filter-item'));
+    const activeCuratorObjects = Array.from(curatorGroup.querySelectorAll('.result-objects'));
+    activeCuratorFilters.forEach(filter => filter.classList.remove('active'));
+    activeCuratorFilters[tagIndex].classList.add('active');
+    activeCuratorObjects[tagIndex].classList.remove('hidden');
+  }; // set select index to the random curator
+
+
+  curatorSelect.selectedIndex = randCurator; // hide all gruops/bios except for the randomly selected curator
+
+  hideElements(curatorGroups, randCurator);
+  hideElements(curatorBios, randCurator); // hide all objects
+
+  hideElements(resultObjects); // show a random tag's objects from the random curator
+
+  showTagGroup(randCuratorGroup, randTag); // Add toggle listeners to Select
+
+  curatorSelect.addEventListener('change', event => {
+    hideElements(curatorGroups);
+    hideElements(curatorBios);
+    hideElements(resultObjects);
+    curatorGroups[event.target.value].classList.remove('hidden');
+    curatorBios[event.target.value].classList.remove('hidden'); //set first tag to active, show first result group
+
+    const activeCuratorGroup = curatorGroups[event.target.value]; // set first tag to active and show objects from that tag
+
+    showTagGroup(activeCuratorGroup, 0);
+  }); // Add listeners to filter buttons to switch result objects
+
+  filters.forEach(filterGroup => {
+    let filterItems = Array.from(filterGroup.querySelectorAll('.filter-item'));
+    let resultObjectContainer = filterGroup.nextElementSibling;
+    let resultObjects = Array.from(resultObjectContainer.querySelectorAll('.result-objects'));
+    filterItems.forEach(filter => {
+      filter.addEventListener('click', event => {
+        let activeItem = filterGroup.querySelector('.filter-item.active');
+        let index = filterItems.indexOf(event.target);
+        let activeObjects = resultObjectContainer.querySelector('div.result-objects:not(.hidden)'); // update list active state
+
+        activeItem.classList.remove('active');
+        event.target.classList.add('active'); // update object hidden state
+
+        activeObjects.classList.add('hidden');
+        resultObjects[index].classList.remove('hidden');
+      });
+    });
+  }); //listeners for [more] toggles on bios
+
+  curatorBioMoreBtns.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      let toggleButton = event.target;
+      let buttonText = toggleButton.innerText;
+      let extendedBio = toggleButton.nextElementSibling; //change text to [less]
+
+      toggleButton.innerText = buttonText == "[more]" ? "[less]" : "[more]"; //show extendedBio
+
+      extendedBio.classList.toggle('hidden');
+    });
+  });
+});
+},{}],"scripts/accordions.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  let accordions = Array.from(document.querySelectorAll('.accordion'));
+  let hierarchyBrowser = document.querySelector('#hierarchy');
+
+  if (!accordions.length) {
+    return;
+  }
+
+  if (hierarchyBrowser) {
+    // Select the node that will be observed for mutations
+    const targetNode = document.getElementById('hierarchy'); // Options for the observer (which mutations to observe)
+
+    const config = {
+      childList: true,
+      subtree: true
+    }; // Callback function to execute when mutations are observed
+
+    const callback = function (mutationsList, observer) {
+      for (const mutation of mutationsList) {
+        if (mutation.type === 'childList') {
+          // update so this only queries the buttons added in the mutation?
+          let expandBtns = document.querySelectorAll('.accordion-toggle');
+          addButtonListeners(expandBtns, accordionClickHandler);
+          let moreBtns = document.querySelectorAll('.button.see-more');
+          addButtonListeners(moreBtns, seeMoreClickHandler);
+        }
+      }
+    }; // Create an observer instance linked to the callback function
+
+
+    const observer = new MutationObserver(callback); // Start observing the target node for configured mutations
+
+    observer.observe(targetNode, config); // Later, you can stop observing
+    // observer.disconnect();
+  } // add event listeners to expand buttons
+
+
+  let expandBtns = document.querySelectorAll('.accordion-toggle');
+  addButtonListeners(expandBtns, accordionClickHandler);
+});
+
+function addButtonListeners(expandBtns, handler) {
+  expandBtns.forEach(btn => {
+    btn.removeEventListener('click', handler);
+    btn.addEventListener('click', handler);
+  });
+}
+
+function accordionClickHandler(event) {
+  event.preventDefault();
+  let seeDetailsBtn = event.target;
+  let accordionItem = event.target.closest('.accordion');
+  let detailsSection = accordionItem.querySelector('.accordion-details');
+  let isCollapsed = detailsSection.getAttribute('aria-expanded') === "false";
+  let toggleText = seeDetailsBtn.dataset.toggleText;
+
+  if (isCollapsed) {
+    expandSection(detailsSection);
+    seeDetailsBtn.innerText = toggleText || "Hide";
+  } else {
+    collapseSection(detailsSection);
+    seeDetailsBtn.innerText = toggleText || "Show";
+  }
+}
+
+function seeMoreClickHandler(event) {
+  event.preventDefault();
+  let seeMoreBtn = event.target.parentNode;
+  let parentList = event.target.closest('.collection');
+  let childrenArray = Array.from(parentList.children);
+  childrenArray.forEach(child => {
+    child.classList.remove('collection-item--hidden');
+  });
+  seeMoreBtn.remove();
+} // modified from https://css-tricks.com/using-css-transitions-auto-dimensions/
+
+
+function collapseSection(element) {
+  // only proceed if height is null aka expansion has finished
+  if (element.style.height != "") {
+    return;
+  }
+
+  let sectionHeight = element.scrollHeight;
+  let elementTransition = element.style.transition;
+  let accordionItem = element.closest('.accordion');
+  element.style.transition = '';
+  requestAnimationFrame(() => {
+    element.style.height = sectionHeight + 'px';
+    element.style.transition = elementTransition;
+    requestAnimationFrame(() => {
+      element.style.height = 0 + 'px';
+    });
+  });
+  element.setAttribute('aria-expanded', 'false');
+  accordionItem.classList.add('accordion--hidden');
+}
+
+function expandSection(element) {
+  let sectionHeight = element.scrollHeight;
+  let accordionItem = element.closest('.accordion');
+  element.style.height = sectionHeight + 'px';
+  element.addEventListener('transitionend', e => {
+    element.style.height = null;
+  }, {
+    once: true
+  });
+  element.setAttribute('aria-expanded', 'true');
+  accordionItem.classList.remove('accordion--hidden');
+}
+},{}],"scripts/filters.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  // Get relevant elements and collections
+  const filter = document.querySelector('#filterGroups');
+
+  if (!filter) {
+    return;
+  }
+
+  ;
+  const tablist = filter.querySelector('.filter-header');
+  const moreResults = filter.querySelector('.filter-more-results');
+  const tabs = Array.from(tablist.querySelectorAll('.filter-tab'));
+  const panels = filter.querySelectorAll('.filter-group');
+  moreResults.style.display = 'none';
+
+  const switchTab = (oldTab, newTab) => {
+    newTab.focus(); // Make the active tab focusable by the user (Tab key)
+
+    newTab.removeAttribute('tabindex'); // Set the selected state
+
+    newTab.setAttribute('aria-selected', 'true');
+    oldTab.removeAttribute('aria-selected');
+    oldTab.setAttribute('tabindex', '-1'); //to deal with jQuery for more results element
+
+    moreResults.style.display = 'none';
+    panels.forEach(panel => {
+      panel.style.display = 'block';
+    }); // Get the indices of the new and old tabs to find the correct
+    // tab panels to show and hide
+
+    let index = tabs.indexOf(newTab);
+    let oldIndex = tabs.indexOf(oldTab);
+    panels[oldIndex].hidden = true;
+    panels[index].hidden = false;
+  };
+
+  tabs.forEach((tab, i) => {
+    // Handle clicking of tabs for mouse users
+    tab.addEventListener('click', e => {
+      e.preventDefault();
+      let currentTab = tablist.querySelector('[aria-selected]');
+
+      if (e.currentTarget !== currentTab) {
+        switchTab(currentTab, e.currentTarget);
+      }
+    }); // Handle keydown events for keyboard users
+
+    tab.addEventListener('keydown', e => {
+      // Get the index of the current tab in the tabs node list
+      let index = tabs.indexOf(e.currentTarget); // Work out which key the user is pressing and
+      // Calculate the new tab's index where appropriate
+
+      let dir = e.which === 37 ? index - 1 : e.which === 39 ? index + 1 : e.which === 40 ? 'down' : null;
+
+      if (dir !== null) {
+        e.preventDefault(); // If the down key is pressed, move focus to the open panel,
+        // otherwise switch to the adjacent tab
+
+        dir === 'down' ? panels[i].focus() : tabs[dir] ? switchTab(e.currentTarget, tabs[dir]) : void 0;
+      }
+    });
+  }); // Add tab panel semantics and hide them all
+
+  panels.forEach((panel, i) => {
+    panel.hidden = true;
+  }); // Initially activate the first tab and reveal the first tab panel
+
+  tabs[0].removeAttribute('tabindex');
+  tabs[0].setAttribute('aria-selected', 'true');
+  panels[0].hidden = false;
+}); // });
+},{}],"scripts/dropdowns.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  const dropdowns = Array.from(document.querySelectorAll('.dropdown'));
+
+  if (!dropdowns) {
+    return;
+  }
+
+  dropdowns.forEach(dropdown => {
+    const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+    const dropdownList = dropdown.querySelector('.dropdown-list'); //add event listener to button
+
+    dropdownToggle.addEventListener('click', event => {
+      dropdownList.classList.toggle('hidden');
+      event.preventDefault();
+    });
+  });
+});
+},{}],"scripts/content-warning.js":[function(require,module,exports) {
+window.addEventListener('DOMContentLoaded', event => {
+  let hiddenItems = document.querySelectorAll('.hidden-from-notice');
+
+  if (hiddenItems.length < 1) {
+    return;
+  }
+
+  const noticeMessage = document.querySelector('.web-notice');
+  const continueButton = noticeMessage.querySelector('#webNoticeContinue');
+  const backButton = noticeMessage.querySelector('#webNoticeBack');
+  const hideButton = document.querySelector('#webNoticeHide');
+  continueButton.addEventListener('click', event => {
+    hiddenItems.forEach(item => {
+      item.classList.toggle('hidden-from-notice');
+    }); //hide
+
+    noticeMessage.style.display = "none";
+  });
+  hideButton.addEventListener('click', event => {
+    hiddenItems.forEach(item => {
+      item.classList.toggle('hidden-from-notice');
+    }); //show
+
+    noticeMessage.style.display = "flex";
+  });
+  backButton.addEventListener('click', event => {
+    history.back();
+  });
+});
+},{}],"scripts/search-type.js":[function(require,module,exports) {
+// Toggle Search type on Advanced Search form
+window.addEventListener('DOMContentLoaded', event => {
+  let buttons = document.querySelectorAll('.button--search-type');
+
+  if (buttons.length < 1) {
+    return;
+  }
+
+  let searchForm = document.querySelector('.search-form');
+  let textInput = searchForm.querySelector('#_fulltext');
+  let advancedInput = searchForm.querySelector('#advancedSearchInput');
+  let pageWrapper = document.getElementById("pageArea");
+
+  if (pageWrapper.classList.contains('ca_collections')) {
+    // if collections search
+    searchForm.setAttribute('action', "/index.php/Search/collections/search/");
+    textInput.placeholder = "Search Collections by Keyword";
+    advancedInput.value = 0;
+    toggleAriaPressed(buttons[0]);
+    toggleAriaPressed(buttons[1]);
+    searchForm.classList.toggle('collection-search');
+  }
+
+  buttons.forEach(btn => {
+    btn.addEventListener('click', event => {
+      let clickedButton = event.target;
+      let otherButton = clickedButton.nextElementSibling.classList.contains('button--search-type') ? clickedButton.nextElementSibling : clickedButton.previousElementSibling; // if already active, return
+
+      if (clickedButton.getAttribute('aria-pressed') === 'true') {
+        return;
+      }
+
+      toggleAriaPressed(clickedButton);
+      toggleAriaPressed(otherButton);
+      searchForm.classList.toggle('collection-search');
+
+      if (clickedButton.id == 'collectionSearchButton') {
+        searchForm.setAttribute('action', "/index.php/Search/collections/search/");
+        textInput.placeholder = "Search Collections by Keyword";
+        advancedInput.value = 0; // let submitButton = 
+      } else {
+        searchForm.setAttribute('action', "/index.php/Search/objects");
+        textInput.placeholder = "Search Objects by Keyword";
+        advancedInput.value = 1;
+      }
+    });
+  });
+
+  function toggleAriaPressed(element) {
+    let ariaPressed = element.getAttribute('aria-pressed') === 'true';
+    element.setAttribute('aria-pressed', !ariaPressed);
+  }
+});
+},{}],"scripts/footer.js":[function(require,module,exports) {
+window.onload = () => {
+  fetch('https://belkin.ubc.ca/wp-json/belkin/v1/footer').then(res => res.json()).then(res => document.querySelector('footer').innerHTML = JSON.parse(res));
+};
+},{}],"theme.js":[function(require,module,exports) {
+"use strict";
+
+require("./styles/theme");
+
+require("./scripts/explore");
+
+require("./scripts/accordions");
+
+require("./scripts/filters");
+
+require("./scripts/dropdowns");
+
+require("./scripts/content-warning");
+
+require("./scripts/search-type");
+
+require("./scripts/footer");
+},{"./styles/theme":"styles/theme.scss","./scripts/explore":"scripts/explore.js","./scripts/accordions":"scripts/accordions.js","./scripts/filters":"scripts/filters.js","./scripts/dropdowns":"scripts/dropdowns.js","./scripts/content-warning":"scripts/content-warning.js","./scripts/search-type":"scripts/search-type.js","./scripts/footer":"scripts/footer.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+var global = arguments[3];
+var OVERLAY_ID = '__parcel__error__overlay__';
+var OldModule = module.bundle.Module;
+
+function Module(moduleName) {
+  OldModule.call(this, moduleName);
+  this.hot = {
+    data: module.bundle.hotData,
+    _acceptCallbacks: [],
+    _disposeCallbacks: [],
+    accept: function (fn) {
+      this._acceptCallbacks.push(fn || function () {});
+    },
+    dispose: function (fn) {
+      this._disposeCallbacks.push(fn);
+    }
+  };
+  module.bundle.hotData = null;
+}
+
+module.bundle.Module = Module;
+var checkedAssets, assetsToAccept;
+var parent = module.bundle.parent;
+
+if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
+  var hostname = "" || location.hostname;
+  var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49516" + '/');
+
+  ws.onmessage = function (event) {
+    checkedAssets = {};
+    assetsToAccept = [];
+    var data = JSON.parse(event.data);
+
+    if (data.type === 'update') {
+      var handled = false;
+      data.assets.forEach(function (asset) {
+        if (!asset.isNew) {
+          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
+
+          if (didAccept) {
+            handled = true;
+          }
+        }
+      }); // Enable HMR for CSS by default.
+
+      handled = handled || data.assets.every(function (asset) {
+        return asset.type === 'css' && asset.generated.js;
+      });
+
+      if (handled) {
+        console.clear();
+        data.assets.forEach(function (asset) {
+          hmrApply(global.parcelRequire, asset);
+        });
+        assetsToAccept.forEach(function (v) {
+          hmrAcceptRun(v[0], v[1]);
+        });
+      } else if (location.reload) {
+        // `location` global exists in a web worker context but lacks `.reload()` function.
+        location.reload();
+      }
+    }
+
+    if (data.type === 'reload') {
+      ws.close();
+
+      ws.onclose = function () {
+        location.reload();
+      };
+    }
+
+    if (data.type === 'error-resolved') {
+      console.log('[parcel] ✨ Error resolved');
+      removeErrorOverlay();
+    }
+
+    if (data.type === 'error') {
+      console.error('[parcel] 🚨  ' + data.error.message + '\n' + data.error.stack);
+      removeErrorOverlay();
+      var overlay = createErrorOverlay(data);
+      document.body.appendChild(overlay);
+    }
+  };
+}
+
+function removeErrorOverlay() {
+  var overlay = document.getElementById(OVERLAY_ID);
+
+  if (overlay) {
+    overlay.remove();
+  }
+}
+
+function createErrorOverlay(data) {
+  var overlay = document.createElement('div');
+  overlay.id = OVERLAY_ID; // html encode message and stack trace
+
+  var message = document.createElement('div');
+  var stackTrace = document.createElement('pre');
+  message.innerText = data.error.message;
+  stackTrace.innerText = data.error.stack;
+  overlay.innerHTML = '<div style="background: black; font-size: 16px; color: white; position: fixed; height: 100%; width: 100%; top: 0px; left: 0px; padding: 30px; opacity: 0.85; font-family: Menlo, Consolas, monospace; z-index: 9999;">' + '<span style="background: red; padding: 2px 4px; border-radius: 2px;">ERROR</span>' + '<span style="top: 2px; margin-left: 5px; position: relative;">🚨</span>' + '<div style="font-size: 18px; font-weight: bold; margin-top: 20px;">' + message.innerHTML + '</div>' + '<pre>' + stackTrace.innerHTML + '</pre>' + '</div>';
+  return overlay;
+}
+
+function getParents(bundle, id) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return [];
+  }
+
+  var parents = [];
+  var k, d, dep;
+
+  for (k in modules) {
+    for (d in modules[k][1]) {
+      dep = modules[k][1][d];
+
+      if (dep === id || Array.isArray(dep) && dep[dep.length - 1] === id) {
+        parents.push(k);
+      }
+    }
+  }
+
+  if (bundle.parent) {
+    parents = parents.concat(getParents(bundle.parent, id));
+  }
+
+  return parents;
+}
+
+function hmrApply(bundle, asset) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return;
+  }
+
+  if (modules[asset.id] || !bundle.parent) {
+    var fn = new Function('require', 'module', 'exports', asset.generated.js);
+    asset.isNew = !modules[asset.id];
+    modules[asset.id] = [fn, asset.deps];
+  } else if (bundle.parent) {
+    hmrApply(bundle.parent, asset);
+  }
+}
+
+function hmrAcceptCheck(bundle, id) {
+  var modules = bundle.modules;
+
+  if (!modules) {
+    return;
+  }
+
+  if (!modules[id] && bundle.parent) {
+    return hmrAcceptCheck(bundle.parent, id);
+  }
+
+  if (checkedAssets[id]) {
+    return;
+  }
+
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+
+  return getParents(global.parcelRequire, id).some(function (id) {
+    return hmrAcceptCheck(global.parcelRequire, id);
+  });
+}
+
+function hmrAcceptRun(bundle, id) {
+  var cached = bundle.cache[id];
+  bundle.hotData = {};
+
+  if (cached) {
+    cached.hot.data = bundle.hotData;
+  }
+
+  if (cached && cached.hot && cached.hot._disposeCallbacks.length) {
+    cached.hot._disposeCallbacks.forEach(function (cb) {
+      cb(bundle.hotData);
+    });
+  }
+
+  delete bundle.cache[id];
+  bundle(id);
+  cached = bundle.cache[id];
+
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    cached.hot._acceptCallbacks.forEach(function (cb) {
+      cb();
+    });
+
+    return true;
+  }
+}
+},{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","theme.js"], null)

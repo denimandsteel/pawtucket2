@@ -61,15 +61,15 @@
             </ifdef>}}}
 
             {{{<ifdef code="ca_collections.content_notice">
-            <dt>Notice</dt>
+            <dt>Content Notice</dt>
               <dd>^ca_collections.content_notice</dd>
             </ifdef>}}}
 
             <dt>Date</dt>
-            {{{<ifdef code="ca_collections.search_date">
-              <dd>^ca_collections.search_date</dd>
+            {{{<ifdef code="ca_collections.pub_date">
+              <unit delimiter="<br>"><dd>^ca_collections.pub_date</dd></unit>
             </ifdef>
-            <ifnotdef code="ca_collections.search_date">
+            <ifnotdef code="ca_collections.pub_date">
               <dd>–</dd>
             </ifnotdef>}}} 
 

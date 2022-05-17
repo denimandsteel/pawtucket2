@@ -252,8 +252,6 @@
   }
 
   .result-object-title{
-    font-style: italic;
-
     a {
       display: block; // for "Image is being processed" link
       text-decoration: none;
@@ -281,7 +279,6 @@
   }
 
   .result-object-collection {
-    text-transform: capitalize;
     font-weight: 400;
   }
 
