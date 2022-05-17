@@ -7,7 +7,7 @@
   $current_id = $t_item->get('ca_collections.collection_id');
 
   $web_notice = $t_item->get("ca_collections.web_notice");
-  $artist = ($t_item->get('^ca_entities.preferred_labels.displayname'));
+  $artist = ($t_item->get('ca_entities.preferred_labels.displayname'));
 ?>
 <article class="detail">
   <nav class="detail-nav container">
@@ -28,16 +28,28 @@
         ?>
         <div class="<?php if ($web_notice) { echo 'hidden-from-notice'; } ?>">
           <dl class="detail-info-list">
-            <dt>Artist/Creator</dt>
-
-            {{{
-            <ifdef code="^ca_entities.preferred_labels.displayname">
-              <dd><unit relativeTo="ca_entities_x_collections" delimiter="<br/>"><unit relativeTo="ca_entities"><l>^ca_entities.preferred_labels.displayname</l></unit> (^relationship_typename)</unit></dd>
-            </ifdef>
-            <ifnotdef code="^ca_entities.preferred_labels.displayname">
-              <dd>–</dd>
-            </ifnotdef>
+            {{{<ifcount code="ca_entities" min="0" max="1"><dt>Artist/Creator</dt></ifcount>}}}
+            {{{<ifcount code="ca_entities" min="2"><dt>Artists/Creators</dt></ifcount>}}}
+            
+            <?php
+              if(isset($artist)):
+            ?>
+            {{{  
+              <dd>
+                <unit relativeTo="ca_entities" delimiter="<br/>">
+                    <l>^ca_entities.preferred_labels.displayname (^relationship_typename)</l> 
+                </unit>
+              </dd>
             }}}
+            <?php
+              else:
+            ?>
+            {{{
+              <dd>–</dd>
+            }}}
+            <?php 
+              endif;
+            ?>
 
             <dt>ID #</dt>
             {{{<ifdef code="ca_collections.idno"><dd> ^ca_collections.idno </dd></ifdef>}}}

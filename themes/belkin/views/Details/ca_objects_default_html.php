@@ -41,7 +41,7 @@
   $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
   $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
-  $artist = ($t_item->get('^ca_entities.preferred_labels.displayname'));
+  $artist = ($t_item->get('ca_entities.preferred_labels.displayname'));
 
   $web_notice = $t_object->get("ca_objects.web_notice");
 ?>
