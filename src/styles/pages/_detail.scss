@@ -124,10 +124,6 @@
       display: flex;
       justify-content: space-between;
     }
-
-    dd {
-      text-transform: capitalize;
-    }
   } 
 
   .detail-label { // on other page?
@@ -155,12 +151,6 @@
       font-size: rem(18px);
       font-weight: 500;
       padding-top: 4px;
-    }
-
-    .lowercase {
-      &::first-letter{
-        text-transform: lowercase;
-      }
     }
 
     .dimension + .dimension {

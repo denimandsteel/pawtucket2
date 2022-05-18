@@ -43,6 +43,9 @@
 
   $dim_display_is_checked = ($t_item->get('ca_objects.measurements_item.displaycheck_dimensions_item') == "914"); //914 checked, 915 unchecked don't ask me why
 
+  echo '<pre>';
+  echo var_dump($t_item->get('ca_objects.measurements_item.displaycheck_dimensions_item'));
+  echo '</pre>';
   $artist = ($t_item->get('ca_entities.preferred_labels.displayname'));
 
   $web_notice = $t_object->get("ca_objects.web_notice");
@@ -186,20 +189,21 @@
             <dd>–</dd>
           </ifnotdef>}}} 
 
-          <?php if($dim_display_is_checked): ?>
           
           <dt>Dimensions</dt>
           <dd class="lowercase">
             {{{
-            <ifdef code="ca_objects.measurements_item.dimensions_height_item"><span class="dimension">^ca_objects.measurements_item.dimensions_height_item</span></ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_width_item"><span class="dimension">^ca_objects.measurements_item.dimensions_width_item</span></ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_depth_item"><span class="dimension">^ca_objects.measurements_item.dimensions_depth_item</span></ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_type_item">(^ca_objects.measurements_item.dimensions_type_item)</ifdef>
-            <ifdef code="ca_objects.measurements_item.dimensions_notes_item"></br><p>^ca_objects.measurements_item.dimensions_notes_item)</p></ifdef>
-            <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_type_item,ca_objects.measurements_item.dimensions_note_item">–</ifnotdef>
+              <unit relativeTo="ca_objects.measurements_item" skipWhen='^ca_objects.measurements_item.displaycheck_dimensions_item = "No"' delimiter="<br>">
+                <span>^ca_objects.measurements_item.displaycheck_dimensions_item</span>
+                <ifdef code="ca_objects.measurements_item.dimensions_height_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_height_item</span></ifdef>
+                <ifdef code="ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_width_item</span></ifdef>
+                <ifdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_depth_item</span></ifdef>
+                <ifdef code="ca_objects.measurements_item.dimensions_type_item,ca_objects.measurements_item.displaycheck_dimensions_item">(^ca_objects.measurements_item.dimensions_type_item)</ifdef>
+                <ifdef code="ca_objects.measurements_item.dimensions_notes_item,ca_objects.measurements_item.displaycheck_dimensions_item"></br><p>^ca_objects.measurements_item.dimensions_notes_item)</p></ifdef>
+              </unit>
+              <ifnotdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.dimensions_type_item,ca_objects.measurements_item.dimensions_note_item">–</ifnotdef>
           }}}
           </dd>
-          <?php endif ?>
 
           {{{<ifdef code="ca_objects.duration">
           <dt>Duration</dt>
