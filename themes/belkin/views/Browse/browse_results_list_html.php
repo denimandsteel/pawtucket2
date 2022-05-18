@@ -116,11 +116,14 @@
             $vs_date = $qr_res->get("ca_objects.pub_date", array('delimiter' => ' '));
             $vs_idno = $qr_res->get("ca_objects.idno");
             $vs_catalogue= $qr_res->get("ca_objects.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+					  $vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values,'returnAsArray' => true))[0];
+            
           }
           if ($vs_table == 'ca_collections') {
             $vs_date = $qr_res->get("ca_collections.pub_date", array('delimiter' => '<br>'));
             $vs_idno = $qr_res->get("ca_collections.idno");
             $vs_catalogue= $qr_res->get("ca_collections.catalogue_destination.preferred_labels", array("convertCodesToDisplayText" => 1));
+            $vs_collection = $qr_res->get("ca_collections.hierarchy.preferred_labels",array('checkAccess' => $va_access_values, 'relativeTo'=>"ca_collections.hierarchy", 'returnAsArray' => true))[0];
 
           }
           $vs_label_detail 	= $qr_res->get("{$vs_table}.preferred_labels");
@@ -154,7 +157,6 @@
             $vs_artist = "<div class='text-center'>–</div>";
           }
 
-					$vs_collection = $qr_res->get("ca_collections.preferred_labels", array('delimiter' => ', ', 'checkAccess' => $va_access_values,'returnAsArray' => true))[0];
 
  
 					$vs_result_output = "
