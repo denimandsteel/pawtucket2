@@ -41,11 +41,6 @@
   $is_artwork = ($t_item->get('ca_objects.catalogue_destination') == "493");
   $is_archive = ($t_item->get('ca_objects.catalogue_destination') == "492");
 
-  $dim_display_is_checked = ($t_item->get('ca_objects.measurements_item.displaycheck_dimensions_item') == "914"); //914 checked, 915 unchecked don't ask me why
-
-  echo '<pre>';
-  echo var_dump($t_item->get('ca_objects.measurements_item.displaycheck_dimensions_item'));
-  echo '</pre>';
   $artist = ($t_item->get('ca_entities.preferred_labels.displayname'));
 
   $web_notice = $t_object->get("ca_objects.web_notice");
