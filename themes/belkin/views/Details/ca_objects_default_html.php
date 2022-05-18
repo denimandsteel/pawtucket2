@@ -189,7 +189,6 @@
           <dd class="lowercase">
             {{{
               <unit relativeTo="ca_objects.measurements_item" skipWhen='^ca_objects.measurements_item.displaycheck_dimensions_item = "No"' delimiter="<br>">
-                <span>^ca_objects.measurements_item.displaycheck_dimensions_item</span>
                 <ifdef code="ca_objects.measurements_item.dimensions_height_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_height_item</span></ifdef>
                 <ifdef code="ca_objects.measurements_item.dimensions_width_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_width_item</span></ifdef>
                 <ifdef code="ca_objects.measurements_item.dimensions_depth_item,ca_objects.measurements_item.displaycheck_dimensions_item"><span class="dimension">^ca_objects.measurements_item.dimensions_depth_item</span></ifdef>
