@@ -30,8 +30,15 @@
 		</div><!-- end pageArea --></main><!-- end main -->
 
     <footer class="footer" role="contentinfo">
-    <!-- populated by src/javascript/components/footer.js and shared with Belkin Collective Access install -->
-    </footer>
+<?php
+  $footGreenTwig = file_get_contents('/data/belkin.ubc.ca/wp-content/themes/belkin/views/partials/footer.twig');
+  preg_match("#<footer.*?>(.*)?</footer>#s",$footGreenTwig,$foot);
+  $out = $foot[1]; 
+  $out = str_replace('href="/','href="https://belkin.ubc.ca/',$out); 
+  $out = str_replace('href="https://belkin.ubc.ca/subscribe','href="https://belkin.ubc.ca/?join=1',$out);
+  echo $out;
+?>
+	</footer>
 <?php
 	//
 	// Output HTML for debug bar
