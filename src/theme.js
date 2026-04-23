@@ -5,4 +5,3 @@ import './scripts/filters';
 import './scripts/dropdowns';
 import './scripts/content-warning';
 import './scripts/search-type';
-import './scripts/footer';
