@@ -52,11 +52,22 @@
                 $obj->preferred_labels = $qr_objects->get('ca_objects.preferred_labels');
                 $obj->type = "object";
                 $obj->level = "Item";
-                $obj->link = caDetailLink($this->request, $qr_objects->get('ca_objects.idno') ." " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
+                $obj->link = caDetailLink($this->request, $qr_objects->get('ca_objects.idno') . " " . $qr_objects->get('ca_objects.preferred_labels'), '', 'ca_objects', $qr_objects->get('ca_objects.object_id'));
 
                 $all_children[] = $obj;
 
               }
+              $seen = [];
+              $all_children = array_filter($all_children, function($obj) use (&$seen) {
+                if (in_array($obj->id, $seen)) {
+                  return false;
+                }
+                $seen[] = $obj->id;
+                return true;
+              });
+              usort($all_children, function($a, $b) {
+                return strnatcasecmp($a->idno, $b->idno);
+              });
             }
           }
 
@@ -81,18 +92,37 @@
               $all_children[] = $coll;
 
 						}
+            $seen = [];
+            $all_children = array_filter($all_children, function($coll) use (&$seen) {
+              if (in_array($coll->id, $seen)) {
+                return false; 
+              }
+              $seen[] = $coll->id;
+              return true;
+            }); 
+            usort($all_children, function($a, $b) {
+               return strnatcasecmp($a->idno, $b->idno);
+            });
           }
-
-          // sort array by idno_sort
-          function id_sort($a, $b) {
-            return strcmp($a->idno_sort, $b->idno_sort);
-          }
-          
-          usort($all_children, "id_sort");
 
             // Loop through $all_children, print
             $index = 0;
-
+          ?>
+          <script>
+            $(document).ready(function(){
+                $current_id = "<?php echo $current_id; ?>";
+                $all_items = <?php echo json_encode($seen); ?>;
+                $current_index = $all_items.indexOf($current_id);
+                $start_index = Math.max(0, $current_index - 2);
+                $end_index = Math.min($all_items.length, $current_index + 5);
+                $('.collection-item').each(function(index) {
+                    if (index >= $start_index && index < $end_index) {
+                        $(this).removeClass('collection-item--hidden');
+                    } 
+                });
+            });
+          </script>
+          <?php
           foreach($all_children as $child){
 
             switch($child->level){
@@ -112,15 +142,22 @@
 
             $is_current_item = ($child->id == $current_id);
 
-            $list_class .= ($index > 4 && !$is_current_item && ( $child->level == "File" || $child->level == "Item" )) ? 'collection-item--hidden ' : '';
+            //$list_class .= ($index > 4 && !$is_current_item && ( $child->level == "File" || $child->level == "Item" )) ? 'collection-item--hidden ' : '';
+            $list_class .= (!$is_current_item && ( $child->level == "File" || $child->level == "Item" )) ? 'collection-item--hidden ' : '';
 
             if($is_current_item){ 
               $list_class .= ' collection-item--current';
             }
 
-            if($index == 5){
-              $count_more_results =  count($all_children) - 5;
-              print "<li><button class='button see-more'>".$count_more_results." More</button></li>";
+            if(($index == 0) || ($index == count($all_children) - 1)) {
+              $current_item_index = array_search($current_id, array_column($all_children, 'id'));
+              $start = max(0, $current_item_index - 3);
+              $end = min(count($all_children), $current_item_index + 5);
+              if($index == 0 && $start > 0) {
+                print "<li><button class='button see-more-start'>".$start." More</button></li>";
+              } elseif($index == count($all_children) - 1 && $end < count($all_children)) {
+                print "<li><button class='button see-more-end'>".(count($all_children) - $end)." More</button></li>";
+              }
             }
 
             print "<li id='collection". $child->id . "' class='collection-item " . $list_class ."' data-index='". $index ."'>";
@@ -150,6 +187,7 @@
                 }); 
               });
             </script>
+            
           <?php			
             }
 					}
