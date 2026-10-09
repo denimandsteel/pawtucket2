@@ -1,17 +1,372 @@
-parcelRequire=function(e,r,t,n){var i,o="function"==typeof parcelRequire&&parcelRequire,u="function"==typeof require&&require;function f(t,n){if(!r[t]){if(!e[t]){var i="function"==typeof parcelRequire&&parcelRequire;if(!n&&i)return i(t,!0);if(o)return o(t,!0);if(u&&"string"==typeof t)return u(t);var c=new Error("Cannot find module '"+t+"'");throw c.code="MODULE_NOT_FOUND",c}p.resolve=function(r){return e[t][1][r]||r},p.cache={};var l=r[t]=new f.Module(t);e[t][0].call(l.exports,p,l,l.exports,this)}return r[t].exports;function p(e){return f(p.resolve(e))}}f.isParcelRequire=!0,f.Module=function(e){this.id=e,this.bundle=f,this.exports={}},f.modules=e,f.cache=r,f.parent=o,f.register=function(r,t){e[r]=[function(e,r){r.exports=t},{}]};for(var c=0;c<t.length;c++)try{f(t[c])}catch(e){i||(i=e)}if(t.length){var l=f(t[t.length-1]);"object"==typeof exports&&"undefined"!=typeof module?module.exports=l:"function"==typeof define&&define.amd?define(function(){return l}):n&&(this[n]=l)}if(parcelRequire=f,i)throw i;return f}({"Vpa2":[function(require,module,exports) {
+parcelRequire = function(e, r, t, n) {
+	var i, o = "function" == typeof parcelRequire && parcelRequire,
+		u = "function" == typeof require && require;
 
-},{}],"GyzZ":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var r=document.getElementById("explore");if(r){var t=Array.from(r.querySelectorAll(".result-objects")),l=Array.from(r.querySelectorAll(".filters")),o=Array.from(r.querySelectorAll(".frontpage-explore-bio")),a=Array.from(r.querySelectorAll("#extend-bio")),n=Array.from(r.querySelectorAll(".frontpage-explore-group")),i=r.querySelector("#exploreCurator"),c=Math.floor(Math.random()*n.length),s=n[c],d=Array.from(s.querySelectorAll(".filter-item")).length,f=Math.floor(Math.random()*d),u=function(e){var r=arguments.length>1&&void 0!==arguments[1]?arguments[1]:null;e.forEach(function(e,t){t!==r&&e.classList.add("hidden")})},v=function(e,r){var t=Array.from(e.querySelectorAll(".filter-item")),l=Array.from(e.querySelectorAll(".result-objects"));t.forEach(function(e){return e.classList.remove("active")}),t[r].classList.add("active"),l[r].classList.remove("hidden")};i.selectedIndex=c,u(n,c),u(o,c),u(t),v(s,f),i.addEventListener("change",function(e){u(n),u(o),u(t),n[e.target.value].classList.remove("hidden"),o[e.target.value].classList.remove("hidden");var r=n[e.target.value];v(r,0)}),l.forEach(function(e){var r=Array.from(e.querySelectorAll(".filter-item")),t=e.nextElementSibling,l=Array.from(t.querySelectorAll(".result-objects"));r.forEach(function(o){o.addEventListener("click",function(o){var a=e.querySelector(".filter-item.active"),n=r.indexOf(o.target),i=t.querySelector("div.result-objects:not(.hidden)");a.classList.remove("active"),o.target.classList.add("active"),i.classList.add("hidden"),l[n].classList.remove("hidden")})})}),a.forEach(function(e){e.addEventListener("click",function(e){e.preventDefault();var r=e.target,t=r.innerText,l=r.nextElementSibling;r.innerText="[more]"==t?"[less]":"[more]",l.classList.toggle("hidden")})})}});
-},{}],"Ekrg":[function(require,module,exports) {
-function e(e,n){var r="undefined"!=typeof Symbol&&e[Symbol.iterator]||e["@@iterator"];if(!r){if(Array.isArray(e)||(r=t(e))||n&&e&&"number"==typeof e.length){r&&(e=r);var o=0,i=function(){};return{s:i,n:function(){return o>=e.length?{done:!0}:{done:!1,value:e[o++]}},e:function(e){throw e},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,c=!0,l=!1;return{s:function(){r=r.call(e)},n:function(){var e=r.next();return c=e.done,e},e:function(e){l=!0,a=e},f:function(){try{c||null==r.return||r.return()}finally{if(l)throw a}}}}function t(e,t){if(e){if("string"==typeof e)return n(e,t);var r=Object.prototype.toString.call(e).slice(8,-1);return"Object"===r&&e.constructor&&(r=e.constructor.name),"Map"===r||"Set"===r?Array.from(e):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?n(e,t):void 0}}function n(e,t){(null==t||t>e.length)&&(t=e.length);for(var n=0,r=new Array(t);n<t;n++)r[n]=e[n];return r}function r(e,t){e.forEach(function(e){e.removeEventListener("click",t),e.addEventListener("click",t)})}function o(e){e.preventDefault();var t=e.target,n=e.target.closest(".accordion").querySelector(".accordion-details"),r="false"===n.getAttribute("aria-expanded"),o=t.dataset.toggleText;r?(c(n),t.innerText=o||"Hide"):(a(n),t.innerText=o||"Show")}function i(e){e.preventDefault();var t=e.target.parentNode,n=e.target.closest(".collection");Array.from(n.children).forEach(function(e){e.classList.remove("collection-item--hidden")}),t.remove()}function a(e){if(""==e.style.height){var t=e.scrollHeight,n=e.style.transition,r=e.closest(".accordion");e.style.transition="",requestAnimationFrame(function(){e.style.height=t+"px",e.style.transition=n,requestAnimationFrame(function(){e.style.height="0px"})}),e.setAttribute("aria-expanded","false"),r.classList.add("accordion--hidden")}}function c(e){var t=e.scrollHeight,n=e.closest(".accordion");e.style.height=t+"px",e.addEventListener("transitionend",function(t){e.style.height=null},{once:!0}),e.setAttribute("aria-expanded","true"),n.classList.remove("accordion--hidden")}window.addEventListener("DOMContentLoaded",function(t){var n=Array.from(document.querySelectorAll(".accordion")),a=document.querySelector("#hierarchy");if(n.length){if(a){var c=document.getElementById("hierarchy");new MutationObserver(function(t,n){var a,c=e(t);try{for(c.s();!(a=c.n()).done;)"childList"===a.value.type&&(r(document.querySelectorAll(".accordion-toggle"),o),r(document.querySelectorAll(".button.see-more"),i))}catch(l){c.e(l)}finally{c.f()}}).observe(c,{childList:!0,subtree:!0})}r(document.querySelectorAll(".accordion-toggle"),o)}});
-},{}],"i0KX":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var t=document.querySelector("#filterGroups");if(t){var r=t.querySelector(".filter-header"),n=t.querySelector(".filter-more-results"),i=Array.from(r.querySelectorAll(".filter-tab")),a=t.querySelectorAll(".filter-group");n.style.display="none";var d=function(e,t){t.focus(),t.removeAttribute("tabindex"),t.setAttribute("aria-selected","true"),e.removeAttribute("aria-selected"),e.setAttribute("tabindex","-1"),n.style.display="none",a.forEach(function(e){e.style.display="block"});var r=i.indexOf(t),d=i.indexOf(e);a[d].hidden=!0,a[r].hidden=!1};i.forEach(function(e,t){e.addEventListener("click",function(e){e.preventDefault();var t=r.querySelector("[aria-selected]");e.currentTarget!==t&&d(t,e.currentTarget)}),e.addEventListener("keydown",function(e){var r=i.indexOf(e.currentTarget),n=37===e.which?r-1:39===e.which?r+1:40===e.which?"down":null;null!==n&&(e.preventDefault(),"down"===n?a[t].focus():i[n]&&d(e.currentTarget,i[n]))})}),a.forEach(function(e,t){e.hidden=!0}),i[0].removeAttribute("tabindex"),i[0].setAttribute("aria-selected","true"),a[0].hidden=!1}});
-},{}],"i7uF":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var o=Array.from(document.querySelectorAll(".dropdown"));o&&o.forEach(function(e){var o=e.querySelector(".dropdown-toggle"),n=e.querySelector(".dropdown-list");o.addEventListener("click",function(e){n.classList.toggle("hidden"),e.preventDefault()})})});
-},{}],"wvO4":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var t=document.querySelectorAll(".hidden-from-notice");if(!(t.length<1)){var n=document.querySelector(".web-notice"),o=n.querySelector("#webNoticeContinue"),c=n.querySelector("#webNoticeBack"),i=document.querySelector("#webNoticeHide");o.addEventListener("click",function(e){t.forEach(function(e){e.classList.toggle("hidden-from-notice")}),n.style.display="none"}),i.addEventListener("click",function(e){t.forEach(function(e){e.classList.toggle("hidden-from-notice")}),n.style.display="flex"}),c.addEventListener("click",function(e){history.back()})}});
-},{}],"JWRY":[function(require,module,exports) {
-window.addEventListener("DOMContentLoaded",function(e){var t=document.querySelectorAll(".button--search-type");if(!(t.length<1)){var c=document.querySelector(".search-form"),r=c.querySelector("#_fulltext"),n=c.querySelector("#advancedSearchInput");document.getElementById("pageArea").classList.contains("ca_collections")&&(c.setAttribute("action","/index.php/Search/collections/search/"),r.placeholder="Search Collections by Keyword",n.value=0,a(t[0]),a(t[1]),c.classList.toggle("collection-search")),t.forEach(function(e){e.addEventListener("click",function(e){var t=e.target,o=t.nextElementSibling.classList.contains("button--search-type")?t.nextElementSibling:t.previousElementSibling;"true"!==t.getAttribute("aria-pressed")&&(a(t),a(o),c.classList.toggle("collection-search"),"collectionSearchButton"==t.id?(c.setAttribute("action","/index.php/Search/collections/search/"),r.placeholder="Search Collections by Keyword",n.value=0):(c.setAttribute("action","/index.php/Search/objects"),r.placeholder="Search Objects by Keyword",n.value=1))})})}function a(e){var t="true"===e.getAttribute("aria-pressed");e.setAttribute("aria-pressed",!t)}});
-},{}],"m3VC":[function(require,module,exports) {
-"use strict";require("./styles/theme"),require("./scripts/explore"),require("./scripts/accordions"),require("./scripts/filters"),require("./scripts/dropdowns"),require("./scripts/content-warning"),require("./scripts/search-type"),require("./scripts/footer");
-},{"./styles/theme":"Vpa2","./scripts/explore":"GyzZ","./scripts/accordions":"Ekrg","./scripts/filters":"i0KX","./scripts/dropdowns":"i7uF","./scripts/content-warning":"wvO4","./scripts/search-type":"JWRY","./scripts/footer":"mwQF"}]},{},["m3VC"], null)
+	function f(t, n) {
+		if (!r[t]) {
+			if (!e[t]) {
+				var i = "function" == typeof parcelRequire && parcelRequire;
+				if (!n && i) return i(t, !0);
+				if (o) return o(t, !0);
+				if (u && "string" == typeof t) return u(t);
+				var c = new Error("Cannot find module '" + t + "'");
+				throw c.code = "MODULE_NOT_FOUND", c
+			}
+			p.resolve = function(r) {
+				return e[t][1][r] || r
+			}, p.cache = {};
+			var l = r[t] = new f.Module(t);
+			e[t][0].call(l.exports, p, l, l.exports, this)
+		}
+		return r[t].exports;
+
+		function p(e) {
+			return f(p.resolve(e))
+		}
+	}
+	f.isParcelRequire = !0, f.Module = function(e) {
+		this.id = e, this.bundle = f, this.exports = {}
+	}, f.modules = e, f.cache = r, f.parent = o, f.register = function(r, t) {
+		e[r] = [function(e, r) {
+			r.exports = t
+		}, {}]
+	};
+	for (var c = 0; c < t.length; c++) try {
+		f(t[c])
+	} catch (e) {
+		i || (i = e)
+	}
+	if (t.length) {
+		var l = f(t[t.length - 1]);
+		"object" == typeof exports && "undefined" != typeof module ? module.exports = l : "function" == typeof define && define.amd ? define(function() {
+			return l
+		}) : n && (this[n] = l)
+	}
+	if (parcelRequire = f, i) throw i;
+	return f
+}({
+	"Vpa2": [function(require, module, exports) {}, {}],
+	"GyzZ": [function(require, module, exports) {
+		window.addEventListener("DOMContentLoaded", function(e) {
+			var r = document.getElementById("explore");
+			if (r) {
+				var t = Array.from(r.querySelectorAll(".result-objects")),
+					l = Array.from(r.querySelectorAll(".filters")),
+					o = Array.from(r.querySelectorAll(".frontpage-explore-bio")),
+					a = Array.from(r.querySelectorAll("#extend-bio")),
+					n = Array.from(r.querySelectorAll(".frontpage-explore-group")),
+					i = r.querySelector("#exploreCurator"),
+					c = Math.floor(Math.random() * n.length),
+					s = n[c],
+					d = Array.from(s.querySelectorAll(".filter-item")).length,
+					f = Math.floor(Math.random() * d),
+					u = function(e) {
+						var r = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : null;
+						e.forEach(function(e, t) {
+							t !== r && e.classList.add("hidden")
+						})
+					},
+					v = function(e, r) {
+						var t = Array.from(e.querySelectorAll(".filter-item")),
+							l = Array.from(e.querySelectorAll(".result-objects"));
+						t.forEach(function(e) {
+							return e.classList.remove("active")
+						}), t[r].classList.add("active"), l[r].classList.remove("hidden")
+					};
+				i.selectedIndex = c, u(n, c), u(o, c), u(t), v(s, f), i.addEventListener("change", function(e) {
+					u(n), u(o), u(t), n[e.target.value].classList.remove("hidden"), o[e.target.value].classList.remove("hidden");
+					var r = n[e.target.value];
+					v(r, 0)
+				}), l.forEach(function(e) {
+					var r = Array.from(e.querySelectorAll(".filter-item")),
+						t = e.nextElementSibling,
+						l = Array.from(t.querySelectorAll(".result-objects"));
+					r.forEach(function(o) {
+						o.addEventListener("click", function(o) {
+							var a = e.querySelector(".filter-item.active"),
+								n = r.indexOf(o.target),
+								i = t.querySelector("div.result-objects:not(.hidden)");
+							a.classList.remove("active"), o.target.classList.add("active"), i.classList.add("hidden"), l[n].classList.remove("hidden")
+						})
+					})
+				}), a.forEach(function(e) {
+					e.addEventListener("click", function(e) {
+						e.preventDefault();
+						var r = e.target,
+							t = r.innerText,
+							l = r.nextElementSibling;
+						r.innerText = "[more]" == t ? "[less]" : "[more]", l.classList.toggle("hidden")
+					})
+				})
+			}
+		});
+	}, {}],
+	"Ekrg": [function(require, module, exports) {
+		function e(e, n) {
+			var r = "undefined" != typeof Symbol && e[Symbol.iterator] || e["@@iterator"];
+			if (!r) {
+				if (Array.isArray(e) || (r = t(e)) || n && e && "number" == typeof e.length) {
+					r && (e = r);
+					var o = 0,
+						i = function() {};
+					return {
+						s: i,
+						n: function() {
+							return o >= e.length ? {
+								done: !0
+							} : {
+								done: !1,
+								value: e[o++]
+							}
+						},
+						e: function(e) {
+							throw e
+						},
+						f: i
+					}
+				}
+				throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")
+			}
+			var a, c = !0,
+				l = !1;
+			return {
+				s: function() {
+					r = r.call(e)
+				},
+				n: function() {
+					var e = r.next();
+					return c = e.done, e
+				},
+				e: function(e) {
+					l = !0, a = e
+				},
+				f: function() {
+					try {
+						c || null == r.return || r.return()
+					} finally {
+						if (l) throw a
+					}
+				}
+			}
+		}
+
+		function t(e, t) {
+			if (e) {
+				if ("string" == typeof e) return n(e, t);
+				var r = Object.prototype.toString.call(e).slice(8, -1);
+				return "Object" === r && e.constructor && (r = e.constructor.name), "Map" === r || "Set" === r ? Array.from(e) : "Arguments" === r || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r) ? n(e, t) : void 0
+			}
+		}
+
+		function n(e, t) {
+			(null == t || t > e.length) && (t = e.length);
+			for (var n = 0, r = new Array(t); n < t; n++) r[n] = e[n];
+			return r
+		}
+
+		function r(e, t) {
+			e.forEach(function(e) {
+				e.removeEventListener("click", t), e.addEventListener("click", t)
+			})
+		}
+
+		function o(e) {
+			e.preventDefault();
+			var t = e.target,
+				n = e.target.closest(".accordion").querySelector(".accordion-details"),
+				r = "false" === n.getAttribute("aria-expanded"),
+				o = t.dataset.toggleText;
+			r ? (c(n), t.innerText = o || "Hide") : (a(n), t.innerText = o || "Show")
+		}
+		
+		function see_more(e) {
+			e.preventDefault();
+			var t = e.target.parentNode,
+				n = e.target.closest(".collection");
+			Array.from(n.children).forEach(function(e) {
+				e.classList.remove("collection-item--hidden");
+			}), t.remove()
+		}
+		
+		function see_more_start(e) {
+			e.preventDefault();
+			var current_index = parseInt($(".collection-item--current").first().attr("data-index"));
+			var t = e.target.parentNode,
+				n = e.target.closest(".collection");
+			Array.from(n.children).forEach(function(e) {
+				if (parseInt(e.getAttribute("data-index")) < current_index) {
+					e.classList.remove("collection-item--hidden");
+				}
+			}), t.remove()
+		}
+		
+		function see_more_end(e) {
+			e.preventDefault();
+			var current_index = parseInt($(".collection-item--current").first().attr("data-index"));
+			var t = e.target.parentNode,
+				n = e.target.closest(".collection");
+			Array.from(n.children).forEach(function(e) {
+				if (parseInt(e.getAttribute("data-index")) > current_index) {
+					console.log("removing hidden from " + e.getAttribute("data-index"));
+					e.classList.remove("collection-item--hidden");
+				}
+			}), t.remove()
+		}
+
+		function a(e) {
+			if ("" == e.style.height) {
+				var t = e.scrollHeight,
+					n = e.style.transition,
+					r = e.closest(".accordion");
+				e.style.transition = "", requestAnimationFrame(function() {
+					e.style.height = t + "px", e.style.transition = n, requestAnimationFrame(function() {
+						e.style.height = "0px"
+					})
+				}), e.setAttribute("aria-expanded", "false"), r.classList.add("accordion--hidden")
+			}
+		}
+
+		function c(e) {
+			var t = e.scrollHeight,
+				n = e.closest(".accordion");
+			e.style.height = t + "px", e.addEventListener("transitionend", function(t) {
+				e.style.height = null
+			}, {
+				once: !0
+			}), e.setAttribute("aria-expanded", "true"), n.classList.remove("accordion--hidden")
+		}
+		window.addEventListener("DOMContentLoaded", function(t) {
+			var n = Array.from(document.querySelectorAll(".accordion")),
+				a = document.querySelector("#hierarchy");
+			if (n.length) {
+				if (a) {
+					var c = document.getElementById("hierarchy");
+					new MutationObserver(function(t, n) {
+						var a, c = e(t);
+						try {
+							for (c.s(); !(a = c.n()).done;) "childList" === a.value.type && (r(document.querySelectorAll(".accordion-toggle"), o), r(document.querySelectorAll(".button.see-more"), see_more), r(document.querySelectorAll(".button.see-more-start"), see_more_start), r(document.querySelectorAll(".button.see-more-end"), see_more_end))
+						} catch (l) {
+							c.e(l)
+						} finally {
+							c.f()
+						}
+					}).observe(c, {
+						childList: !0,
+						subtree: !0
+					})
+				}
+				r(document.querySelectorAll(".accordion-toggle"), o)
+			}
+		});
+	}, {}],
+	"i0KX": [function(require, module, exports) {
+		window.addEventListener("DOMContentLoaded", function(e) {
+			var t = document.querySelector("#filterGroups");
+			if (t) {
+				var r = t.querySelector(".filter-header"),
+					n = t.querySelector(".filter-more-results"),
+					i = Array.from(r.querySelectorAll(".filter-tab")),
+					a = t.querySelectorAll(".filter-group");
+				n.style.display = "none";
+				var d = function(e, t) {
+					t.focus(), t.removeAttribute("tabindex"), t.setAttribute("aria-selected", "true"), e.removeAttribute("aria-selected"), e.setAttribute("tabindex", "-1"), n.style.display = "none", a.forEach(function(e) {
+						e.style.display = "block"
+					});
+					var r = i.indexOf(t),
+						d = i.indexOf(e);
+					a[d].hidden = !0, a[r].hidden = !1
+				};
+				i.forEach(function(e, t) {
+					e.addEventListener("click", function(e) {
+						e.preventDefault();
+						var t = r.querySelector("[aria-selected]");
+						e.currentTarget !== t && d(t, e.currentTarget)
+					}), e.addEventListener("keydown", function(e) {
+						var r = i.indexOf(e.currentTarget),
+							n = 37 === e.which ? r - 1 : 39 === e.which ? r + 1 : 40 === e.which ? "down" : null;
+						null !== n && (e.preventDefault(), "down" === n ? a[t].focus() : i[n] && d(e.currentTarget, i[n]))
+					})
+				}), a.forEach(function(e, t) {
+					e.hidden = !0
+				}), i[0].removeAttribute("tabindex"), i[0].setAttribute("aria-selected", "true"), a[0].hidden = !1
+			}
+		});
+	}, {}],
+	"i7uF": [function(require, module, exports) {
+		window.addEventListener("DOMContentLoaded", function(e) {
+			var o = Array.from(document.querySelectorAll(".dropdown"));
+			o && o.forEach(function(e) {
+				var o = e.querySelector(".dropdown-toggle"),
+					n = e.querySelector(".dropdown-list");
+				o.addEventListener("click", function(e) {
+					n.classList.toggle("hidden"), e.preventDefault()
+				})
+			})
+		});
+	}, {}],
+	"wvO4": [function(require, module, exports) {
+		window.addEventListener("DOMContentLoaded", function(e) {
+			var t = document.querySelectorAll(".hidden-from-notice");
+			if (!(t.length < 1)) {
+				var n = document.querySelector(".web-notice"),
+					o = n.querySelector("#webNoticeContinue"),
+					c = n.querySelector("#webNoticeBack"),
+					i = document.querySelector("#webNoticeHide");
+				o.addEventListener("click", function(e) {
+					t.forEach(function(e) {
+						e.classList.toggle("hidden-from-notice")
+					}), n.style.display = "none"
+				}), i.addEventListener("click", function(e) {
+					t.forEach(function(e) {
+						e.classList.toggle("hidden-from-notice")
+					}), n.style.display = "flex"
+				}), c.addEventListener("click", function(e) {
+					history.back()
+				})
+			}
+		});
+	}, {}],
+	"JWRY": [function(require, module, exports) {
+		window.addEventListener("DOMContentLoaded", function(e) {
+			var t = document.querySelectorAll(".button--search-type");
+			if (!(t.length < 1)) {
+				var c = document.querySelector(".search-form"),
+					r = c.querySelector("#_fulltext"),
+					n = c.querySelector("#advancedSearchInput");
+				document.getElementById("pageArea").classList.contains("ca_collections") && (c.setAttribute("action", "/index.php/Search/collections/search/"), r.placeholder = "Search Collections by Keyword", n.value = 0, a(t[0]), a(t[1]), c.classList.toggle("collection-search")), t.forEach(function(e) {
+					e.addEventListener("click", function(e) {
+						var t = e.target,
+							o = t.nextElementSibling.classList.contains("button--search-type") ? t.nextElementSibling : t.previousElementSibling;
+						"true" !== t.getAttribute("aria-pressed") && (a(t), a(o), c.classList.toggle("collection-search"), "collectionSearchButton" == t.id ? (c.setAttribute("action", "/index.php/Search/collections/search/"), r.placeholder = "Search Collections by Keyword", n.value = 0) : (c.setAttribute("action", "/index.php/Search/objects"), r.placeholder = "Search Objects by Keyword", n.value = 1))
+					})
+				})
+			}
+
+			function a(e) {
+				var t = "true" === e.getAttribute("aria-pressed");
+				e.setAttribute("aria-pressed", !t)
+			}
+		});
+	}, {}],
+	"m3VC": [function(require, module, exports) {
+		"use strict";
+		require("./styles/theme"), require("./scripts/explore"), require("./scripts/accordions"), require("./scripts/filters"), require("./scripts/dropdowns"), require("./scripts/content-warning"), require("./scripts/search-type");
+	}, {
+		"./styles/theme": "Vpa2",
+		"./scripts/explore": "GyzZ",
+		"./scripts/accordions": "Ekrg",
+		"./scripts/filters": "i0KX",
+		"./scripts/dropdowns": "i7uF",
+		"./scripts/content-warning": "wvO4",
+		"./scripts/search-type": "JWRY"
+	}]
+}, {}, ["m3VC"], null);
+const whenLoaded = Date.now();
+
+function browse(id) {
+	form = document.getElementById(id);
+	const timeToClick = Date.now() - whenLoaded;
+	if ((form.browse_type.value == id) && (timeToClick > 1500)) {
+		form.submit();
+	}
+}
