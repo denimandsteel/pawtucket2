@@ -111,7 +111,7 @@
           <script>
             $(document).ready(function(){
                 $current_id = "<?php echo $current_id; ?>";
-                $all_items = <?php echo json_encode($seen); ?>;
+                $all_items = <?php echo json_encode(array_column($all_children, 'id')); ?>;
                 $current_index = $all_items.indexOf($current_id);
                 $start_index = Math.max(0, $current_index - 2);
                 $end_index = Math.min($all_items.length, $current_index + 5);
