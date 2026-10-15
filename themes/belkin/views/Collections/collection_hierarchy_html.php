@@ -222,7 +222,7 @@
             if( $child->level !== "File" && $child->level !== "Item"){
             ?>													
             <script>
-              $(document).ready(function(){
+              $(document).one('ajaxStop',function(){
                 $('#collection<?php print $child->id;?>').load("<?php print caNavUrl($this->request, '', 'Collections', 'childList', array('collection_id' => $child->id, 'current_id' => $current_id ), array('useQueryString' => true)); ?>", undefined, function() {
                 	$current_item = $(this).find('.collection-item--current');
                   $parent_lists = $current_item.parents('li.accordion');
