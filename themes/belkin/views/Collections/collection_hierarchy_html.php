@@ -109,12 +109,65 @@
             $index = 0;
           ?>
           <script>
-            $(document).ready(function(){
+            $(document).ajaxStop(function(){
                 $current_id = "<?php echo $current_id; ?>";
-                $all_items = <?php echo json_encode(array_column($all_children, 'id')); ?>;
+                $all_items = <?php echo json_encode(array_map('strval', array_column($all_children, 'id'))); ?>;
                 $current_index = $all_items.indexOf($current_id);
+                console.log('current_index: ' + $current_index);
+                if ($current_index === -1) {
+                    $current_index = 0; // Default to the first item if not found
+                    $current_item = $('#collection<?php echo $current_id; ?>');
+                    $data_index = parseInt($current_item.attr('data-index'),10);
+                    console.log('data_index: ' + $data_index);
+                    if (typeof $data_index !== 'undefined') {
+                      $('button.see-more-start, button.see-more-end').remove();
+                      $('#collection<?php echo $current_id; ?>').siblings().first().removeClass('accordion--hidden');
+                      $('#collection<?php echo $current_id; ?>').siblings().find('.collection-level:contains("Subseries")').each(function() {
+                        $(this).parent().siblings('button').each(function() {
+                          $(this).after("<span class='collection-bar-spacer'></span>");
+                          $(this).remove();
+                        });
+                      });
+                      $('#collection<?php echo $current_id; ?>').siblings().first().nextAll('.collection-item--file').first().before("<li><button class='button see-more-start'>More</button></li>");                      // );   
+                      $('#collection<?php echo $current_id; ?>').siblings().last().after("<li><button class='button see-more-end'>More</button></li>");   
+                      $('.hierarcy .accordion, .collection-item .accordion').each(function() {
+                        if ($(this).find('#collection<?php echo $current_id; ?>').length === 0) {
+                          $(this).find('button.button.accordion-toggle').text('Show');
+                          $(this).find('.accordion-details').attr('aria-expanded', false).hide(); 
+                        } else {
+                          $count_before = 0;
+                          $count_after = 0;
+                          $('#collection<?php echo $current_id; ?>').prevAll('li.collection-item').has('span.collection-level:contains("Item"), span.collection-level:contains("File")').each(function() {
+                            if (parseInt($(this).attr('data-index'),10) < $data_index - 3) {
+                              $(this).addClass('collection-item--hidden');
+                              $count_before++;
+                            }
+                          });
+                          $('#collection<?php echo $current_id; ?>').nextAll('li.collection-item').has('span.collection-level:contains("Item"), span.collection-level:contains("File")').each(function() {
+                            if (parseInt($(this).attr('data-index'),10) > $data_index + 3) {
+                              $(this).addClass('collection-item--hidden');
+                              $count_after++;
+                            }
+                          });
+                          console.log('count_before: ' + $count_before);
+                          if ($count_before > 0) {
+                            $(this).find('.see-more-start').text($count_before + ' More').show();
+                          } else {
+                            $(this).find('.see-more-start').remove();
+                          }
+                          if ($count_after > 0) {
+                            $(this).find('.see-more-end').text($count_after + ' More').show();
+                          } else {
+                            $(this).find('.see-more-end').remove();
+                          }
+                          console.log('count_after: ' + $count_after);
+                        }
+                      });
+                    } 
+                }
                 $start_index = Math.max(0, $current_index - 2);
                 $end_index = Math.min($all_items.length, $current_index + 5);
+                
                 $('.collection-item').each(function(index) {
                     if (index >= $start_index && index < $end_index) {
                         $(this).removeClass('collection-item--hidden');
